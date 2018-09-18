@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="316.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ViewRecordingsController">
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button mnemonicParsing="false" text="Play Selected" />
+            <Button mnemonicParsing="false" text="Record new" />
+            <Button mnemonicParsing="false" text="Delete" />
+        </buttons>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recording name" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <ListView prefHeight="260.0" prefWidth="441.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
