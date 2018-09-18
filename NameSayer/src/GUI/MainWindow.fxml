@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="573.0" prefWidth="726.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane prefHeight="573.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainWindowController">
    <children>
       <SplitPane dividerPositions="0.42265193370165743" prefHeight="573.0" prefWidth="726.0">
         <items>
@@ -41,17 +40,17 @@
                   </ButtonBar>
                   <VBox layoutY="114.0" prefHeight="59.0" prefWidth="131.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="131.0" text="Add to &gt;&gt;" />
-                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addToPractice" prefHeight="28.0" prefWidth="131.0" text="Add to &gt;&gt;" />
+                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeFromPractice" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
                      </children>
                   </VBox>
                   <VBox layoutX="-1.0" layoutY="206.0" prefHeight="202.0" prefWidth="131.0">
                      <children>
                         <Label prefHeight="16.0" prefWidth="142.0" text="Selected recordings" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Play" />
-                        <Button layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View versions" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#playRecording" text="Play" />
+                        <Button layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#viewRecordings" text="View versions" />
                         <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add new version" />
-                        <Button layoutX="10.0" layoutY="78.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add new version" />
+                        <Button layoutX="10.0" layoutY="78.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#markBad" text="Mark as Bad" />
                      </children>
                   </VBox>
                </children>
