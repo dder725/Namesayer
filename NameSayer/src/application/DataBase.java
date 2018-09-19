@@ -14,7 +14,7 @@ import java.util.zip.ZipInputStream;
 
 public class DataBase {
 	private static volatile DataBase instance = null;
-	
+	private static HashMap<String, Name> _names = new HashMap<String, Name>();
 	private DataBase() {
 		unzip(System.getProperty("user.dir") + "/names.zip", System.getProperty("user.dir") + "/names");
 	}
@@ -29,7 +29,6 @@ public class DataBase {
     }
 	
 	private static void unzip(String filePath, String destDir) {
-		HashMap<String, Name> names = new HashMap<String, Name>();
 		File dir = new File(destDir);
 		if(!dir.exists()) dir.mkdirs(); // Create output directory if it does not exist
 		FileInputStream fis = null;
@@ -51,13 +50,13 @@ public class DataBase {
 					occurencesOfName.put(entryName, occurencesOfName.get(entryName) + 1); //This name has existing versions
 				} else {
 					occurencesOfName.put(entryName, 1);
-					names.put(entryName, new Name(entryName));
+					_names.put(entryName, new Name(entryName));
 				}
 				File newFile = new File(destDir + File.separator + entryName + "_" + occurencesOfName.get(entryName).toString()); //Create a file with an appropriate name [Name]_[Version]
-				names.get(entryName).addRecordingFile(newFile.getAbsolutePath()); //add a new recording to the name
+				_names.get(entryName).addRecordingFile(newFile.getAbsolutePath()); //add a new recording to the name
 				
-				System.out.println("Unzipping to " + newFile.getAbsolutePath());
-				System.out.println(names.get(entryName).getName());
+				//System.out.println("Unzipping to " + newFile.getAbsolutePath());
+				//System.out.println(_names.get(entryName).getName());
 				FileOutputStream fos = new FileOutputStream(newFile);
 				int len;
 				while((len = zipIs.read(buffer)) > 0) {
@@ -73,6 +72,10 @@ public class DataBase {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static HashMap<String, Name> getNamesDatabase() {
+		return _names;
 	}
 	private void open() {
 		
