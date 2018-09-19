@@ -47,9 +47,6 @@
                   <VBox layoutX="-1.0" layoutY="206.0" prefHeight="202.0" prefWidth="131.0">
                      <children>
                         <Label prefHeight="16.0" prefWidth="142.0" text="Selected recordings" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#playRecording" text="Play" />
-                        <Button layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#viewRecordings" text="View versions" />
-                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add new version" />
                         <Button layoutX="10.0" layoutY="78.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#markBad" text="Mark as Bad" />
                      </children>
                   </VBox>

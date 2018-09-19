@@ -16,6 +16,7 @@ public class Main extends Application {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			Pane p = fxmlLoader.load(getClass().getResource("/GUI/MainWindow.fxml").openStream());
 			MainWindowController mainWindowController = (MainWindowController) fxmlLoader.getController();
+			mainWindowController.populateTableView();
 			
 			BorderPane root = new BorderPane();
 			root.getChildren().add(p);
