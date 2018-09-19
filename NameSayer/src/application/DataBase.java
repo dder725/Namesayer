@@ -5,23 +5,38 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-
 public class DataBase {
+	private static volatile DataBase instance = null;
 	
-	public static void unzip(String filePath, String destDir) {
+	private DataBase() {
+		unzip(System.getProperty("user.dir") + "/names.zip", System.getProperty("user.dir") + "/names");
+	}
+	public static void instantiateDataBase() { //Implement Database as a singleton (can't create use more than two databases at once)
+        if (instance == null) {
+            synchronized(DataBase.class) {
+                if (instance == null) {
+                    instance = new DataBase();
+                }
+            }
+        }
+    }
+	
+	private static void unzip(String filePath, String destDir) {
+		HashMap<String, Name> names = new HashMap<String, Name>();
 		File dir = new File(destDir);
 		if(!dir.exists()) dir.mkdirs(); // Create output directory if it does not exist
 		FileInputStream fis = null;
 		ZipInputStream zipIs = null;
 		ZipEntry zEntry = null;
 		byte[] buffer = new byte[1024];
-		Map<String, Integer> names = new HashMap<String, Integer>();
+		Map<String, Integer> occurencesOfName = new HashMap<String, Integer>();
 		String entryName;
 		
 		try {
@@ -32,13 +47,17 @@ public class DataBase {
 				int index = zEntry.getName().lastIndexOf("_");
 				entryName = zEntry.getName().substring(index+1, zEntry.getName().lastIndexOf(".")).toUpperCase();
 				
-				if(names.containsKey(entryName)) {
-					names.put(entryName, names.get(entryName) + 1); //This name has existing versions
+				if(occurencesOfName.containsKey(entryName)) {
+					occurencesOfName.put(entryName, occurencesOfName.get(entryName) + 1); //This name has existing versions
 				} else {
-					names.put(entryName, 1);
+					occurencesOfName.put(entryName, 1);
+					names.put(entryName, new Name(entryName));
 				}
-				File newFile = new File(destDir + File.separator + entryName + "_" + names.get(entryName).toString()); //Create a file with an appropriate name [Name]_[Version]
+				File newFile = new File(destDir + File.separator + entryName + "_" + occurencesOfName.get(entryName).toString()); //Create a file with an appropriate name [Name]_[Version]
+				names.get(entryName).addRecordingFile(newFile.getAbsolutePath()); //add a new recording to the name
+				
 				System.out.println("Unzipping to " + newFile.getAbsolutePath());
+				System.out.println(names.get(entryName).getName());
 				FileOutputStream fos = new FileOutputStream(newFile);
 				int len;
 				while((len = zipIs.read(buffer)) > 0) {
