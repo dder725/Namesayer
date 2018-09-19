@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
@@ -17,21 +18,14 @@
                <children>
                   <TreeTableView prefHeight="573.0" prefWidth="303.0">
                     <columns>
-                      <TreeTableColumn prefWidth="165.0" text="Name" />
-                      <TreeTableColumn prefWidth="71.0" text="Versions" />
-                        <TreeTableColumn prefWidth="66.0" text="Quality" />
+                      <TreeTableColumn fx:id="namesList" prefWidth="218.0" text="Name" />
+                        <TreeTableColumn minWidth="0.0" prefWidth="84.0" text="Quality" />
                     </columns>
                   </TreeTableView>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="242.0">
                <children>
-                  <TreeTableView layoutX="130.0" prefHeight="517.0" prefWidth="283.0">
-                     <columns>
-                        <TreeTableColumn prefWidth="165.0" text="Name" />
-                        <TreeTableColumn prefWidth="126.0" text="Surname" />
-                     </columns>
-                  </TreeTableView>
                   <ButtonBar layoutX="130.0" layoutY="517.0" prefHeight="59.0" prefWidth="276.0">
                     <buttons>
                       <Button mnemonicParsing="false" text="Practise" />
@@ -50,6 +44,7 @@
                         <Button layoutX="10.0" layoutY="78.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#markBad" text="Mark as Bad" />
                      </children>
                   </VBox>
+                  <ListView fx:id="practiceList" layoutX="149.0" layoutY="1.0" prefHeight="515.0" prefWidth="267.0" />
                </children>
             </AnchorPane>
         </items>
