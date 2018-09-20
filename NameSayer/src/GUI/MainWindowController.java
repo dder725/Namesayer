@@ -31,12 +31,6 @@ public class MainWindowController {
 	@FXML
 	private ListView<Name> namesListView;
 
-	@FXML
-	private TableColumn nameCol = new TableColumn();
-
-	@FXML
-	private TableColumn ratingCol;
-
 	public void populateTableView() {
 		DataBase.instantiateDataBase();
 		namesListView.setItems(_namesList);
@@ -54,36 +48,19 @@ public class MainWindowController {
 	}
 
 	public void addToPractice() {
-		_practiceList.add(namesListView.getSelectionModel().getSelectedItem());
+		if(_practiceList.contains(namesListView.getSelectionModel().getSelectedItem())) { //Cannot add a name which is already in the practice list
+			ErrorDialog.showError("This name is already in the list");
+		} else {
+		_practiceList.add(namesListView.getSelectionModel().getSelectedItem()); }
 	}
 
 	public void removeFromPractice() {
 		_practiceList.remove(practiceListView.getSelectionModel().getSelectedIndex());
 	}
+	
 
-	public void playRecording() {
-
-	}
-
-	public void viewRecordings() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("ViewRecordingsWindow.fxml"));
-			ViewRecordingsController viewRecordings = (ViewRecordingsController) loader.getController();
-			Parent content = (Parent) loader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(content));
-			stage.show();
-		} catch (IOException e) {
-		}
-	}
-
-	public void markBad() {
-
-	}
-
-	public void addNewName() {
-
+	public void clear() {
+		_practiceList.clear();
 	}
 
 	public void practice() {
@@ -91,6 +68,6 @@ public class MainWindowController {
 	}
 
 	public void randomiseList() {
-
+		FXCollections.shuffle(_practiceList);
 	}
 }
