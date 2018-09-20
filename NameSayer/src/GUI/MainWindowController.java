@@ -93,10 +93,9 @@ public class MainWindowController {
 	}
 	
 	public void practiceButton() {
-		if (_playlist.getItems().size() == 0) {
+		if (_playlist.isEmpty()) {
 			noNames();
 		} else {
-			System.out.println(_playlist.getItems());
 			practiceWindow();
 		}
 	}
@@ -128,7 +127,7 @@ public class MainWindowController {
 	}
 
 	public void randomiseList() {
-
+		FXCollections.shuffle(_playlist);
 	}
 	
 }
