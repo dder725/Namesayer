@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javafx.scene.control.ProgressBar;
@@ -12,6 +13,8 @@ public class RecordingWindowController {
 		
 		Thread thread = new Thread( new Timing());
 		thread.start();
+
+		
 		
 	}
 	
