@@ -2,11 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -16,12 +14,15 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="294.0">
                <children>
-                  <TreeTableView prefHeight="573.0" prefWidth="303.0">
-                    <columns>
-                      <TreeTableColumn fx:id="namesList" prefWidth="218.0" text="Name" />
-                        <TreeTableColumn minWidth="0.0" prefWidth="84.0" text="Quality" />
-                    </columns>
-                  </TreeTableView>
+                  <TitledPane animated="false" prefHeight="571.0" prefWidth="302.0" text="Choose the names you want to practice">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="namesListView" prefHeight="551.0" prefWidth="302.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="242.0">
@@ -32,19 +33,14 @@
                         <Button mnemonicParsing="false" text="Randomise" />
                     </buttons>
                   </ButtonBar>
-                  <VBox layoutY="114.0" prefHeight="59.0" prefWidth="131.0">
+                  <VBox layoutY="222.0" prefHeight="3.0" prefWidth="131.0">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addToPractice" prefHeight="28.0" prefWidth="131.0" text="Add to &gt;&gt;" />
                         <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeFromPractice" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
                      </children>
                   </VBox>
-                  <VBox layoutX="-1.0" layoutY="206.0" prefHeight="202.0" prefWidth="131.0">
-                     <children>
-                        <Label prefHeight="16.0" prefWidth="142.0" text="Selected recordings" />
-                        <Button layoutX="10.0" layoutY="78.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#markBad" text="Mark as Bad" />
-                     </children>
-                  </VBox>
-                  <ListView fx:id="practiceList" layoutX="149.0" layoutY="1.0" prefHeight="515.0" prefWidth="267.0" />
+                  <VBox layoutX="-1.0" layoutY="206.0" prefHeight="202.0" prefWidth="131.0" />
+                  <ListView fx:id="practiceList" layoutX="132.0" layoutY="27.0" prefHeight="486.0" prefWidth="284.0" />
                </children>
             </AnchorPane>
         </items>
