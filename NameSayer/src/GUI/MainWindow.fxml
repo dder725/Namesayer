@@ -31,7 +31,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="practiceListView" onMouseClicked="#setupDoubleClickRemove" prefHeight="486.0" prefWidth="284.0" />
+                              <ListView fx:id="playlistView" onMouseClicked="#setupDoubleClickRemove" prefHeight="486.0" prefWidth="284.0" />
                            </children>
                         </AnchorPane>
                     </content>
