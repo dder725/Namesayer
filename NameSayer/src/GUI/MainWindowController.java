@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 
 public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
-	private ObservableList<String> _practiceList = FXCollections.observableArrayList();
+	private ObservableList<Name> _practiceList = FXCollections.observableArrayList();
 	@FXML
-	private ListView practiceListView;
+	private ListView<Name> practiceListView;
 
 	@FXML
 	private ListView<Name> namesListView;
@@ -40,6 +40,7 @@ public class MainWindowController {
 	public void populateTableView() {
 		DataBase.instantiateDataBase();
 		namesListView.setItems(_namesList);
+		practiceListView.setItems(_practiceList);
 		for (String name : DataBase.getNamesDatabase().keySet()) {
 			_namesList.add(DataBase.getNamesDatabase().get(name));
 		}
@@ -53,11 +54,11 @@ public class MainWindowController {
 	}
 
 	public void addToPractice() {
-
+		_practiceList.add(namesListView.getSelectionModel().getSelectedItem());
 	}
 
 	public void removeFromPractice() {
-
+		_practiceList.remove(practiceListView.getSelectionModel().getSelectedIndex());
 	}
 
 	public void playRecording() {

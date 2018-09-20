@@ -27,20 +27,27 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="242.0">
                <children>
-                  <ButtonBar layoutX="130.0" layoutY="517.0" prefHeight="59.0" prefWidth="276.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" text="Practise" />
-                        <Button mnemonicParsing="false" text="Randomise" />
-                    </buttons>
-                  </ButtonBar>
+                  <TitledPane animated="false" layoutX="132.0" prefHeight="510.0" prefWidth="283.0" text="Names to Practice">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="practiceListView" prefHeight="486.0" prefWidth="284.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
                   <VBox layoutY="222.0" prefHeight="3.0" prefWidth="131.0">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addToPractice" prefHeight="28.0" prefWidth="131.0" text="Add to &gt;&gt;" />
                         <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeFromPractice" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
                      </children>
                   </VBox>
-                  <VBox layoutX="-1.0" layoutY="206.0" prefHeight="202.0" prefWidth="131.0" />
-                  <ListView fx:id="practiceList" layoutX="132.0" layoutY="27.0" prefHeight="486.0" prefWidth="284.0" />
+                  <ButtonBar layoutX="130.0" layoutY="517.0" prefHeight="59.0" prefWidth="276.0">
+                    <buttons>
+                      <Button mnemonicParsing="false" text="Practise" />
+                        <Button mnemonicParsing="false" text="Randomise" />
+                    </buttons>
+                  </ButtonBar>
                </children>
             </AnchorPane>
         </items>

@@ -14,7 +14,6 @@ public class Name {
 		this._name = name; 
 		nameProperty.set(_name);
 		star.set("*");
-		System.out.println(nameProperty);
 	}
 	public void addRecordingFile(String dir) {
 		char num = dir.charAt(dir.length()- 1); //Get the number of the recording

@@ -55,8 +55,8 @@ public class DataBase {
 				File newFile = new File(destDir + File.separator + entryName + "_" + occurencesOfName.get(entryName).toString()); //Create a file with an appropriate name [Name]_[Version]
 				_names.get(entryName).addRecordingFile(newFile.getAbsolutePath()); //add a new recording to the name
 				
-				//System.out.println("Unzipping to " + newFile.getAbsolutePath());
-				//System.out.println(_names.get(entryName).getName());
+				System.out.println("Unzipping to " + newFile.getAbsolutePath());
+				
 				FileOutputStream fos = new FileOutputStream(newFile);
 				int len;
 				while((len = zipIs.read(buffer)) > 0) {
