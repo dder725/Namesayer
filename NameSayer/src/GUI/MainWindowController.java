@@ -9,6 +9,7 @@ import application.Name;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MainWindowController {
@@ -35,9 +37,7 @@ public class MainWindowController {
 		DataBase.instantiateDataBase();
 		namesListView.setItems(_namesList);
 		practiceListView.setItems(_practiceList);
-		for (String name : DataBase.getNamesDatabase().keySet()) {
-			_namesList.add(DataBase.getNamesDatabase().get(name));
-		}
+		_namesList.addAll(DataBase.getNamesList());
 
 		FXCollections.sort(_namesList, new Comparator<Name>() {
 			@Override
@@ -48,26 +48,62 @@ public class MainWindowController {
 	}
 
 	public void addToPractice() {
-		if(_practiceList.contains(namesListView.getSelectionModel().getSelectedItem())) { //Cannot add a name which is already in the practice list
+		
+		// Cannot add a name which is already in the practice list
+		if (_practiceList.contains(namesListView.getSelectionModel().getSelectedItem())) {
 			ErrorDialog.showError("This name is already in the list");
 		} else {
-		_practiceList.add(namesListView.getSelectionModel().getSelectedItem()); }
+			_practiceList.add(namesListView.getSelectionModel().getSelectedItem());
+		}
+	}
+	
+	//Add a name from the database to the playlist on doubleclick
+	public void setupDoubleClickAdd() {
+		namesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.getClickCount() == 2) {
+		            addToPractice();                
+		        }
+		    }
+		});	
 	}
 
 	public void removeFromPractice() {
 		_practiceList.remove(practiceListView.getSelectionModel().getSelectedIndex());
 	}
 	
+	//Remove a name from the playlist on double click
+	public void setupDoubleClickRemove() {
+		practiceListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.getClickCount() == 2) {
+		            removeFromPractice();                
+		        }
+		    }
+		});	
+	}
 
 	public void clear() {
 		_practiceList.clear();
 	}
 
 	public void practice() {
-
+		try {
+			// Open Practice window
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
+			Parent content = (Parent) loader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
 	}
 
 	public void randomiseList() {
 		FXCollections.shuffle(_practiceList);
 	}
+
 }

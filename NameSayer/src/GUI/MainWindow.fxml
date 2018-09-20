@@ -18,7 +18,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="namesListView" prefHeight="551.0" prefWidth="302.0" />
+                              <ListView fx:id="namesListView" onMouseClicked="#setupDoubleClickAdd" prefHeight="551.0" prefWidth="302.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -27,11 +27,11 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="242.0">
                <children>
-                  <TitledPane animated="false" layoutX="132.0" prefHeight="510.0" prefWidth="283.0" text="Names to Practice">
+                  <TitledPane animated="false" layoutX="132.0" prefHeight="510.0" prefWidth="283.0" text="Playlist">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="practiceListView" prefHeight="486.0" prefWidth="284.0" />
+                              <ListView fx:id="practiceListView" onMouseClicked="#setupDoubleClickRemove" prefHeight="486.0" prefWidth="284.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -42,10 +42,11 @@
                         <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeFromPractice" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
                      </children>
                   </VBox>
-                  <ButtonBar layoutX="130.0" layoutY="517.0" prefHeight="59.0" prefWidth="276.0">
+                  <ButtonBar layoutX="97.0" layoutY="510.0" prefHeight="59.0" prefWidth="317.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Practise" />
-                        <Button mnemonicParsing="false" text="Randomise" />
+                      <Button mnemonicParsing="false" onAction="#practice" text="Practise" />
+                        <Button mnemonicParsing="false" onAction="#randomiseList" text="Randomise" />
+                        <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
                     </buttons>
                   </ButtonBar>
                </children>
