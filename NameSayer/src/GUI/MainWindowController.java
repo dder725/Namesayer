@@ -89,9 +89,46 @@ public class MainWindowController {
 	}
 
 	public void practice() {
+
+	}
+	
+	public void practiceButton() {
+		if (practiceList.getItems().size() == 0) {
+			noNames();
+		} else {
+			System.out.println(practiceList.getItems());
+			practiceWindow();
+		}
+	}
+	
+	public void noNames() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
+			NoNamesController Practice = (NoNamesController) loader.getController();
+			Parent content = (Parent) loader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
+	}
+	
+	public void practiceWindow() {		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
+			PracticeWindowController Practice = (PracticeWindowController) loader.getController();
+			Parent content = (Parent) loader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
 	}
 
 	public void randomiseList() {
-		FXCollections.shuffle(_playlist);
+
 	}
+	
 }

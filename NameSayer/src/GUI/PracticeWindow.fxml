@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.PracticeWindowController">
-   <left>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PracticeWindowController">
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#pastAttempts" text="View recordings" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextName" text="Next name" />
+        </buttons>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice" textAlignment="CENTER" wrappingWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </top>
    <center>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Name&quot;" textAlignment="CENTER" wrappingWidth="636.37939453125" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Text>
    </center>
-   <right>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>
