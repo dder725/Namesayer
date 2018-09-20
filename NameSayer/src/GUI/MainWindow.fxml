@@ -44,7 +44,7 @@
                   </VBox>
                   <ButtonBar layoutX="97.0" layoutY="510.0" prefHeight="59.0" prefWidth="317.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#practice" text="Practise" />
+                      <Button mnemonicParsing="false" onAction="#practiceButton" text="Practise" />
                         <Button mnemonicParsing="false" onAction="#randomiseList" text="Randomise" />
                         <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
                     </buttons>

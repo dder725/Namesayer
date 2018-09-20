@@ -93,10 +93,10 @@ public class MainWindowController {
 	}
 	
 	public void practiceButton() {
-		if (practiceList.getItems().size() == 0) {
+		if (_playlist.getItems().size() == 0) {
 			noNames();
 		} else {
-			System.out.println(practiceList.getItems());
+			System.out.println(_playlist.getItems());
 			practiceWindow();
 		}
 	}
