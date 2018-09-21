@@ -1,6 +1,7 @@
 package GUI;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -88,7 +89,10 @@ public class MainWindowController {
 		_playlist.clear();
 	}
 
-	
+	public void practice() {
+
+	}
+
 	public void practiceButton() {
 		if (_playlist.isEmpty()) {
 			noNames();
@@ -96,13 +100,14 @@ public class MainWindowController {
 			practiceWindow();
 		}
 	}
-	
+
 	public void noNames() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
-			NoNamesController Practice = (NoNamesController) loader.getController();
 			Parent content = (Parent) loader.load();
+			NoNamesController Practice = (NoNamesController) loader.getController();
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -114,8 +119,12 @@ public class MainWindowController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
-			PracticeWindowController Practice = (PracticeWindowController) loader.getController();
 			Parent content = (Parent) loader.load();
+			PracticeWindowController Practice = loader.getController();
+
+			//Pass the playlist to the practice window
+			Practice.setPlaylist(_playlist);
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -126,5 +135,9 @@ public class MainWindowController {
 	public void randomiseList() {
 		FXCollections.shuffle(_playlist);
 	}
-	
+
+	public void micTest() {
+
+	}
+
 }
