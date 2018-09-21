@@ -2,23 +2,26 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RecordingWindowController">
-   <center>
-      <ProgressBar fx:id="recordingProgress" prefHeight="37.0" prefWidth="269.0" progress="0.0" BorderPane.alignment="CENTER" />
-   </center>
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Make your own recording" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#startRecording" text="Start Recording" />
+          <Button fx:id="recordButton" mnemonicParsing="false" onAction="#startRecording" text="Start Recording" />
         </buttons>
       </ButtonBar>
    </bottom>
+   <center>
+      <Text fx:id="Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Record for 5 seconds" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+   </center>
 </BorderPane>
