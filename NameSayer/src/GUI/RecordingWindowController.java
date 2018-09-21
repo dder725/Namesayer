@@ -17,9 +17,30 @@ public class RecordingWindowController {
 	@FXML Button recordButton;
 	
 	public void startRecording() {
+		
+		//This section is supposed to record and save the audio as a file called audio.wav
+		Thread BackgroundThread = new Thread() {
+			public void run() {
+		        try {
+		            String cmd = "ffmpeg -f alsa -i default -t 5 \"audio.wav\"";
+		            ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+		            Process process = builder.start();
+		            process.waitFor();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+				
+			}
+		};
+		BackgroundThread.start();
+		//end of recording section
+		
 		recordButton.setDisable(true);
 		for (int i=5; i>=0; i-- ) {
 			try {
+				System.out.println(i);
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {}
 		}			

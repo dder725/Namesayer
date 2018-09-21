@@ -13,7 +13,10 @@ public class RecordingOptionsController {
 	}
 	
 	public void redoRecording() {
-		
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
+		PracticeWindowController practiceWindow = new PracticeWindowController();
+		practiceWindow.makeRecording();
 		
 	}
 	
