@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -12,10 +14,11 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <buttons>
+            <ChoiceBox prefWidth="150.0" />
           <Button alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#pastAttempts" text="View recordings" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextName" text="Next name" />
+            <ChoiceBox onDragDetected="#pastAttempts" prefWidth="150.0" />
         </buttons>
          <BorderPane.margin>
             <Insets />
@@ -30,10 +33,9 @@
       </AnchorPane>
    </top>
    <center>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Name&quot;" textAlignment="CENTER" wrappingWidth="636.37939453125" BorderPane.alignment="CENTER">
+      <Label fx:id="nameLabel" text="Test" BorderPane.alignment="CENTER">
          <font>
-            <Font size="64.0" />
-         </font>
-      </Text>
+            <Font size="66.0" />
+         </font></Label>
    </center>
 </BorderPane>
