@@ -35,6 +35,7 @@ public class RecordingWindowController {
 			}
 		};
 		BackgroundThread.start();
+		
 		//end of recording section
 		
 		recordButton.setDisable(true);

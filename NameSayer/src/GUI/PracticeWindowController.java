@@ -11,20 +11,13 @@ public class PracticeWindowController {
 
 	
 	public void playRecording() {
-
+		Audio audio = new Audio();
+		audio.playRecording();
 	}
 	
 	public void makeRecording() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
-			RecordingWindowController Practice = (RecordingWindowController) loader.getController();
-			Parent content = (Parent) loader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(content));
-			stage.show();
-		} catch (IOException e) {
-		}
+		Audio audio = new Audio();
+		audio.makeRecording();
 	}
 	
 	public void pastAttempts() {
