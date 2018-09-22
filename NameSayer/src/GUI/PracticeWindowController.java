@@ -15,16 +15,16 @@ import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
-	
+
 	@FXML
 	private Label nameLabel;
-	
+
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
-		
+
 		setNameLabel(_playlist.get(0).getName());
 	}
-	
+
 	private void setNameLabel(String name) {
 		nameLabel.setText(name);
 	}
@@ -32,22 +32,22 @@ public class PracticeWindowController {
 		Audio audio = new Audio();
 		audio.playRecording();
 	}
-	
+
 	public void makeRecording() {
 		Audio audio = new Audio();
-		audio.makeRecording();
+		audio.setRecording();
 	}
-	
+
 	public void pastAttempts() {
 
 	}
-	
+
 	public void nextName() {
 
 	}
-	
+
 	public void chooseVersion() {
-		
+
 	}
-	
+
 }
