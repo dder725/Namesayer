@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -17,16 +18,27 @@ import javafx.stage.Stage;
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
 	private Integer _index = 0;
+	private String _chosenVersiondir;
 	
 	@FXML
 	private Label nameLabel;
 	
+	@FXML
+	private ChoiceBox versionChoice; 
+	
+	@FXML
+	private ChoiceBox attemptChoice;
+	
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
 		
+		populateVersionChoice();
 		setNameLabel(_playlist.get(0).getName(), 66);
 	}
 	
+	private void populateVersionChoice() {
+		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
+	}
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
 		nameLabel.setFont(new Font("System", size));

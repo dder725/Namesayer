@@ -14,11 +14,11 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <buttons>
-            <ChoiceBox prefWidth="150.0" />
+            <ChoiceBox fx:id="versionChoice" onDragDetected="#chooseVersion" prefWidth="150.0" />
           <Button alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextName" text="Next name" />
-            <ChoiceBox onDragDetected="#pastAttempts" prefWidth="150.0" />
+            <ChoiceBox fx:id="attemptChoice" onDragDetected="#pastAttempts" prefWidth="150.0" />
         </buttons>
          <BorderPane.margin>
             <Insets />
