@@ -11,10 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
+	private Integer _index = 0;
 	
 	@FXML
 	private Label nameLabel;
@@ -22,11 +24,12 @@ public class PracticeWindowController {
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
 		
-		setNameLabel(_playlist.get(0).getName());
+		setNameLabel(_playlist.get(0).getName(), 66);
 	}
 	
-	private void setNameLabel(String name) {
+	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
+		nameLabel.setFont(new Font("System", size));
 	}
 	public void playRecording() {
 
@@ -51,7 +54,12 @@ public class PracticeWindowController {
 	}
 	
 	public void nextName() {
-
+		_index++;
+		if(_index < _playlist.size()) {
+		setNameLabel(_playlist.get(_index).getName(), 66);}
+		else {
+			setNameLabel("Congratulations! \n You finished this practice!", 30);
+		}
 	}
 	
 	public void chooseVersion() {
