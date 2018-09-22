@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
+	private Integer _index=0;
 	
 	@FXML
 	private Label nameLabel;
@@ -37,17 +38,26 @@ public class PracticeWindowController {
 	}
 
 	private void setNameLabel(String name) {
+
+	}
 	
 	private void populateVersionChoice() {
 		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
 	}
+	
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
 		nameLabel.setFont(new Font("System", size));
 	}
+	
+	public String getNameLabel() {
+		String name = nameLabel.getText();
+		return name;
+	}
+	
 	public void playRecording() {
 		Audio audio = new Audio();
-		audio.playRecording();
+		audio.playRecording("\"audio.wav\"");
 	}
 
 	public void makeRecording() {

@@ -18,7 +18,7 @@ public class RecordingWindowController {
 
 	public void startRecording() {
 		Audio audio = new Audio();
-		audio.startRecording();
+		audio.startRecording("\"audio.wav\"");
 		Stage stage = (Stage) Label.getScene().getWindow();
 		stage.close();
 		recordingOptions();
