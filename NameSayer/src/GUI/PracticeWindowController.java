@@ -53,16 +53,17 @@ public class PracticeWindowController {
 	}
 	
 	public void playRecording() {
+		getSelectedRecordingDirectory();
+		
 		Audio audio = new Audio();
 		audio.playRecording(2);
 	}
 
 	public void makeRecording() {
 		Audio audio = new Audio();
-		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
-		audio.setRecording(_playlist.get(_index), _playlist.get(_index).getRecordingDir(numOfVersion));
+		audio.setRecording(_playlist.get(_index));
 	}
+	
 
 	public void pastAttempts() {
 
@@ -86,6 +87,14 @@ public class PracticeWindowController {
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
+	}
+	
+	public String getSelectedRecordingDirectory() {
+		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
+		String versionDir = _playlist.get(_index).getRecordingDir(numOfVersion);
+		
+		return versionDir;
 	}
 	public void chooseVersion() {
 
