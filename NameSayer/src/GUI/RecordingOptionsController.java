@@ -1,13 +1,14 @@
 package GUI;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
-import application.Name;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class RecordingOptionsController {
-	private Name _name;
+
 	public Button closeButton;
 
 	public void listen() {
@@ -23,12 +24,17 @@ public class RecordingOptionsController {
 
 
 	public void saveRecording() {
-		String name = _name.getName();
 
+		String name = "name";
+		System.out.print(name);
+		Date date = new Date();
+		Timestamp ts = new Timestamp(date.getTime());
+		
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 
 			//directory, name folder, save under name_1.wav?
-			String cmd = "cd UserAttempts; dir=$(pwd);  mv \"audio.wav\" dir/ ";
+			String cmd = "dir=$(pwd); mv \"audio.wav\" $dir/UserAttempts/"+name+"_attempts;"
+					+ " cd UserAttempts/\"+name+\"_attempts; mv \"audio.wav\" "+name+"_"+ts+"";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
@@ -56,9 +62,6 @@ public class RecordingOptionsController {
 
 	}
 	
-	public void setName(Name name) {
-		_name = name;
-	}
 	
 
 

@@ -62,7 +62,7 @@ public class PracticeWindowController {
 
 	public void makeRecording() {
 		Audio audio = new Audio();
-		audio.setRecording(_playlist.get(_index));
+		audio.setRecording();
 	}
 	
 
@@ -97,8 +97,16 @@ public class PracticeWindowController {
 		
 		return versionDir;
 	}
+	
 	public void chooseVersion() {
 
 	}
 
+	
+	public String getCurrentVersion() {
+		String version=versionChoice.getSelectionModel().getSelectedItem().toString();
+		System.out.println(version);
+		return version;
+	}
+	
 }

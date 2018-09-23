@@ -13,13 +13,12 @@ import javafx.stage.Stage;
 public class Audio {
 
 
-	public void setRecording(Name name) {
+	public void setRecording() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingWindowController Practice = (RecordingWindowController) loader.getController();
-			Practice.setName(name);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();

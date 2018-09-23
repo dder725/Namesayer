@@ -71,7 +71,8 @@ public class Main extends Application {
 				"		        dir=$(pwd)\n" + 
 				"		        mkdir UserAttempts\n" + 
 				"		        cd $dir/names\n" + 
-				"		        for x in ./*; do\n" + 
+				"		        for x in ./*_1; do\n" + 
+				"					x=\"${x%_1}\"\n" + 
 				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" $dir/UserAttempts\n" + 
 				"		        done\n" + 
 				"		fi";
