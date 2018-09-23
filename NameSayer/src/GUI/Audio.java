@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public class Audio {
 
-	@FXML Button recordButton;
 
 	public void setRecording(Name name, String pathToRecording) {
 		try {
@@ -51,7 +50,6 @@ public class Audio {
 
 		//end of recording section
 
-		recordButton.setDisable(true);
 		for (int i=5; i>=0; i-- ) {
 			try {
 				System.out.println(i);
