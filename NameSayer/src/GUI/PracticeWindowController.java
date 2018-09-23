@@ -53,8 +53,8 @@ public class PracticeWindowController {
 	}
 	
 	public void playRecording() {
-		getSelectedRecordingDirectory();
-		
+		String path = getSelectedRecordingDirectory();
+		System.out.println(path);
 		Audio audio = new Audio();
 		audio.playRecording(2);
 	}

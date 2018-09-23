@@ -22,7 +22,7 @@ public class Audio {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
-			
+			System.out.println(name);
 		} catch (IOException e) {
 		}
 	}
@@ -73,8 +73,11 @@ public class Audio {
 				e1.printStackTrace();
 			}	
 		}else if (option ==2) {
+			PracticeWindowController obj = new PracticeWindowController();
+			String path = obj.getSelectedRecordingDirectory();
+			
 			try {
-				String cmd = "ffplay -autoexit \"audio.wav\"";
+				String cmd = "ffplay -autoexit "+path+"";
 				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 				Process process = builder.start();
 				process.waitFor();
