@@ -35,7 +35,10 @@ public class Audio {
 			public void run() {
 				try {
 					String cmd = "ffmpeg -f alsa -i default -t 5 "+audio+"";
-					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+					System.out.println(cmd);
+					String cmd2 = "ffmpeg -f alsa -i default -t 5 \"audio.wav\"";
+					System.out.println(cmd2);
+					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd2);
 					Process process = builder.start();
 					process.waitFor();
 				} catch (IOException e) {
