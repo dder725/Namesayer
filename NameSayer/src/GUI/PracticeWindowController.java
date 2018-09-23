@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
@@ -17,20 +18,16 @@ import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
-<<<<<<< HEAD
+
 	private Integer _index = 0;
-=======
-	private Integer _index=0;
+
+	@FXML private Label nameLabel;
 	
->>>>>>> master
-	@FXML
-	private Label nameLabel;
+	@FXML private ChoiceBox versionChoice, attemptChoice; 
 	
-	@FXML
-	private ChoiceBox versionChoice; 
-	
-	@FXML
-	private ChoiceBox attemptChoice;
+	@FXML private Button makeRecording;
+	@FXML private Button nextName;
+	@FXML private Button listen;
 	
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
@@ -39,13 +36,6 @@ public class PracticeWindowController {
 		setNameLabel(_playlist.get(0).getName(), 66);
 	}
 
-<<<<<<< HEAD
-=======
-	private void setNameLabel(String name) {
-
-	}
->>>>>>> master
-	
 	private void populateVersionChoice() {
 		versionChoice.getItems().clear();
 		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
@@ -69,7 +59,9 @@ public class PracticeWindowController {
 
 	public void makeRecording() {
 		Audio audio = new Audio();
-		audio.setRecording();
+		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
+		audio.setRecording(_playlist.get(_index), _playlist.get(_index).getRecordingDir(numOfVersion));
 	}
 
 	public void pastAttempts() {
@@ -78,15 +70,23 @@ public class PracticeWindowController {
 
 	public void nextName() {
 		_index++;
-		if(_index < _playlist.size()) {
+		if(_index < _playlist.size() - 1) {
 		setNameLabel(_playlist.get(_index).getName(), 66);}
 		else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
-		}
+			disableOptions();
+	} ;
 		populateVersionChoice();
 		
 	}
 
+	private void disableOptions() {
+		versionChoice.setDisable(true);
+		attemptChoice.setDisable(true);
+		nextName.setDisable(true);
+		listen.setDisable(true);
+		makeRecording.setDisable(true);
+	}
 	public void chooseVersion() {
 
 	}

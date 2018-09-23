@@ -28,11 +28,12 @@ public class RecordingWindowController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
-			RecordingOptionsController Practice = (RecordingOptionsController) loader.getController();
 			Parent content = (Parent) loader.load();
+			RecordingOptionsController Practice = (RecordingOptionsController) loader.getController();
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
+			recordButton.setDisable(true);
 		} catch (IOException e) {
 		}
 
