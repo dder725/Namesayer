@@ -70,10 +70,11 @@ public class Main extends Application {
 				"		if [ ! -d UserAttempts ]; then\n" + 
 				"		        dir=$(pwd)\n" + 
 				"		        mkdir UserAttempts\n" + 
-				"		        cd $dir/UserAttempts\n" + 
-				"		        mkdir Tia_1\n" + 
+				"		        cd $dir/names\n" + 
+				"		        for x in ./*; do\n" + 
+				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" $dir/UserAttempts\n" + 
+				"		        done\n" + 
 				"		fi";
-
 
 		byte[] content = code.getBytes(Charset.forName("UTF-8"));
 		FileOutputStream helper;
