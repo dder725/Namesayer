@@ -33,7 +33,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Name Sayer");
 			primaryStage.setResizable(false);
 			primaryStage.show();
-
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -61,14 +61,13 @@ public class Main extends Application {
 		e1.printStackTrace();
 	}
 
-
 	}
 
 	public void makeScript() {
 		String code = "		#!/bin/bash\n" + 
 				"\n" + 
 				"\n" + 
-				"		if [! -d UserAttempts]; then\n" + 
+				"		if [ ! -d UserAttempts ]; then\n" + 
 				"		        dir=$(pwd)\n" + 
 				"		        mkdir UserAttempts\n" + 
 				"		        cd $dir/UserAttempts\n" + 
@@ -89,7 +88,7 @@ public class Main extends Application {
 		}
 
 		try {
-			String cmd = "chmod +x $(realpath createVid.sh)";
+			String cmd = "chmod +x $(realpath createFiles.sh)";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
