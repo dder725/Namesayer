@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.IOException;
 
+import application.Name;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +15,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class RecordingWindowController {	
-
+	private Name _name;
+	
 	@FXML Text Label;
 	@FXML Button recordButton;
-
+	
 	public void startRecording() {
 		Audio audio = new Audio();
 		audio.startRecording();
@@ -32,6 +34,8 @@ public class RecordingWindowController {
 			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingOptionsController Practice = (RecordingOptionsController) loader.getController();
+			Practice.setName(_name);
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -54,6 +58,9 @@ public class RecordingWindowController {
 		} catch (IOException e) {
 		}
 
+	}
+	public void setName(Name name) {
+		_name = name;
 	}
 
 

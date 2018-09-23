@@ -2,11 +2,12 @@ package GUI;
 
 import java.io.IOException;
 
+import application.Name;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class RecordingOptionsController {
-
+	private Name _name;
 	public Button closeButton;
 
 	public void listen() {
@@ -22,8 +23,7 @@ public class RecordingOptionsController {
 
 
 	public void saveRecording() {
-		PracticeWindowController window = new PracticeWindowController();
-		String name = window.getNameLabel();
+		String name = _name.getName();
 
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 
@@ -56,6 +56,9 @@ public class RecordingOptionsController {
 
 	}
 	
+	public void setName(Name name) {
+		_name = name;
+	}
 	
 
 
