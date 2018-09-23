@@ -11,14 +11,13 @@ public class RecordingOptionsController {
 
 	public void listen() {
 		Audio audio = new Audio();
-		audio.playRecording();
+		audio.playRecording(1);
 	}
 
 	public void redoRecording() {
 		close();
 		PracticeWindowController practiceWindow = new PracticeWindowController();
 		practiceWindow.makeRecording();
-
 	}
 
 

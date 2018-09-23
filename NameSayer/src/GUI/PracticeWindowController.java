@@ -57,7 +57,7 @@ public class PracticeWindowController {
 	
 	public void playRecording() {
 		Audio audio = new Audio();
-		audio.playRecording();
+		audio.playRecording(2);
 	}
 
 	public void makeRecording() {
