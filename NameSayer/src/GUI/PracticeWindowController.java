@@ -54,9 +54,8 @@ public class PracticeWindowController {
 	
 	public void playRecording() {
 		String path = getSelectedRecordingDirectory();
-		System.out.println(path);
 		Audio audio = new Audio();
-		audio.playRecording(2);
+		audio.playRecording(2, path);
 	}
 
 	public void makeRecording() {

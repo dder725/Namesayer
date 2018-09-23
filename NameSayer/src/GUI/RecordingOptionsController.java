@@ -11,7 +11,7 @@ public class RecordingOptionsController {
 
 	public void listen() {
 		Audio audio = new Audio();
-		audio.playRecording(1);
+		audio.playRecording(1, "\"audio.wav\"");
 	}
 
 	public void redoRecording() {

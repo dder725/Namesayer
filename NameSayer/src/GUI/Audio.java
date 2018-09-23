@@ -60,10 +60,10 @@ public class Audio {
 	}
 
 
-	public void playRecording(int option) {
+	public void playRecording(int option, String file) {
 		if (option ==1) {
 			try {
-				String cmd = "ffplay -autoexit \"audio.wav\"";
+				String cmd = "ffplay -autoexit "+file+"";
 				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 				Process process = builder.start();
 				process.waitFor();
@@ -73,11 +73,8 @@ public class Audio {
 				e1.printStackTrace();
 			}	
 		}else if (option ==2) {
-			PracticeWindowController obj = new PracticeWindowController();
-			String path = obj.getSelectedRecordingDirectory();
-			
 			try {
-				String cmd = "ffplay -autoexit "+path+"";
+				String cmd = "ffplay -autoexit "+file+"";
 				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 				Process process = builder.start();
 				process.waitFor();
