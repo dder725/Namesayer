@@ -27,18 +27,14 @@ public class Audio {
 	}
 
 
-	public void startRecording(String audio) {
-
+	public void startRecording() {
 
 		//This section is supposed to record and save the audio as a file called audio.wav
 		Thread BackgroundThread = new Thread() {
 			public void run() {
 				try {
-					String cmd = "ffmpeg -f alsa -i default -t 5 "+audio+"";
-					System.out.println(cmd);
-					String cmd2 = "ffmpeg -f alsa -i default -t 5 \"audio.wav\"";
-					System.out.println(cmd2);
-					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd2);
+					String cmd = "ffmpeg -f alsa -i default -t 5 \"audio.wav\"";
+					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 					Process process = builder.start();
 					process.waitFor();
 				} catch (IOException e) {
@@ -64,9 +60,9 @@ public class Audio {
 	}
 
 
-	public void playRecording(String audio) {
+	public void playRecording() {
 		try {
-			String cmd = "ffplay -autoexit "+audio+"";
+			String cmd = "ffplay -autoexit \"audio.wav\"";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
