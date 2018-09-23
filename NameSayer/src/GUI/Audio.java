@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class Audio {
 
 
-	public void setRecording(Name name) {
+	public void setRecording() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
@@ -22,7 +22,6 @@ public class Audio {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
-			System.out.println(name);
 		} catch (IOException e) {
 		}
 	}

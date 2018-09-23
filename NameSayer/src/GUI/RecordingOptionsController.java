@@ -25,11 +25,10 @@ public class RecordingOptionsController {
 		PracticeWindowController window = new PracticeWindowController();
 		String name = window.getNameLabel();
 
-		
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 
 			//directory, name folder, save under name_1.wav?
-			String cmd = "dir=$(pwd); mkdir "+name+";  mv \"audio.wav\" dir/ ";
+			String cmd = "cd UserAttempts; dir=$(pwd);  mv \"audio.wav\" dir/ ";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();

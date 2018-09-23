@@ -56,11 +56,13 @@ public class PracticeWindowController {
 		String path = getSelectedRecordingDirectory();
 		Audio audio = new Audio();
 		audio.playRecording(2, path);
+		//add functionality for bad recording rating here
+		
 	}
 
 	public void makeRecording() {
 		Audio audio = new Audio();
-		audio.setRecording(_playlist.get(_index));
+		audio.setRecording();
 	}
 	
 
