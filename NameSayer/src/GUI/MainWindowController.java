@@ -70,7 +70,9 @@ public class MainWindowController {
 	}
 
 	public void removeFromPractice() {
+		if(!_playlist.isEmpty()) {
 		_playlist.remove(playlistView.getSelectionModel().getSelectedIndex());
+		};
 	}
 
 	// Remove a name from the playlist on double click
