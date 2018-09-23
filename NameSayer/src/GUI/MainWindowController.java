@@ -89,10 +89,6 @@ public class MainWindowController {
 		_playlist.clear();
 	}
 
-	public void practice() {
-
-	}
-
 	public void practiceButton() {
 		if (_playlist.isEmpty()) {
 			noNames();

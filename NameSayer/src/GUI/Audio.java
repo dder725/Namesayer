@@ -29,7 +29,6 @@ public class Audio {
 
 	public void startRecording() {
 
-
 		//This section is supposed to record and save the audio as a file called audio.wav
 		Thread BackgroundThread = new Thread() {
 			public void run() {
@@ -61,17 +60,32 @@ public class Audio {
 	}
 
 
-	public void playRecording() {
-		try {
-			String cmd = "ffplay -autoexit \"audio.wav\"";
-			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-			Process process = builder.start();
-			process.waitFor();
-		} catch (IOException E) {
-			E.printStackTrace();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+	public void playRecording(int option) {
+		if (option ==1) {
+			try {
+				String cmd = "ffplay -autoexit \"audio.wav\"";
+				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+				Process process = builder.start();
+				process.waitFor();
+			} catch (IOException E) {
+				E.printStackTrace();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}	
+		}else if (option ==2) {
+			try {
+				String cmd = "ffplay -autoexit \"audio.wav\"";
+				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+				Process process = builder.start();
+				process.waitFor();
+			} catch (IOException E) {
+				E.printStackTrace();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
+		
+
 	}
 
 }
