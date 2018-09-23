@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -25,15 +26,11 @@ public class RecordingOptionsController {
 
 
 	public void saveRecording() {
-		System.out.print(_name.getName());
-		Date date = new Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		
+		int num = new File("UserAttempts/"+_name.getName()+"_attempts/").list().length +1;
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 
 			//directory, name folder, save under name_1.wav?
-			String cmd = "dir=$(pwd); mv \"audio.wav\" $dir/UserAttempts/"+_name.getName()+"_attempts;"
-					+ " cd UserAttempts/\"+name+\"_attempts; mv \"audio.wav\" "+_name.getName()+"_"+ts+"";
+			String cmd = "dir=$(pwd); mv \"audio.wav\" $dir/UserAttempts/"+_name.getName()+"_attempts/"+_name.getName()+"_"+num+"";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
