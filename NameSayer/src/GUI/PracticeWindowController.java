@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
-	
+	private Integer _index = 0;
 	@FXML
 	private Label nameLabel;
 	
@@ -29,17 +29,16 @@ public class PracticeWindowController {
 	
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
-
-		setNameLabel(_playlist.get(0).getName());
 		
 		populateVersionChoice();
 		setNameLabel(_playlist.get(0).getName(), 66);
 	}
 
-	private void setNameLabel(String name) {
 	
 	private void populateVersionChoice() {
+		versionChoice.getItems().clear();
 		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
+		versionChoice.getSelectionModel().selectFirst();
 	}
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
@@ -66,6 +65,8 @@ public class PracticeWindowController {
 		else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
 		}
+		populateVersionChoice();
+		
 	}
 
 	public void chooseVersion() {
