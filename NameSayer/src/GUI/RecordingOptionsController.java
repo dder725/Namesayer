@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import application.Name;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -40,6 +43,22 @@ public class RecordingOptionsController {
 			e1.printStackTrace();
 		}
 
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("SavedWindow.fxml"));
+			Parent content = (Parent) loader.load();
+			SavedWindowController Saved = loader.getController();
+
+			//Set name of new file
+			Saved.setLabel("Your recording has been saved as "+_name.getName()+"_"+num+"", 24);
+			
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
+		
+		
 	}
 
 	public void close() {
