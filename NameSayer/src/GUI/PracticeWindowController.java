@@ -134,7 +134,7 @@ public class PracticeWindowController {
 	}
 
 	public void playAttempt() {
-		String path = getSelectedAttemptsDirectory();
+		String path = getSelectedAttemptDirectory();
 		Audio audio = new Audio();
 		audio.playRecording(path);
 	}
@@ -179,7 +179,7 @@ public class PracticeWindowController {
 	}
 
 	
-	public String getSelectedAttemptsDirectory(){
+	public String getSelectedAttemptDirectory(){
 		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName() + attemptChoice.getSelectionModel().getSelectedItem();
 		System.out.println(dir);
 		return dir;
