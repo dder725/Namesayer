@@ -59,9 +59,10 @@ public class Name {
 		if (isBad) {
 			newRecordingName = new File(dir + "(Bad)");
 			// Add it to the badRecordings.txt
-			DataBase.addABadRecording(oldRecordingName.getAbsolutePath());
+			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), true);
 		} else { // Remove the (Bad) tag if isBad is false
 			newRecordingName = new File(dir.substring(0, (dir.lastIndexOf("("))));
+			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), false);
 		}
 
 		oldRecordingName.renameTo(newRecordingName);

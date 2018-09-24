@@ -123,16 +123,20 @@ public class DataBase {
 		}
 	}
 	 
-	 public static void addABadRecording(String dir) {
+	 public static void addABadRecording(String dir, Boolean isBad) {
 		 Writer output;
 		 try {
-			 //Get a current timestamp
+			 //Get the current timestamp
 			 Date date= new Date();
 			 long time = date.getTime();
 			Timestamp timestamp = new Timestamp(time);
 			
 			 output = new BufferedWriter(new FileWriter("badRecordings.txt", true));
-			 output.append(dir + "added at " + timestamp);
+			 if(isBad) {
+				 output.append(dir + " MARKED as (Bad) at " + timestamp + System.lineSeparator());
+			 } else{
+				 output.append(dir + " UNMARKED as (Bad) at " + timestamp + System.lineSeparator());
+			 }
 			 output.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
