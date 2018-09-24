@@ -1,12 +1,17 @@
 package application;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +21,15 @@ import java.util.zip.ZipInputStream;
 public class DataBase {
 	private static volatile DataBase instance = null;
 	private static HashMap<String, Name> _names = new HashMap<String, Name>();
+	private static File _badRecordings;
+	
 	private DataBase() {
+		File file = new File(System.getProperty("user.dir") + "/names");
+		if(!file.exists()) {
 		unzip(System.getProperty("user.dir") + "/names.zip", System.getProperty("user.dir") + "/names");
+		createBadRecordingsFile(); }
+			traverse(file.getAbsolutePath());
+		
 	}
 	public static void instantiateDataBase() { //Implement Database as a singleton (can't create use more than two databases at once)
         if (instance == null) {
@@ -73,11 +85,58 @@ public class DataBase {
 		}
 	}
 	
+	private void traverse(String destDir) {
+		String entryName;
+		Map<String, Integer> occurencesOfName = new HashMap<String, Integer>();
+		File dir = new File(destDir);
+		
+		File[] directoryListing = dir.listFiles();
+		  if (directoryListing != null) {
+		    for (File child : directoryListing) {
+		      int index = child.getAbsolutePath().lastIndexOf('/');
+		      int lastIndex = child.getAbsolutePath().lastIndexOf('_');
+		      entryName = child.getAbsolutePath().substring(index+1, lastIndex).toUpperCase();
+		      if(occurencesOfName.containsKey(entryName)) {
+					occurencesOfName.put(entryName, occurencesOfName.get(entryName) + 1); //This name has existing versions
+				} else {
+					occurencesOfName.put(entryName, 1);
+					_names.put(entryName, new Name(entryName));
+				}
+		      _names.get(entryName).addRecordingFile(child.getAbsolutePath());
+		    }
+		  };
+	}
 	//Get all Name objects in the database
 	public static Collection<Name> getNamesList() {
 		return _names.values();
 	}
-	private void open() {
-		
+	
+	 private void createBadRecordingsFile() {
+		 _badRecordings = new File(System.getProperty("user.dir"), "badRecordings.txt");
+		 if(!_badRecordings.exists()) {
+		 try {
+				_badRecordings.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
+	 
+	 public static void addABadRecording(String dir) {
+		 Writer output;
+		 try {
+			 //Get a current timestamp
+			 Date date= new Date();
+			 long time = date.getTime();
+			Timestamp timestamp = new Timestamp(time);
+			
+			 output = new BufferedWriter(new FileWriter("badRecordings.txt", true));
+			 output.append(dir + "added at " + timestamp);
+			 output.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 }
