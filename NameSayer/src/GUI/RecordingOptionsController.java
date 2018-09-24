@@ -20,7 +20,7 @@ public class RecordingOptionsController {
 
 	public void listen() {
 		Audio audio = new Audio();
-		audio.playRecording(1, "\"audio.wav\"");
+		audio.playRecording("\"audio.wav\"");
 	}
 
 	public void redoRecording() {

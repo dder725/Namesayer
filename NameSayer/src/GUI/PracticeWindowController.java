@@ -75,9 +75,13 @@ public class PracticeWindowController {
 	public void playRecording() {
 		String path = getSelectedRecordingDirectory();
 		Audio audio = new Audio();
-		audio.playRecording(2, path);
-		// add functionality for bad recording rating here
-
+		audio.playRecording(path);
+	}
+	
+	public void playAttempt() {
+		String path = getSelectedAttemptDirectory();
+		Audio audio = new Audio();
+		audio.playRecording(path);
 	}
 
 	public void makeRecording() {
@@ -119,6 +123,15 @@ public class PracticeWindowController {
 
 		return versionDir;
 	}
+	
+	public String getSelectedAttemptDirectory() {
+		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
+		String versionDir = _playlist.get(_index).getRecordingDir(numOfVersion);
+
+		return versionDir;
+	}
+	
 
 	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
@@ -145,4 +158,12 @@ public class PracticeWindowController {
 		return version;
 	}
 
+	
+	public void compare() {
+		//Plays official recording from database
+		playRecording();
+		//Plays recording from attempts list
+		playAttempt();
+	}
+	
 }
