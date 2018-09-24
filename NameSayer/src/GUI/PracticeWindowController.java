@@ -83,7 +83,7 @@ public class PracticeWindowController {
 	public void makeRecording() {
 		Audio audio = new Audio();
 		audio.PWreference(this);
-		audio.setRecording(_playlist.get(_index), "Attempt");
+		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
 	}
 
 	public void pastAttempts() {

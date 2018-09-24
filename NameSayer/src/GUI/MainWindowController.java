@@ -136,7 +136,7 @@ public class MainWindowController {
 
 	public void micTest() {
 		Audio audio = new Audio();
-		audio.setRecording(_namesList.get(0), "Mic");
+		audio.setRecording(_namesList.get(0), "MicTestWindow.fxml");
 	}
 
 }

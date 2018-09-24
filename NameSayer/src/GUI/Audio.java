@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 public class Audio {
 
 	public PracticeWindowController _practiceWindow;
-	public String _inst;
+	public String _window;
 
-	public void setRecording(Name name, String inst) {
-		_inst=inst;
+	public void setRecording(Name name, String window) {
+		_window=window;
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
@@ -24,6 +24,7 @@ public class Audio {
 			RecordingWindowController recording = (RecordingWindowController) loader.getController();
 			recording.setName(name);
 			recording.PWreference(_practiceWindow);
+			recording.setWindow(window);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -65,32 +66,19 @@ public class Audio {
 
 
 	public void playRecording(int option, String file) {
-		if (option ==1) {
-			try {
-				String cmd = "ffplay -autoexit "+file+"";
-				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-				Process process = builder.start();
-				process.waitFor();
-			} catch (IOException E) {
-				E.printStackTrace();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}	
-		}else if (option ==2) {
-			try {
-				String cmd = "ffplay -autoexit "+file+"";
-				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-				Process process = builder.start();
-				process.waitFor();
-			} catch (IOException E) {
-				E.printStackTrace();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+		try {
+			String cmd = "ffplay -autoexit "+file+"";
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			process.waitFor();
+		} catch (IOException E) {
+			E.printStackTrace();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void PWreference(PracticeWindowController pw) {
 		_practiceWindow=pw;
 	}
