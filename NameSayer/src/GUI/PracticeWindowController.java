@@ -37,7 +37,8 @@ public class PracticeWindowController {
 	private Button nextName;
 	@FXML
 	private Button listen;
-
+	@FXML
+	private Button compare;
 	@FXML
 	private CheckBox badRecordingCheckBox;
 
@@ -91,14 +92,19 @@ public class PracticeWindowController {
 	public void playRecording() {
 		String path = getSelectedRecordingDirectory();
 		Audio audio = new Audio();
-		audio.playRecording(2, path);
-
+		audio.playRecording(path);
+	}
+	
+	public void playAttempt() {
+		String path = getSelectedAttemptDirectory();
+		Audio audio = new Audio();
+		audio.playRecording(path);
 	}
 
 	public void makeRecording() {
 		Audio audio = new Audio();
 		audio.PWreference(this);
-		audio.setRecording(_playlist.get(_index));
+		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
 	}
 
 	public void pastAttempts() {
@@ -124,6 +130,7 @@ public class PracticeWindowController {
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
+		compare.setDisable(true);
 		badRecordingCheckBox.setVisible(false);
 	}
 
@@ -134,6 +141,15 @@ public class PracticeWindowController {
 
 		return versionDir;
 	}
+	
+	public String getSelectedAttemptDirectory() {
+		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
+		String versionDir = _playlist.get(_index).getRecordingDir(numOfVersion);
+
+		return versionDir;
+	}
+	
 
 	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
@@ -159,4 +175,12 @@ public class PracticeWindowController {
 		return version;
 	}
 
+	
+	public void compare() {
+		//Plays official recording from database
+		playRecording();
+		//Plays recording from attempts list
+		playAttempt();
+	}
+	
 }

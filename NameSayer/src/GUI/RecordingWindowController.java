@@ -19,53 +19,66 @@ public class RecordingWindowController {
 	@FXML Text Label;
 	@FXML Button recordButton;
 	public PracticeWindowController _practiceWindow;
-	
+	public String _window;
+
 
 	public void startRecording() {
 		Audio audio = new Audio();
 		audio.startRecording();
 		Stage stage = (Stage) Label.getScene().getWindow();
 		stage.close();
-		recordingOptions();
+		listenWindow();
 	}
 
-	public void recordingOptions() {
+	public void listenWindow() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
+			loader.setLocation(getClass().getResource(_window));
 			Parent content = (Parent) loader.load();
-			RecordingOptionsController Options = (RecordingOptionsController) loader.getController();
-			Options.setName(_name);
-			Options.PWreference(_practiceWindow);
+			if (_window.equals("RecordingOptionsWindow.fxml")) {
+				RecordingOptionsController window = (RecordingOptionsController) loader.getController();
+				window.setName(_name);
+				window.PWreference(_practiceWindow);
+			}else if (_window.equals("MicTestWindow.fxml")) {
+				MicTestWindowController window = (MicTestWindowController) loader.getController();
+				window.setName(_name);
+				window.PWreference(_practiceWindow);
+			}
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
 
-	        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	            public void handle(WindowEvent we) {
-	        		try {
-	        			String cmd = "rm \"audio.wav\"";
-	        			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-	        			Process process = builder.start();
-	        			process.waitFor();
-	        		} catch (IOException E) {
-	        			E.printStackTrace();
-	        		} catch (InterruptedException e1) {
-	        			e1.printStackTrace();
-	        		}
-	            }
-	        });   
-			
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					try {
+						String cmd = "rm \"audio.wav\"";
+						ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+						Process process = builder.start();
+						process.waitFor();
+					} catch (IOException E) {
+						E.printStackTrace();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});   
+
 		} catch (IOException e) {
 		}
 
 	}
+
+
 	public void setName(Name name) {
 		_name = name;
 	}
-	
+
 	public void PWreference(PracticeWindowController pw) {
 		_practiceWindow=pw;
+	}
+
+	public void setWindow(String window) {
+		_window=window;
 	}
 
 }

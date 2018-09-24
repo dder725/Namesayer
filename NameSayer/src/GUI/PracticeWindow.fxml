@@ -19,8 +19,8 @@
         <buttons>
             <ChoiceBox fx:id="versionChoice" prefWidth="150.0" />
           <Button fx:id="listen" alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
+            <Button fx:id="compare" mnemonicParsing="false" onAction="#compare" prefHeight="31.0" text="Compare" />
             <Button fx:id="makeRecording" alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
-            <Button fx:id="nextName" alignment="CENTER" mnemonicParsing="false" onAction="#nextName" text="Next name" />
             <ChoiceBox fx:id="attemptChoice" onDragDetected="#pastAttempts" prefWidth="150.0" />
         </buttons>
          <BorderPane.margin>
@@ -38,16 +38,18 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="nameLabel" text="Test">
-               <font>
-                  <Font size="66.0" />
-               </font>
-            </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="452.0">
+            <HBox alignment="TOP_CENTER" prefHeight="179.0" prefWidth="600.0">
                <children>
-                  <CheckBox fx:id="badRecordingCheckBox" mnemonicParsing="false" onAction="#markAsBad" text="Bad recording" />
+                  <Label fx:id="nameLabel" alignment="BOTTOM_CENTER" prefHeight="177.0" prefWidth="600.0" text="Test" textAlignment="CENTER">
+                     <font>
+                        <Font size="66.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
+            <CheckBox fx:id="badRecordingCheckBox" mnemonicParsing="false" onAction="#markAsBad" text="Bad recording" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+            <Button fx:id="nextName" alignment="CENTER" mnemonicParsing="false" onAction="#nextName" prefHeight="36.0" prefWidth="108.0" text="Next name" />
          </children>
       </VBox>
    </center>
