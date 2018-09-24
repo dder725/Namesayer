@@ -116,7 +116,7 @@ public class PracticeWindowController {
 
 	private ArrayList<String> getAttemptsFiles() {
 		File attemptFolder = new File(
-				System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName() + "_attempts");
+				System.getProperty("user.home") + "/NameSayer/UserAttempts/" + _playlist.get(_index).getName() + "_attempts");
 		File[] attemptFiles = attemptFolder.listFiles();
 		ArrayList<String> attemptPaths = new ArrayList<String>();
 		for (int i = 0; i < attemptFiles.length; i++) {
@@ -190,7 +190,7 @@ public class PracticeWindowController {
 	}
 
 	public String getSelectedAttemptDirectory() {
-		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName()+"_attempts/"
+		String dir = System.getProperty("user.home") + "/NameSayer/UserAttempts/" + _playlist.get(_index).getName()+"_attempts/"
 				+ attemptChoice.getSelectionModel().getSelectedItem();
 		return dir;
 	}

@@ -69,11 +69,11 @@ public class Main extends Application {
 				"\n" + 
 				"		if [ ! -d UserAttempts ]; then\n" + 
 				"		        dir=$(pwd)\n" + 
-				"		        mkdir UserAttempts\n" + 
-				"		        cd $dir/names\n" + 
+				"		        mkdir $HOME/NameSayer/UserAttempts\n" + 
+				"		        cd $HOME/NameSayer/names\n" + 
 				"		        for x in ./*_1; do\n" + 
 				"					x=\"${x%_1}\"\n" + 
-				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" $dir/UserAttempts\n" + 
+				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" $HOME/NameSayer/UserAttempts\n" + 
 				"		        done\n" + 
 				"		fi";
 

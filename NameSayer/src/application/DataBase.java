@@ -24,9 +24,9 @@ public class DataBase {
 	private static File _badRecordings;
 	
 	private DataBase() {
-		File file = new File(System.getProperty("user.dir") + "/names");
+		File file = new File(System.getProperty("user.home") + "/NameSayer/names");
 		if(!file.exists()) {
-		unzip(System.getProperty("user.dir") + "/names.zip", System.getProperty("user.dir") + "/names");
+		unzip(System.getProperty("user.home") + "/NameSayer/names.zip", System.getProperty("user.home") + "/NameSayer/names");
 		createBadRecordingsFile(); }
 			traverse(file.getAbsolutePath());
 		
@@ -112,7 +112,7 @@ public class DataBase {
 	}
 	
 	 private void createBadRecordingsFile() {
-		 _badRecordings = new File(System.getProperty("user.dir"), "badRecordings.txt");
+		 _badRecordings = new File(System.getProperty("user.home"), "/NameSayer/badRecordings.txt");
 		 if(!_badRecordings.exists()) {
 		 try {
 				_badRecordings.createNewFile();
