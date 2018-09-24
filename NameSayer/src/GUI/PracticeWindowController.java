@@ -122,7 +122,7 @@ public class PracticeWindowController {
 		for (int i = 0; i < attemptFiles.length; i++) {
 			if (attemptFiles[i].isFile()) {
 				attemptPaths.add(attemptFiles[i].getAbsolutePath()
-						.substring(attemptFiles[i].getAbsolutePath().lastIndexOf('/') + 1) + " attempt");
+						.substring(attemptFiles[i].getAbsolutePath().lastIndexOf('/') + 1));
 			}
 		}
 		return attemptPaths;
@@ -154,7 +154,7 @@ public class PracticeWindowController {
 	public void makeRecording() {
 		Audio audio = new Audio();
 		audio.PWreference(this);
-		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml", attempts);
+		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
 	}
 
 	public void nextName() {
@@ -190,7 +190,7 @@ public class PracticeWindowController {
 	}
 
 	public String getSelectedAttemptDirectory() {
-		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName()
+		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName()+"_attempts/"
 				+ attemptChoice.getSelectionModel().getSelectedItem();
 		System.out.println(dir);
 		return dir;
