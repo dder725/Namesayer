@@ -13,42 +13,57 @@ public class Name {
 	private String _name;
 	private HashMap<Integer, String> _recordings = new HashMap<Integer, String>();
 	private HashMap<Integer, String> _recordingsDir = new HashMap<Integer, String>();
-	
+
 	public Name(String name) {
-		this._name = name; 
+		this._name = name;
 		nameProperty.set(_name);
 		star.set("*");
 	}
+
 	public void addRecordingFile(String dir) {
-		char num = dir.charAt(dir.length()- 1); //Get the number of the recording
+		char num = dir.charAt(dir.length() - 1); // Get the number of the recording
 		_recordings.put(Character.getNumericValue(num), dir.substring(dir.lastIndexOf('/') + 1));
 		_recordingsDir.put(Character.getNumericValue(num), dir);
 	}
+
 	public String getName() {
 		return _name;
 	}
+
 	public String toString() {
 		return nameProperty.getValue();
 	}
-	public Collection<String> getVersions(){
+
+	public Collection<String> getVersions() {
 		return _recordings.values();
 	}
+
 	public String getRecordingDir(int num) {
 		return _recordingsDir.get(num);
 	}
+
+	public Boolean isBadRecording(int num) {
+		String tag = getRecordingDir(num).substring(getRecordingDir(num).length() - 5);
+		if (tag.equals("(Bad)")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void modifyBadTag(String dir, Boolean isBad, Integer recordingNum) {
 		File oldRecordingName = new File(dir);
 		File newRecordingName;
-		
-		//If isBad is true, mark recording with a (Bad) tag
-		if(isBad) { 
+
+		// If isBad is true, mark recording with a (Bad) tag
+		if (isBad) {
 			newRecordingName = new File(dir + "(Bad)");
-			//Add it to the badRecordings.txt
-			 DataBase.addABadRecording(oldRecordingName.getAbsolutePath());
-		} else { //Remove the (Bad) tag if isBad is false
+			// Add it to the badRecordings.txt
+			DataBase.addABadRecording(oldRecordingName.getAbsolutePath());
+		} else { // Remove the (Bad) tag if isBad is false
 			newRecordingName = new File(dir.substring(0, (dir.lastIndexOf("("))));
 		}
-		
+
 		oldRecordingName.renameTo(newRecordingName);
 		_recordingsDir.put(recordingNum, newRecordingName.getAbsolutePath());
 	}

@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -22,21 +23,37 @@ public class PracticeWindowController {
 
 	private Integer _index = 0;
 
-	@FXML private Label nameLabel;
+	@FXML
+	private Label nameLabel;
 
-	@FXML private ChoiceBox versionChoice, attemptChoice;
+	@FXML
+	private ChoiceBox versionChoice, attemptChoice;
 
-	@FXML private Button makeRecording;
-	@FXML private Button nextName;
-	@FXML private Button listen;
+	@FXML
+	private Button makeRecording;
+	@FXML
+	private Button nextName;
+	@FXML
+	private Button listen;
 
-	@FXML private ToggleButton badRecording;
-	
+	@FXML
+	private CheckBox badRecordingCheckBox;
+
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
 
 		populateVersionChoice();
 		setNameLabel(_playlist.get(0).getName(), 66);
+
+		setBadRecordingCheckbox(_playlist.get(_index));
+	}
+
+	private void setBadRecordingCheckbox(Name name) {
+		if (name.isBadRecording(getVersionNum())) {
+			badRecordingCheckBox.setSelected(true);
+		} else {
+			badRecordingCheckBox.setSelected(false);
+		}
 	}
 
 	private void populateVersionChoice() {
@@ -75,8 +92,9 @@ public class PracticeWindowController {
 	public void nextName() {
 		_index++;
 		if (_index <= _playlist.size() - 1) {
-			setNameLabel(_playlist.get(_index).getName(), 66);
 			populateVersionChoice();
+			setBadRecordingCheckbox(_playlist.get(_index));
+			setNameLabel(_playlist.get(_index).getName(), 66);
 		} else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
 			disableOptions();
@@ -90,7 +108,7 @@ public class PracticeWindowController {
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
-		badRecording.setVisible(false);
+		badRecordingCheckBox.setVisible(false);
 	}
 
 	public String getSelectedRecordingDirectory() {
@@ -101,16 +119,21 @@ public class PracticeWindowController {
 		return versionDir;
 	}
 
-	public void markAsBad() {
+	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
 		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-		if(badRecording.isSelected()) {
 		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
-		_playlist.get(_index).modifyBadTag(dir, true, numOfVersion);
-		
-		} else if(!badRecording.isSelected()) {
-			Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
-			_playlist.get(_index).modifyBadTag(dir, false, numOfVersion);
+
+		return numOfVersion;
+	}
+
+	public void markAsBad() {
+		String dir = getSelectedRecordingDirectory();
+		if (badRecordingCheckBox.isSelected()) {
+			_playlist.get(_index).modifyBadTag(dir, true, getVersionNum());
+
+		} else if (!badRecordingCheckBox.isSelected()) {
+			_playlist.get(_index).modifyBadTag(dir, false, getVersionNum());
 		}
 		populateVersionChoice();
 	}
