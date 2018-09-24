@@ -192,7 +192,6 @@ public class PracticeWindowController {
 	public String getSelectedAttemptDirectory() {
 		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName()+"_attempts/"
 				+ attemptChoice.getSelectionModel().getSelectedItem();
-		System.out.println(dir);
 		return dir;
 	}
 
