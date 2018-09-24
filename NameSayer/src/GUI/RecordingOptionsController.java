@@ -30,6 +30,8 @@ public class RecordingOptionsController {
 
 
 	public void saveRecording() {
+		String dir = System.getProperty("user.dir") + "UserAttempts/"+_name.getName()+"_attempts/";
+		System.out.println(dir);
 		int num = new File("UserAttempts/"+_name.getName()+"_attempts/").list().length +1;
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 

@@ -21,7 +21,7 @@ public class Name {
 	}
 
 	public void addRecordingFile(String dir) {
-		char num = dir.charAt(dir.length() - 1); // Get the number of the recording
+		char num = dir.charAt(dir.lastIndexOf('_') + 1); // Get the number of the recording
 		_recordings.put(Character.getNumericValue(num), dir.substring(dir.lastIndexOf('/') + 1));
 		_recordingsDir.put(Character.getNumericValue(num), dir);
 	}
@@ -43,8 +43,8 @@ public class Name {
 	}
 
 	public Boolean isBadRecording(int num) {
-		String tag = getRecordingDir(num).substring(getRecordingDir(num).length() - 5);
-		if (tag.equals("(Bad)")) {
+		int tagIndex = getRecordingDir(num).lastIndexOf("(Bad)");
+		if(tagIndex != -1) {
 			return true;
 		} else {
 			return false;
