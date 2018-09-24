@@ -5,8 +5,10 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -14,7 +16,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <buttons>
-            <ChoiceBox fx:id="versionChoice" onDragDetected="#chooseVersion" prefWidth="150.0" />
+            <ChoiceBox fx:id="versionChoice" prefWidth="150.0" />
           <Button fx:id="listen" alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
             <Button fx:id="makeRecording" alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
             <Button fx:id="nextName" alignment="CENTER" mnemonicParsing="false" onAction="#nextName" text="Next name" />
@@ -33,9 +35,15 @@
       </AnchorPane>
    </top>
    <center>
-      <Label fx:id="nameLabel" text="Test" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="66.0" />
-         </font></Label>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="nameLabel" text="Test">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <ToggleButton fx:id="badRecording" mnemonicParsing="false" onAction="#markAsBad" text="Bad recording?" />
+         </children>
+      </VBox>
    </center>
 </BorderPane>
