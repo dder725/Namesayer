@@ -18,6 +18,11 @@ public class SavedWindowController {
 		fileNameLabel.setFont(new Font("System", size));
 	}
 	
+	public void ROwindowReference(Button button) {
+		closeButton=button;
+		
+	}
+	
 	public void ok() {
 		Stage saveStage = (Stage) okButton.getScene().getWindow();
 		saveStage.close();

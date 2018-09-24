@@ -51,6 +51,7 @@ public class RecordingOptionsController {
 
 			//Set name of new file
 			Saved.setLabel("Your recording has been saved as "+_name.getName()+"_"+num+"", 24);
+			Saved.ROwindowReference(closeButton);
 			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
