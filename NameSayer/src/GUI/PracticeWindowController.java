@@ -29,7 +29,7 @@ public class PracticeWindowController {
 	private Label nameLabel;
 
 	@FXML
-	private ChoiceBox<String> versionChoice, attemptChoice;
+	private ChoiceBox versionChoice, attemptChoice;
 
 	@FXML
 	private Button makeRecording;
@@ -44,8 +44,9 @@ public class PracticeWindowController {
 
 	public void setPlaylist(ObservableList<Name> playlist) {
 		_playlist = playlist;
-		
+
 		populateVersionChoice();
+		setListenerVersionChoice(false);
 		setNameLabel(_playlist.get(0).getName(), 66);
 
 		setBadRecordingCheckbox(_playlist.get(_index));
@@ -60,25 +61,36 @@ public class PracticeWindowController {
 	}
 
 	private void populateVersionChoice() {
-		versionChoice.getItems().clear();
+		if (_index != 0) {
+			versionChoice.getItems().removeAll(_playlist.get(_index - 1).getVersions());
+		}
 		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
 		versionChoice.getSelectionModel().selectFirst();
-		versionChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-		      @Override
-		      public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-		    	  String version = versionChoice.getItems().get(observableValue.getValue().intValue());
-		    	  int versionNum = Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
-
-		    	  System.out.println("Version num is " + versionNum);
-		    	  if (_playlist.get(_index).isBadRecording(versionNum)) {
-		  			badRecordingCheckBox.setSelected(true);
-		  		} else {
-		  			badRecordingCheckBox.setSelected(false);
-		  		}
-		      }
-		    });
 	}
+	private void setListenerVersionChoice(Boolean toRemove) {
+		ChangeListener listen = new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+				//String version = versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
+				//int versionNum = Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
+				int versionNum = observableValue.getValue().intValue() + 1;
+				if(versionNum <= 0) {
+					versionNum = 1;
+				}
+				if (_playlist.get(_index).isBadRecording(versionNum)) {
+					badRecordingCheckBox.setSelected(true);
+				} else {
+					badRecordingCheckBox.setSelected(false);
+				}
+			}
+		};
+		if (!toRemove) {
+			versionChoice.getSelectionModel().selectedIndexProperty().addListener(listen);
+		} else {
+			versionChoice.getSelectionModel().selectedIndexProperty().removeListener(listen);
 
+		}
+	}
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
 		nameLabel.setFont(new Font("System", size));
@@ -94,7 +106,7 @@ public class PracticeWindowController {
 		Audio audio = new Audio();
 		audio.playRecording(path);
 	}
-	
+
 	public void playAttempt() {
 		String path = getSelectedAttemptDirectory();
 		Audio audio = new Audio();
@@ -141,7 +153,7 @@ public class PracticeWindowController {
 
 		return versionDir;
 	}
-	
+
 	public String getSelectedAttemptDirectory() {
 		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
 		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.length() - 1));
@@ -149,25 +161,24 @@ public class PracticeWindowController {
 
 		return versionDir;
 	}
-	
 
 	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
 		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
 		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-		
+
 		return numOfVersion;
 	}
 
 	public void markAsBad() {
 		String dir = getSelectedRecordingDirectory();
+
 		if (badRecordingCheckBox.isSelected()) {
 			_playlist.get(_index).modifyBadTag(dir, true, getVersionNum());
 
 		} else if (!badRecordingCheckBox.isSelected()) {
 			_playlist.get(_index).modifyBadTag(dir, false, getVersionNum());
 		}
-		populateVersionChoice();
 	}
 
 	public String getCurrentVersion() {
@@ -175,12 +186,11 @@ public class PracticeWindowController {
 		return version;
 	}
 
-	
 	public void compare() {
-		//Plays official recording from database
+		// Plays official recording from database
 		playRecording();
-		//Plays recording from attempts list
+		// Plays recording from attempts list
 		playAttempt();
 	}
-	
+
 }
