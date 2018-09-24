@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 public class RecordingOptionsController {
 	private Name _name;
 	public Button closeButton;
+	public PracticeWindowController _practiceWindow;
+	
 
 	public void listen() {
 		Audio audio = new Audio();
@@ -23,8 +25,7 @@ public class RecordingOptionsController {
 
 	public void redoRecording() {
 		close();
-		PracticeWindowController practiceWindow = new PracticeWindowController();
-		practiceWindow.makeRecording();
+		_practiceWindow.makeRecording();
 	}
 
 
@@ -82,6 +83,9 @@ public class RecordingOptionsController {
 		_name = name;
 	}
 	
+	public void PWreference(PracticeWindowController pw) {
+		_practiceWindow=pw;
+	}
 
 
 }
