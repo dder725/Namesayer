@@ -21,7 +21,7 @@
           <Button fx:id="listen" alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
             <Button fx:id="compare" mnemonicParsing="false" onAction="#compare" prefHeight="31.0" text="Compare" />
             <Button fx:id="makeRecording" alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
-            <ChoiceBox fx:id="attemptChoice" prefWidth="150.0" />
+            <ChoiceBox fx:id="attemptChoice" onMousePressed="#refreshAttemptsChoiceBox" prefWidth="150.0" />
         </buttons>
          <BorderPane.margin>
             <Insets />

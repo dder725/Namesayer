@@ -2,12 +2,18 @@ package GUI;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import application.Name;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +29,7 @@ import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<Name> _playlist;
-	private ArrayList<String> attempts;
+	private ObservableList<String> attempts;
 	private Integer _index = 0;
 
 	@FXML
@@ -52,7 +58,7 @@ public class PracticeWindowController {
 
 		populateAttemptChoice();
 		
-		//Check if the first name in the playlist is a bad recording
+		// Check if the first name in the playlist is a bad recording
 		setBadRecordingCheckbox(_playlist.get(_index));
 	}
 
@@ -71,14 +77,17 @@ public class PracticeWindowController {
 		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
 		versionChoice.getSelectionModel().selectFirst();
 	}
+
 	private void setListenerVersionChoice(Boolean toRemove) {
 		ChangeListener<Number> listen = new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-				//String version = versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
-				//int versionNum = Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
+				// String version =
+				// versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
+				// int versionNum =
+				// Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
 				int versionNum = observableValue.getValue().intValue() + 1;
-				if(versionNum <= 0) {
+				if (versionNum <= 0) {
 					versionNum = 1;
 				}
 				if (_playlist.get(_index).isBadRecording(versionNum)) {
@@ -95,28 +104,31 @@ public class PracticeWindowController {
 
 		}
 	}
-	
+
 	private void populateAttemptChoice() {
-		if (_index != 0) {
+		if (_index != 0 || !attemptChoice.getItems().isEmpty()) {
 			attemptChoice.getItems().clear();
 		}
-		attempts = getAttemptsFiles();
+		attempts = FXCollections.observableArrayList(getAttemptsFiles());
 		attemptChoice.getItems().addAll(attempts);
 		attemptChoice.getSelectionModel().selectFirst();
 	}
-	
+
 	private ArrayList<String> getAttemptsFiles() {
-		File attemptFolder = new File(System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName() + "_attempts");
+		File attemptFolder = new File(
+				System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName() + "_attempts");
 		File[] attemptFiles = attemptFolder.listFiles();
 		ArrayList<String> attemptPaths = new ArrayList<String>();
 		for (int i = 0; i < attemptFiles.length; i++) {
-			  if (attemptFiles[i].isFile()) {
-				    attemptPaths.add(attemptFiles[i].getAbsolutePath().substring(attemptFiles[i].getAbsolutePath().lastIndexOf('/') + 1) + " attempt");
-				  }
-				}
+			if (attemptFiles[i].isFile()) {
+				attemptPaths.add(attemptFiles[i].getAbsolutePath()
+						.substring(attemptFiles[i].getAbsolutePath().lastIndexOf('/') + 1) + " attempt");
+			}
+		}
 		return attemptPaths;
 
 	}
+
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
 		nameLabel.setFont(new Font("System", size));
@@ -142,9 +154,8 @@ public class PracticeWindowController {
 	public void makeRecording() {
 		Audio audio = new Audio();
 		audio.PWreference(this);
-		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
+		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml", attempts);
 	}
-
 
 	public void nextName() {
 		_index++;
@@ -178,9 +189,9 @@ public class PracticeWindowController {
 		return versionDir;
 	}
 
-	
-	public String getSelectedAttemptDirectory(){
-		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName() + attemptChoice.getSelectionModel().getSelectedItem();
+	public String getSelectedAttemptDirectory() {
+		String dir = System.getProperty("user.dir") + "/UserAttempts/" + _playlist.get(_index).getName()
+				+ attemptChoice.getSelectionModel().getSelectedItem();
 		System.out.println(dir);
 		return dir;
 	}
@@ -216,4 +227,7 @@ public class PracticeWindowController {
 		playAttempt();
 	}
 
+	public void refreshAttemptsChoiceBox() {
+		populateAttemptChoice();
+	}
 }
