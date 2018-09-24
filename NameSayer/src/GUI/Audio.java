@@ -66,7 +66,8 @@ public class Audio {
 
 	public void playRecording(String file) {
 		try {
-			String cmd = "ffplay -autoexit "+file+"";
+			System.out.println(file);
+			String cmd = "ffplay -autoexit "+ file;
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();

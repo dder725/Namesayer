@@ -131,7 +131,7 @@ public class DataBase {
 			 long time = date.getTime();
 			Timestamp timestamp = new Timestamp(time);
 			
-			 output = new BufferedWriter(new FileWriter("badRecordings.txt", true));
+			 output = new BufferedWriter(new FileWriter(System.getProperty("user.home") + "/NameSayer/badRecordings.txt", true));
 			 if(isBad) {
 				 output.append(dir + " MARKED as (Bad) at " + timestamp + System.lineSeparator());
 			 } else{
