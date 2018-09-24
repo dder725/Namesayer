@@ -18,6 +18,8 @@ public class RecordingWindowController {
 	private Name _name;
 	@FXML Text Label;
 	@FXML Button recordButton;
+	public PracticeWindowController _practiceWindow;
+	
 
 	public void startRecording() {
 		Audio audio = new Audio();
@@ -32,8 +34,9 @@ public class RecordingWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			RecordingOptionsController Practice = (RecordingOptionsController) loader.getController();
-			Practice.setName(_name);
+			RecordingOptionsController Options = (RecordingOptionsController) loader.getController();
+			Options.setName(_name);
+			Options.PWreference(_practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -61,5 +64,8 @@ public class RecordingWindowController {
 		_name = name;
 	}
 	
+	public void PWreference(PracticeWindowController pw) {
+		_practiceWindow=pw;
+	}
 
 }

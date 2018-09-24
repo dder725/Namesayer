@@ -12,14 +12,17 @@ import javafx.stage.Stage;
 
 public class Audio {
 
+	public PracticeWindowController _practiceWindow;
+	
 
 	public void setRecording(Name name) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			RecordingWindowController Practice = (RecordingWindowController) loader.getController();
-			Practice.setName(name);
+			RecordingWindowController recording = (RecordingWindowController) loader.getController();
+			recording.setName(name);
+			recording.PWreference(_practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -84,8 +87,11 @@ public class Audio {
 				e1.printStackTrace();
 			}
 		}
-		
-
+	}
+	
+	
+	public void PWreference(PracticeWindowController pw) {
+		_practiceWindow=pw;
 	}
 
 }
