@@ -26,7 +26,12 @@ public class RecordingWindowController {
 		audio.startRecording();
 		Stage stage = (Stage) Label.getScene().getWindow();
 		stage.close();
-		recordingOptions();
+		String inst = audio._inst;
+		if (inst.equals("Mic")) {
+			micTest();
+		}else if (inst.equals("Attempt")){
+			recordingOptions();
+		}
 	}
 
 	public void recordingOptions() {
@@ -60,6 +65,13 @@ public class RecordingWindowController {
 		}
 
 	}
+	
+	
+	public void micTest() {
+		
+	}
+	
+	
 	public void setName(Name name) {
 		_name = name;
 	}
