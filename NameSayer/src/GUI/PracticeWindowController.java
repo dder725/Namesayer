@@ -35,7 +35,8 @@ public class PracticeWindowController {
 	private Button nextName;
 	@FXML
 	private Button listen;
-
+	@FXML
+	private Button compare;
 	@FXML
 	private CheckBox badRecordingCheckBox;
 
@@ -113,6 +114,7 @@ public class PracticeWindowController {
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
+		compare.setDisable(true);
 		badRecordingCheckBox.setVisible(false);
 	}
 

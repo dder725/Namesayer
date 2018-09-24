@@ -19,7 +19,7 @@
         <buttons>
             <ChoiceBox fx:id="versionChoice" prefWidth="150.0" />
           <Button fx:id="listen" alignment="CENTER" mnemonicParsing="false" onAction="#playRecording" text="Listen" />
-            <Button mnemonicParsing="false" onAction="#compare" prefHeight="31.0" text="Compare" />
+            <Button fx:id="compare" mnemonicParsing="false" onAction="#compare" prefHeight="31.0" text="Compare" />
             <Button fx:id="makeRecording" alignment="CENTER" mnemonicParsing="false" onAction="#makeRecording" text="Make recording" />
             <ChoiceBox fx:id="attemptChoice" onDragDetected="#pastAttempts" prefWidth="150.0" />
         </buttons>
