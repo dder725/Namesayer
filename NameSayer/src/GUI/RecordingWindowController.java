@@ -33,6 +33,7 @@ public class RecordingWindowController {
 			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingOptionsController Practice = (RecordingOptionsController) loader.getController();
+			Practice.setName(_name);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();

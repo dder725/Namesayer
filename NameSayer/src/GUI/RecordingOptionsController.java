@@ -1,10 +1,14 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import application.Name;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -25,15 +29,11 @@ public class RecordingOptionsController {
 
 
 	public void saveRecording() {
-		System.out.print(_name.getName());
-		Date date = new Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		
+		int num = new File("UserAttempts/"+_name.getName()+"_attempts/").list().length +1;
 		try {
 			// need the cmd to be moving audio.wav into a file in current directory, attempts 
 			//directory, name folder, save under name_1.wav?
-			String cmd = "dir=$(pwd); mv \"audio.wav\" $dir/UserAttempts/"+_name.getName()+"_attempts;"
-					+ " cd UserAttempts/\"+name+\"_attempts; mv \"audio.wav\" "+_name.getName()+"_"+ts+"";
+			String cmd = "dir=$(pwd); mv \"audio.wav\" $dir/UserAttempts/"+_name.getName()+"_attempts/"+_name.getName()+"_"+num+"";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
@@ -43,6 +43,23 @@ public class RecordingOptionsController {
 			e1.printStackTrace();
 		}
 
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("SavedWindow.fxml"));
+			Parent content = (Parent) loader.load();
+			SavedWindowController Saved = loader.getController();
+
+			//Set name of new file
+			Saved.setLabel("Your recording has been saved as "+_name.getName()+"_"+num+"", 24);
+			Saved.ROwindowReference(closeButton);
+			
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
+		
+		
 	}
 
 	public void close() {
