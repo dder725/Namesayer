@@ -40,7 +40,7 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="179.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="nameLabel" alignment="BOTTOM_CENTER" prefHeight="162.0" prefWidth="120.0" text="Test" textAlignment="CENTER">
+                  <Label fx:id="nameLabel" alignment="BOTTOM_CENTER" prefHeight="177.0" prefWidth="600.0" text="Test" textAlignment="CENTER">
                      <font>
                         <Font size="66.0" />
                      </font>
