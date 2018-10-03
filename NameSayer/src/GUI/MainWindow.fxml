@@ -16,7 +16,7 @@
    <bottom>
       <ToolBar style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
         <items>
-            <JFXButton buttonType="RAISED" style="-fx-background-color: yellow;" text="Practice!" />
+            <JFXButton buttonType="RAISED" onAction="#practiceButton" style="-fx-background-color: yellow;" text="Practice!" />
             <JFXButton buttonType="RAISED" style="-fx-background-color: darkseagreen;" text="Upload" />
             <JFXButton text="Help" />
         </items>
