@@ -39,9 +39,9 @@
       </HBox>
    </top>
    <right>
-      <JFXListView fx:id="namesListView" prefHeight="721.0" prefWidth="303.0" BorderPane.alignment="CENTER" />
+      <JFXListView fx:id="namesListView" onMouseClicked="#setupDoubleClickAdd" prefHeight="721.0" prefWidth="303.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <JFXListView fx:id="playlistView" BorderPane.alignment="CENTER" />
+      <JFXListView fx:id="playlistView" onMouseClicked="#setupDoubleClickRemove" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
