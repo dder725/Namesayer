@@ -27,11 +27,10 @@ public class Main extends Application {
 
 			BorderPane root = new BorderPane();
 			root.getChildren().add(p);
-			Scene scene = new Scene(root,726,573);
+			Scene scene = new Scene(root, 700, 800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Name Sayer");
-			primaryStage.setResizable(false);
 			primaryStage.show();
 			
 		} catch(Exception e) {

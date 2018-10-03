@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import com.jfoenix.controls.JFXListView;
+
 import application.DataBase;
 import application.Name;
 import javafx.application.Application;
@@ -29,15 +31,16 @@ public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
 	private ObservableList<Name> _playlist = FXCollections.observableArrayList();
 	@FXML
-	private ListView<Name> playlistView;
-
+	private JFXListView<Name> playlistView;
+	
 	@FXML
-	private ListView<Name> namesListView;
+	private JFXListView<Name> namesListView;
 
 	public void populateTableView() {
 		namesListView.setItems(_namesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
+		
 
 		FXCollections.sort(_namesList, new Comparator<Name>() {
 			@Override
