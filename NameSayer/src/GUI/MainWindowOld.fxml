@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="573.0" prefWidth="726.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MainWindowController">
+   <children>
+      <SplitPane dividerPositions="0.42265193370165743" prefHeight="573.0" prefWidth="726.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="294.0">
+               <children>
+                  <TitledPane animated="false" prefHeight="571.0" prefWidth="302.0" text="Choose the names you want to practice">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="namesListView" onMouseClicked="#setupDoubleClickAdd" prefHeight="551.0" prefWidth="302.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="242.0">
+               <children>
+                  <TitledPane animated="false" layoutX="132.0" prefHeight="510.0" prefWidth="283.0" text="Playlist">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="playlistView" onMouseClicked="#setupDoubleClickRemove" prefHeight="486.0" prefWidth="284.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <VBox layoutY="222.0" prefHeight="3.0" prefWidth="131.0">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addToPractice" prefHeight="28.0" prefWidth="131.0" text="Add to &gt;&gt;" />
+                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeFromPractice" prefHeight="28.0" prefWidth="131.0" text="Remove &lt;&lt;" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#micTest" prefHeight="28.0" prefWidth="131.0" text="Mic Test" />
+                     </children>
+                  </VBox>
+                  <ButtonBar layoutX="97.0" layoutY="510.0" prefHeight="59.0" prefWidth="317.0">
+                    <buttons>
+                      <Button mnemonicParsing="false" onAction="#practiceButton" text="Practise" />
+                        <Button mnemonicParsing="false" onAction="#randomiseList" text="Randomise" />
+                        <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
