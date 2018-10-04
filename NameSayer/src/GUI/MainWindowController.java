@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -193,10 +194,20 @@ public class MainWindowController {
 	}
 	
 	public void upload() {
+		//Restrict file search to .txt files only
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		
 		Stage stage = new Stage();
 		FileChooser fileChooser = new FileChooser();
+		
+		//Set NameSayer directory as initial directory
+		File file = new File(System.getProperty("user.home") + "/NameSayer");
+		fileChooser.setInitialDirectory(file);
+		
+		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Open Resource File");
-		fileChooser.showOpenDialog(stage);
+		File nameList = fileChooser.showOpenDialog(stage);
+		System.out.println(nameList.getAbsolutePath());
 	}
 
 }
