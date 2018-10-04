@@ -2,10 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,16 +17,16 @@
    <bottom>
       <ToolBar style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
         <items>
-            <JFXButton buttonType="RAISED" onAction="#practiceButton" style="-fx-background-color: yellow;" text="Practice!" />
-            <JFXButton buttonType="RAISED" style="-fx-background-color: darkseagreen;" text="Upload" />
+            <JFXButton buttonType="RAISED" onAction="#practiceButton" ripplerFill="#bfbfbf" style="-fx-background-color: yellow;" text="Practice!" />
+            <JFXButton buttonType="RAISED" onAction="#upload" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload" />
             <JFXButton text="Help" />
         </items>
       </ToolBar>
    </bottom>
    <top>
-      <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;">
+      <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="700.0" style="-fx-background-color: mediumseagreen;">
          <children>
-            <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="274.0" text="Search for a name" />
+            <JFXTextField fx:id="searchBox" alignment="CENTER_RIGHT" labelFloat="true" prefHeight="26.0" prefWidth="261.0" promptText="Search for name" style="-fx-background-color: white;" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="2.0" visible="false" />
             <FontAwesomeIconView glyphName="SEARCH" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="0.0" visible="false" />
@@ -49,13 +49,13 @@
                   <Text fx:id="currentNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="John Doe" textAlignment="CENTER" wrappingWidth="261.7294921875" />
                   <VBox prefHeight="52.0" prefWidth="142.0">
                      <children>
-                        <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: darkseagreen;" text="Add to playlist!" />
-                        <JFXButton fx:id="clear" prefHeight="26.0" prefWidth="162.0" text="Clear" />
+                        <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" ripplerFill="#bfbfbf" style="-fx-background-color: lawngreen;" text="Add to playlist" />
+                        <JFXButton fx:id="clear" onAction="#clear" prefHeight="26.0" prefWidth="162.0" style="-fx-background-color: white;" text="Clear" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <JFXListView fx:id="playlistView" prefHeight="698.0" prefWidth="397.0" />
+            <JFXListView fx:id="playlistView" onMouseClicked="#setupDoubleClickRemove" prefHeight="698.0" prefWidth="397.0" />
          </children>
       </VBox>
    </center>

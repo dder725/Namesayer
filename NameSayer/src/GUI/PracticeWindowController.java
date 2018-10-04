@@ -28,7 +28,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class PracticeWindowController {
-	private ObservableList<Name> _playlist;
+	private ObservableList<ArrayList<Name>> _playlist;
 	private ObservableList<String> attempts;
 	private Integer _index = 0;
 
@@ -49,17 +49,17 @@ public class PracticeWindowController {
 	@FXML
 	private CheckBox badRecordingCheckBox;
 
-	public void setPlaylist(ObservableList<Name> playlist) {
+	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
 
 		populateVersionChoice();
 		setListenerVersionChoice(false);
-		setNameLabel(_playlist.get(0).getName(), 66);
+		setNameLabel(_playlist.get(0).get(0).getName(), 66);
 
 		populateAttemptChoice();
 		
 		// Check if the first name in the playlist is a bad recording
-		setBadRecordingCheckbox(_playlist.get(_index));
+		setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
 
 	private void setBadRecordingCheckbox(Name name) {

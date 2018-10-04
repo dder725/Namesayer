@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import javax.swing.JFileChooser;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import application.DataBase;
 import application.Name;
@@ -23,23 +29,41 @@ import javafx.scene.input.MouseEvent;
 
 public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
-	private ObservableList<ArrayList<Name>> _playlist = FXCollections
-			.observableArrayList();
+	private ObservableList<ArrayList<Name>> _playlist = FXCollections.observableArrayList();
 	private ObservableList<Name> _currentName = FXCollections.observableArrayList();
+	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
-	@FXML private Text currentNameText;
+	@FXML
+	private Text currentNameText;
 
-	@FXML private JFXListView<Name> namesListView;
+	@FXML
+	private JFXListView<Name> namesListView;
 
-	@FXML private JFXListView<ArrayList<Name>> playlistView;
-	
-	@FXML private JFXButton add, clear;
+	@FXML
+	private JFXListView<ArrayList<Name>> playlistView;
+
+	@FXML
+	private JFXButton add, clear;
+
+	@FXML
+	private JFXTextField searchBox;
 
 	public void populateTableView() {
-		namesListView.setItems(_namesList);
+		namesListView.setItems(_filteredNamesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
-		
+
+		// Filter the list
+		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
+			String text = searchBox.getText();
+			if (text == null || text.isEmpty()) {
+				return null;
+			} else {
+				final String uppercase = text.toUpperCase();
+				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
+			}
+		}, searchBox.textProperty()));
+
 		currentNameText.setText("Choose names from the database");
 		// Implement sort method here
 		// FXCollections.sort(_namesList, new Comparator<Name>() {
@@ -53,7 +77,7 @@ public class MainWindowController {
 	public void addToName() {
 		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
 		String name = new String();
-		for(Name item : _currentName) {
+		for (Name item : _currentName) {
 			name += item.getName() + " ";
 		}
 		currentNameText.setText(name);
@@ -91,7 +115,7 @@ public class MainWindowController {
 	}
 
 	public void clear() {
-		_playlist.clear();
+		_currentName.clear();
 	}
 
 	public void practiceButton() {
@@ -123,9 +147,9 @@ public class MainWindowController {
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
 
-			// CHANGE THIS
-			// Pass the playlist to the practice window
-			// Practice.setPlaylist(_playlist);
+			//CHANGE THIS
+			//Pass the playlist to the practice window
+			Practice.setPlaylist(_playlist);
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
@@ -142,14 +166,37 @@ public class MainWindowController {
 		Audio audio = new Audio();
 		audio.setRecording(_namesList.get(0), "MicTestWindow.fxml");
 	}
-	
+
 	public void addToPlaylist() {
-		System.out.println(_currentName);
-		ArrayList<Name> currentNames = new ArrayList<Name>();
-		currentNames.addAll(_currentName);
-		_playlist.add(currentNames);
+		if (_playlist.contains(_currentName)) {
+			ErrorDialog.showError("This name is already in the playlist");
+		} else {
+
+			// Display the name in a formatted way in the table by overriding toString()
+			// method
+			ArrayList<Name> currentNames = new ArrayList<Name>() {
+				@Override
+				public String toString() {
+					String nameString = new String();
+					for (Name name : this) {
+						nameString += name.getName() + " ";
+					}
+					;
+					return nameString;
+				}
+			};
+			currentNames.addAll(_currentName);
+			_playlist.add(currentNames);
+		}
 		_currentName.clear();
 		currentNameText.setText("Choose names from the database");
+	}
+	
+	public void upload() {
+		Stage stage = new Stage();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.showOpenDialog(stage);
 	}
 
 }
