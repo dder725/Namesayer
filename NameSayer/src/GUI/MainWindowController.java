@@ -26,36 +26,41 @@ import javafx.scene.input.MouseEvent;
 
 public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
-	private ObservableList<ArrayList<Name>> _playlist = FXCollections
-			.observableArrayList();
+	private ObservableList<ArrayList<Name>> _playlist = FXCollections.observableArrayList();
 	private ObservableList<Name> _currentName = FXCollections.observableArrayList();
-	FilteredList<Name> _filteredNamesList= new FilteredList<>(_namesList, data -> true);
-	
-	@FXML private Text currentNameText;
+	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
-	@FXML private JFXListView<Name> namesListView;
+	@FXML
+	private Text currentNameText;
 
-	@FXML private JFXListView<ArrayList<Name>> playlistView;
-	
-	@FXML private JFXButton add, clear;
-	
-	@FXML private JFXTextField searchBox;
+	@FXML
+	private JFXListView<Name> namesListView;
+
+	@FXML
+	private JFXListView<ArrayList<Name>> playlistView;
+
+	@FXML
+	private JFXButton add, clear;
+
+	@FXML
+	private JFXTextField searchBox;
 
 	public void populateTableView() {
 		namesListView.setItems(_filteredNamesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
-		
+
+		// Filter the list
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
-	        String text = searchBox.getText();
-	        if (text == null || text.isEmpty()) {
-	            return null;
-	        } else {
-	            final String uppercase = text.toUpperCase();
-	            return (Name) -> Name.getName().toUpperCase().contains(uppercase);
-	        }
-	    }, searchBox.textProperty()));
-		
+			String text = searchBox.getText();
+			if (text == null || text.isEmpty()) {
+				return null;
+			} else {
+				final String uppercase = text.toUpperCase();
+				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
+			}
+		}, searchBox.textProperty()));
+
 		currentNameText.setText("Choose names from the database");
 		// Implement sort method here
 		// FXCollections.sort(_namesList, new Comparator<Name>() {
@@ -69,7 +74,7 @@ public class MainWindowController {
 	public void addToName() {
 		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
 		String name = new String();
-		for(Name item : _currentName) {
+		for (Name item : _currentName) {
 			name += item.getName() + " ";
 		}
 		currentNameText.setText(name);
@@ -158,22 +163,28 @@ public class MainWindowController {
 		Audio audio = new Audio();
 		audio.setRecording(_namesList.get(0), "MicTestWindow.fxml");
 	}
-	
+
 	public void addToPlaylist() {
-		System.out.println(_currentName);
-		
-		//Display the name in a formatted way in the table by overriding toString() method
-		ArrayList<Name> currentNames = new ArrayList<Name>() {
-			@Override 
-			public String toString(){
-				String nameString = new String();
-				for(Name name : this) {
-					nameString += name.getName() + " ";
-				};
-				return nameString;
-		}};
-		currentNames.addAll(_currentName);
-		_playlist.add(currentNames);
+		if (_playlist.contains(_currentName)) {
+			ErrorDialog.showError("This name is already in the playlist");
+		} else {
+
+			// Display the name in a formatted way in the table by overriding toString()
+			// method
+			ArrayList<Name> currentNames = new ArrayList<Name>() {
+				@Override
+				public String toString() {
+					String nameString = new String();
+					for (Name name : this) {
+						nameString += name.getName() + " ";
+					}
+					;
+					return nameString;
+				}
+			};
+			currentNames.addAll(_currentName);
+			_playlist.add(currentNames);
+		}
 		_currentName.clear();
 		currentNameText.setText("Choose names from the database");
 	}
