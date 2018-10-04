@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
@@ -26,7 +29,8 @@ public class MainWindowController {
 	private ObservableList<ArrayList<Name>> _playlist = FXCollections
 			.observableArrayList();
 	private ObservableList<Name> _currentName = FXCollections.observableArrayList();
-
+	FilteredList<Name> _filteredNamesList= new FilteredList<>(_namesList, data -> true);
+	
 	@FXML private Text currentNameText;
 
 	@FXML private JFXListView<Name> namesListView;
@@ -34,11 +38,23 @@ public class MainWindowController {
 	@FXML private JFXListView<ArrayList<Name>> playlistView;
 	
 	@FXML private JFXButton add, clear;
+	
+	@FXML private JFXTextField searchBox;
 
 	public void populateTableView() {
-		namesListView.setItems(_namesList);
+		namesListView.setItems(_filteredNamesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
+		
+		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
+	        String text = searchBox.getText();
+	        if (text == null || text.isEmpty()) {
+	            return null;
+	        } else {
+	            final String uppercase = text.toUpperCase();
+	            return (Name) -> Name.getName().toUpperCase().contains(uppercase);
+	        }
+	    }, searchBox.textProperty()));
 		
 		currentNameText.setText("Choose names from the database");
 		// Implement sort method here
