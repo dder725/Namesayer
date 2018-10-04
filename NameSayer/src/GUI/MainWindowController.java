@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import javax.swing.JFileChooser;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -15,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import application.DataBase;
 import application.Name;
@@ -144,9 +147,9 @@ public class MainWindowController {
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
 
-			// CHANGE THIS
-			// Pass the playlist to the practice window
-			// Practice.setPlaylist(_playlist);
+			//CHANGE THIS
+			//Pass the playlist to the practice window
+			Practice.setPlaylist(_playlist);
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
@@ -187,6 +190,13 @@ public class MainWindowController {
 		}
 		_currentName.clear();
 		currentNameText.setText("Choose names from the database");
+	}
+	
+	public void upload() {
+		Stage stage = new Stage();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.showOpenDialog(stage);
 	}
 
 }

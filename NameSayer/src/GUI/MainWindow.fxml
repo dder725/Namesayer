@@ -18,7 +18,7 @@
       <ToolBar style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
         <items>
             <JFXButton buttonType="RAISED" onAction="#practiceButton" ripplerFill="#bfbfbf" style="-fx-background-color: yellow;" text="Practice!" />
-            <JFXButton buttonType="RAISED" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload" />
+            <JFXButton buttonType="RAISED" onAction="#upload" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload" />
             <JFXButton text="Help" />
         </items>
       </ToolBar>
