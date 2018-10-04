@@ -2,62 +2,61 @@ package GUI;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-
-import application.DataBase;
-import application.Name;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import application.DataBase;
+import application.Name;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
-	private ObservableList<Name> _playlist = FXCollections.observableArrayList();
-	@FXML
-	private JFXListView<Name> playlistView;
+	private ObservableList<ArrayList<Name>> _playlist = FXCollections
+			.observableArrayList();
+	private ObservableList<Name> _currentName = FXCollections.observableArrayList();
+
+	@FXML private Text currentNameText;
+
+	@FXML private JFXListView<Name> namesListView;
+
+	@FXML private JFXListView<ArrayList<Name>> playlistView;
 	
-	@FXML
-	private JFXListView<Name> namesListView;
+	@FXML private JFXButton add, clear;
 
 	public void populateTableView() {
 		namesListView.setItems(_namesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
 		
-
-		FXCollections.sort(_namesList, new Comparator<Name>() {
-			@Override
-			public int compare(final Name object1, final Name object2) {
-				return object1.getName().compareTo(object2.getName());
-			}
-		});
+		currentNameText.setText("Choose names from the database");
+		// Implement sort method here
+		// FXCollections.sort(_namesList, new Comparator<Name>() {
+		// @Override
+		// public int compare(final Name object1, final Name object2) {
+		// return object1.getName().compareTo(object2.getName());
+		// }
+		// });
 	}
 
-	public void addToPractice() {
-
-		// Cannot add a name which is already in the practice list
-		if (_playlist.contains(namesListView.getSelectionModel().getSelectedItem())) {
-			ErrorDialog.showError("This name is already in the list");
-		} else {
-			_playlist.add(namesListView.getSelectionModel().getSelectedItem());
+	public void addToName() {
+		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
+		String name = new String();
+		for(Name item : _currentName) {
+			name += item.getName() + " ";
 		}
+		currentNameText.setText(name);
 	}
 
 	// Add a name from the database to the playlist on doubleclick
@@ -66,16 +65,17 @@ public class MainWindowController {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.getClickCount() == 2) {
-					addToPractice();
+					addToName();
 				}
 			}
 		});
 	}
 
 	public void removeFromPractice() {
-		if(!_playlist.isEmpty()) {
-		_playlist.remove(playlistView.getSelectionModel().getSelectedIndex());
-		};
+		if (!_playlist.isEmpty()) {
+			_playlist.remove(playlistView.getSelectionModel().getSelectedIndex());
+		}
+		;
 	}
 
 	// Remove a name from the playlist on double click
@@ -108,24 +108,25 @@ public class MainWindowController {
 			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			NoNamesController Practice = (NoNamesController) loader.getController();
-			
+
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
 		} catch (IOException e) {
 		}
 	}
-	
-	public void practiceWindow() {		
+
+	public void practiceWindow() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
 
-			//Pass the playlist to the practice window
-			Practice.setPlaylist(_playlist);
-			
+			// CHANGE THIS
+			// Pass the playlist to the practice window
+			// Practice.setPlaylist(_playlist);
+
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -140,6 +141,15 @@ public class MainWindowController {
 	public void micTest() {
 		Audio audio = new Audio();
 		audio.setRecording(_namesList.get(0), "MicTestWindow.fxml");
+	}
+	
+	public void addToPlaylist() {
+		System.out.println(_currentName);
+		ArrayList<Name> currentNames = new ArrayList<Name>();
+		currentNames.addAll(_currentName);
+		_playlist.add(currentNames);
+		_currentName.clear();
+		currentNameText.setText("Choose names from the database");
 	}
 
 }
