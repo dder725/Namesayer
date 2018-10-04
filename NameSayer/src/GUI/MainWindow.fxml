@@ -9,8 +9,9 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainWindowController">
    <bottom>
@@ -28,13 +29,12 @@
             <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="274.0" text="Search for a name" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="2.0" visible="false" />
             <FontAwesomeIconView glyphName="SEARCH" />
-            <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="232.0" visible="false" />
-            <Label alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="148.0" text="Playlist">
+            <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="0.0" visible="false" />
+            <Label alignment="CENTER" prefHeight="24.0" prefWidth="388.0" text="Playlist" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="18.0" visible="false" />
          </children>
       </HBox>
    </top>
@@ -42,6 +42,21 @@
       <JFXListView fx:id="namesListView" onMouseClicked="#setupDoubleClickAdd" prefHeight="721.0" prefWidth="303.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <JFXListView fx:id="playlistView" onMouseClicked="#setupDoubleClickRemove" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="38.0" prefWidth="397.0">
+               <children>
+                  <Text fx:id="currentNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="John Doe" textAlignment="CENTER" wrappingWidth="261.7294921875" />
+                  <VBox prefHeight="52.0" prefWidth="142.0">
+                     <children>
+                        <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: darkseagreen;" text="Add to playlist!" />
+                        <JFXButton fx:id="clear" prefHeight="26.0" prefWidth="162.0" text="Clear" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <JFXListView fx:id="playlistView" prefHeight="698.0" prefWidth="397.0" />
+         </children>
+      </VBox>
    </center>
 </BorderPane>
