@@ -91,7 +91,7 @@ public class MainWindowController {
 	}
 
 	public void clear() {
-		_playlist.clear();
+		_currentName.clear();
 	}
 
 	public void practiceButton() {
@@ -145,7 +145,17 @@ public class MainWindowController {
 	
 	public void addToPlaylist() {
 		System.out.println(_currentName);
-		ArrayList<Name> currentNames = new ArrayList<Name>();
+		
+		//Display the name in a formatted way in the table by overriding toString() method
+		ArrayList<Name> currentNames = new ArrayList<Name>() {
+			@Override 
+			public String toString(){
+				String nameString = new String();
+				for(Name name : this) {
+					nameString += name.getName() + " ";
+				};
+				return nameString;
+		}};
 		currentNames.addAll(_currentName);
 		_playlist.add(currentNames);
 		_currentName.clear();

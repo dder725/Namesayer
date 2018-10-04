@@ -26,7 +26,7 @@
    <top>
       <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;">
          <children>
-            <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="274.0" text="Search for a name" />
+            <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="274.0" promptText="Search for a name" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="2.0" visible="false" />
             <FontAwesomeIconView glyphName="SEARCH" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="0.0" visible="false" />
@@ -50,7 +50,7 @@
                   <VBox prefHeight="52.0" prefWidth="142.0">
                      <children>
                         <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: darkseagreen;" text="Add to playlist!" />
-                        <JFXButton fx:id="clear" prefHeight="26.0" prefWidth="162.0" text="Clear" />
+                        <JFXButton fx:id="clear" onAction="#clear" prefHeight="26.0" prefWidth="162.0" text="Clear" />
                      </children>
                   </VBox>
                </children>
