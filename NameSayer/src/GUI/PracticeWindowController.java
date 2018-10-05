@@ -52,14 +52,21 @@ public class PracticeWindowController {
 	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
 
-		populateVersionChoice();
-		setListenerVersionChoice(false);
-		setNameLabel(_playlist.get(0).get(0).getName(), 66);
-
-		populateAttemptChoice();
+		//populateVersionChoice();
+		//setListenerVersionChoice(false);
+		String fullName = "";
+		
+		for(int i=0; i<_playlist.get(0).size(); i++) {
+			String name = _playlist.get(0).get(i).getName();
+			fullName= fullName +" "+ name; 
+		}
+		
+		setNameLabel(fullName, 66);
+		
+		//populateAttemptChoice();
 		
 		// Check if the first name in the playlist is a bad recording
-		setBadRecordingCheckbox(_playlist.get(_index).get(0));
+		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
 
 	private void setBadRecordingCheckbox(Name name) {
@@ -70,13 +77,13 @@ public class PracticeWindowController {
 		}
 	}
 
-	private void populateVersionChoice() {
-		if (_index != 0) {
-			versionChoice.getItems().clear();
-		}
-		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
-		versionChoice.getSelectionModel().selectFirst();
-	}
+//	private void populateVersionChoice() {
+//		if (_index != 0) {
+//			versionChoice.getItems().clear();
+//		}
+//		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
+//		versionChoice.getSelectionModel().selectFirst();
+//	}
 
 	private void setListenerVersionChoice(Boolean toRemove) {
 		ChangeListener<Number> listen = new ChangeListener<Number>() {
