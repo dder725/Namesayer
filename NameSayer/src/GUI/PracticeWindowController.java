@@ -72,9 +72,15 @@ public class PracticeWindowController {
 		audio.PWreference(this);
 		String fullName = _playlist.get(_index).toString();
 		System.out.println(fullName);
-		//audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
+		audio.setRecording(fullName, "RecordingOptionsWindow.fxml");
 	}
 
+	public void compare() {
+		// Plays official recording from database
+		playRecording();
+		// Plays user recording
+	}
+	
 	public void nextName() {
 		File file = new File("output.wav");
 		file.delete();
@@ -165,7 +171,7 @@ public class PracticeWindowController {
 	public String getSelectedRecordingDirectory() {
 		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
 		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-		String versionDir = _playlist.get(_index).getRecordingDir(numOfVersion);
+		String versionDir = _playlist.get(_index).get(0).getRecordingDir(numOfVersion);
 
 		return versionDir;
 	}
@@ -193,13 +199,6 @@ public class PracticeWindowController {
 	public String getCurrentVersion() {
 		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
 		return version;
-	}
-
-	public void compare() {
-		// Plays official recording from database
-		playRecording();
-		// Plays recording from attempts list
-		playAttempt();
 	}
 
 	public void refreshAttemptsChoiceBox() {

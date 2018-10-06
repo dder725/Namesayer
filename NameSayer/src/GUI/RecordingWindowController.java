@@ -68,11 +68,6 @@ public class RecordingWindowController {
 
 	}
 
-
-	public void setName(Name name) {
-		_name = name;
-	}
-
 	public void PWreference(PracticeWindowController pw) {
 		_practiceWindow=pw;
 	}

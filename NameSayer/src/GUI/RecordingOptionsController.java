@@ -28,41 +28,6 @@ public class RecordingOptionsController {
 		_practiceWindow.makeRecording();
 	}
 
-
-	public void saveRecording() {
-		int num = new File(System.getProperty("user.home") + "/NameSayer/UserAttempts/"+_name.getName()+"_attempts/").list().length +1;
-		try {
-			// need the cmd to be moving audio.wav into a file in current directory, attempts 
-			//directory, name folder, save under name_1.wav?
-			String cmd = "dir=$(pwd); mv \"audio.wav\" $HOME/NameSayer/UserAttempts/"+_name.getName()+"_attempts/"+_name.getName()+"_"+num+"";
-			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-			Process process = builder.start();
-			process.waitFor();
-		} catch (IOException E) {
-			E.printStackTrace();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("SavedWindow.fxml"));
-			Parent content = (Parent) loader.load();
-			SavedWindowController Saved = loader.getController();
-
-			//Set name of new file
-			Saved.setLabel("Your recording has been saved as "+_name.getName()+"_"+num+"", 24);
-			Saved.ROwindowReference(closeButton);
-			
-			Stage stage = new Stage();
-			stage.setScene(new Scene(content));
-			stage.show();
-		} catch (IOException e) {
-		}
-		
-		
-	}
-
 	public void close() {
 		try {
 			String cmd = "rm \"audio.wav\"";

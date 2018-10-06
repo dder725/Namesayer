@@ -22,14 +22,13 @@ public class Audio {
 	public PracticeWindowController _practiceWindow;
 	public String _window;
 
-	public void setRecording(Name name, String window) {
+	public void setRecording(String name, String window) {
 		_window=window;
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingWindowController recording = (RecordingWindowController) loader.getController();
-			recording.setName(name);
 			recording.PWreference(_practiceWindow);
 			recording.setWindow(window);
 			Stage stage = new Stage();
@@ -70,7 +69,6 @@ public class Audio {
 
 	}
 
-
 	public void playRecording(ArrayList<Name> name) {
 		mergePlay();
 		try {
@@ -83,10 +81,21 @@ public class Audio {
 			E.printStackTrace();
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
-		}
-			
+		}		
 	}
 
+	public void playRecording(String path) {
+		try {
+			String cmd = "ffplay -autoexit audio.wav";
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			process.waitFor();
+		} catch (IOException E) {
+			E.printStackTrace();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}		
+	}
 	
 	public void setVariables(ArrayList<Name> names) {
 		_numFiles = names.size();
