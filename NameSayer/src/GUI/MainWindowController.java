@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import application.DataBase;
 import application.Name;
 
@@ -155,6 +156,12 @@ public class MainWindowController {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					File file = new File("output.wav");
+					file.delete();
+				}
+			});  
 		} catch (IOException e) {
 		}
 	}

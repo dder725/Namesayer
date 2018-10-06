@@ -10,6 +10,8 @@ import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXButton;
+
 import application.Name;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -36,37 +38,64 @@ public class PracticeWindowController {
 	private Label nameLabel;
 
 	@FXML
-	private ChoiceBox<String> versionChoice, attemptChoice;
+	private ChoiceBox<String> versionChoice;
 
 	@FXML
-	private Button makeRecording;
+	private JFXButton makeRecording;
 	@FXML
-	private Button nextName;
+	private JFXButton nextName;
 	@FXML
-	private Button listen;
+	private JFXButton listen;
 	@FXML
-	private Button compare;
+	private JFXButton compare;
 	@FXML
 	private CheckBox badRecordingCheckBox;
 
 	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
-
 		//populateVersionChoice();
 		//setListenerVersionChoice(false);
-		String fullName = "";
-		
-		for(int i=0; i<_playlist.get(0).size(); i++) {
-			String name = _playlist.get(0).get(i).getName();
-			fullName= fullName +" "+ name; 
-		}
-		
-		setNameLabel(fullName, 66);
-		
+		setLabel();
 		//populateAttemptChoice();
-		
 		// Check if the first name in the playlist is a bad recording
 		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
+	}
+	
+	public void playRecording() {
+		Audio audio = new Audio();
+		audio.setVariables(_playlist.get(_index));
+		audio.playRecording(_playlist.get(_index));
+	}
+
+	public void makeRecording() {
+		Audio audio = new Audio();
+		audio.PWreference(this);
+		String fullName = _playlist.get(_index).toString();
+		System.out.println(fullName);
+		//audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
+	}
+
+	public void nextName() {
+		File file = new File("output.wav");
+		file.delete();
+		_index++;
+		if (_index <= _playlist.size() - 1) {
+//			populateVersionChoice();
+//			setBadRecordingCheckbox(_playlist.get(_index));
+			setLabel();
+		} else {
+			setNameLabel("Congratulations! \n You finished this practice!", 30);
+			disableOptions();
+		};
+	}
+
+	public void setLabel() {
+		String fullName = "";
+		for(int i=0; i<_playlist.get(_index).size(); i++) {
+			String name = _playlist.get(_index).get(i).getName();
+			fullName= fullName +" "+ name; 
+		}
+		setNameLabel(fullName, 66);
 	}
 
 	private void setBadRecordingCheckbox(Name name) {
@@ -123,41 +152,9 @@ public class PracticeWindowController {
 		return name;
 	}
 
-	public void playRecording() {
-		Audio audio = new Audio();
-		audio.setVariables(_playlist.get(0));
-		audio.playRecording(_playlist.get(0));
-	}
-
-	public void playAttempt() {
-		String path = getSelectedAttemptDirectory();
-		Audio audio = new Audio();
-		audio.playRecording(path);
-	}
-
-	public void makeRecording() {
-		Audio audio = new Audio();
-		audio.PWreference(this);
-		audio.setRecording(_playlist.get(_index), "RecordingOptionsWindow.fxml");
-	}
-
-	public void nextName() {
-		_index++;
-		if (_index <= _playlist.size() - 1) {
-			populateVersionChoice();
-			populateAttemptChoice();
-			setBadRecordingCheckbox(_playlist.get(_index));
-			setNameLabel(_playlist.get(_index).getName(), 66);
-		} else {
-			setNameLabel("Congratulations! \n You finished this practice!", 30);
-			disableOptions();
-		}
-		;
-	}
-
+	
 	private void disableOptions() {
 		versionChoice.setDisable(true);
-		attemptChoice.setDisable(true);
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
@@ -173,11 +170,6 @@ public class PracticeWindowController {
 		return versionDir;
 	}
 
-	public String getSelectedAttemptDirectory() {
-		String dir = System.getProperty("user.home") + "/NameSayer/UserAttempts/" + _playlist.get(_index).getName()+"_attempts/"
-				+ attemptChoice.getSelectionModel().getSelectedItem();
-		return dir;
-	}
 
 	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
@@ -213,4 +205,5 @@ public class PracticeWindowController {
 	public void refreshAttemptsChoiceBox() {
 		populateAttemptChoice();
 	}
+	
 }

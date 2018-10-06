@@ -46,8 +46,8 @@
          <children>
             <JFXButton fx:id="listen" layoutX="14.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" onAction="#playRecording" text="Listen" />
             <JFXButton fx:id="compare" layoutX="158.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Compare" />
-            <JFXButton fx:id="makeRecording" layoutX="307.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Make recording" />
-            <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Next name" />
+            <JFXButton fx:id="makeRecording" layoutX="307.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" onAction="#makeRecording" text="Make recording" />
+            <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" onAction="#nextName" text="Next name" />
          </children></Pane>
    </bottom>
 </BorderPane>

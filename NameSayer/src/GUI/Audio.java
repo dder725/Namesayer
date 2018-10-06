@@ -90,13 +90,10 @@ public class Audio {
 	
 	public void setVariables(ArrayList<Name> names) {
 		_numFiles = names.size();
-		//adding the name Catherine Watson to play as an example
-		_directories.add("/home/tia/assignment_3/SOFTENG206-Assignment3/NameSayer/names/CATHERINE_1");
-		_directories.add("/home/tia/assignment_3/SOFTENG206-Assignment3/NameSayer/names/WATSON_1");
 		for (int i=0; i<_numFiles; i++) {
-			//Need to get recording directory, then can add the path to _directories
-			String dir = names.get(0).getRecordingDir(0);
-			//_directories.add(dir);
+			//Currently using version 1 but can change when we incorporate other versions
+			String dir = names.get(i).getRecordingDir(1);
+			_directories.add(dir);
 			System.out.println(dir);
 		}
 	}
