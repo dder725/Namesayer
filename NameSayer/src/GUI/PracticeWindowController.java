@@ -112,29 +112,6 @@ public class PracticeWindowController {
 		}
 	}
 
-	private void populateAttemptChoice() {
-		if (_index != 0 || !attemptChoice.getItems().isEmpty()) {
-			attemptChoice.getItems().clear();
-		}
-		attempts = FXCollections.observableArrayList(getAttemptsFiles());
-		attemptChoice.getItems().addAll(attempts);
-		attemptChoice.getSelectionModel().selectFirst();
-	}
-
-	private ArrayList<String> getAttemptsFiles() {
-		File attemptFolder = new File(
-				System.getProperty("user.home") + "/NameSayer/UserAttempts/" + _playlist.get(_index).getName() + "_attempts");
-		File[] attemptFiles = attemptFolder.listFiles();
-		ArrayList<String> attemptPaths = new ArrayList<String>();
-		for (int i = 0; i < attemptFiles.length; i++) {
-			if (attemptFiles[i].isFile()) {
-				attemptPaths.add(attemptFiles[i].getAbsolutePath()
-						.substring(attemptFiles[i].getAbsolutePath().lastIndexOf('/') + 1));
-			}
-		}
-		return attemptPaths;
-
-	}
 
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
@@ -147,9 +124,9 @@ public class PracticeWindowController {
 	}
 
 	public void playRecording() {
-		String path = getSelectedRecordingDirectory();
 		Audio audio = new Audio();
-		audio.playRecording(path);
+		audio.setVariables(_playlist.get(0));
+		audio.playRecording(_playlist.get(0));
 	}
 
 	public void playAttempt() {
