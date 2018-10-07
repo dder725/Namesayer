@@ -219,8 +219,10 @@ public class MainWindowController {
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
 		NamesListReader reader = new NamesListReader(nameList);
-		ArrayList<ArrayList<String>> names = reader.getListedNames();
-		System.out.println(nameList.getAbsolutePath());
+		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
+		System.out.println(names);
+		_playlist.addAll(names);
+		
 	}
 
 }

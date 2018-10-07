@@ -41,12 +41,14 @@ public class Name {
 	public String getRecordingDir(int num) {
 		return _recordingsDir.get(num);
 	}
+
 	private void updateRecordingDir(int num, String dir) {
 		_recordingsDir.put(num, dir);
 	}
+
 	public Boolean isBadRecording(int num) {
 		int tagIndex = getRecordingDir(num).lastIndexOf("(Bad)");
-		if(tagIndex != -1) {
+		if (tagIndex != -1) {
 			return true;
 		} else {
 			return false;
@@ -62,7 +64,7 @@ public class Name {
 			newRecordingName = new File(dir + "(Bad)");
 			// Add it to the badRecordings.txt
 			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), true);
-			updateRecordingDir(recordingNum, oldRecordingName.getAbsolutePath()+"\\(Bad\\)");
+			updateRecordingDir(recordingNum, oldRecordingName.getAbsolutePath() + "\\(Bad\\)");
 		} else { // Remove the (Bad) tag if isBad is false
 			newRecordingName = new File(dir.substring(0, (dir.lastIndexOf("("))));
 			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), false);
@@ -70,6 +72,12 @@ public class Name {
 		}
 
 		oldRecordingName.renameTo(newRecordingName);
-
+	}
+	
+	public boolean equals(Name name) {
+		if(this.getName().equals(name)) {
+			return true;
+		} else
+			return false;
 	}
 }
