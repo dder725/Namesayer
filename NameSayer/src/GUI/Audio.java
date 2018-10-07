@@ -28,7 +28,6 @@ public class Audio {
 		_directories.clear();
 		_directories.addAll(paths);
 		_numFiles=_directories.size();
-		System.out.println("The num of directories is" + _numFiles);
 		System.out.println(paths);
 	}
 	
@@ -49,9 +48,11 @@ public class Audio {
 	}
 
 	public void startRecording() {
-		//This section is supposed to record and save the audio as a file called audio.wav
+		//This section is supposed to record and save the audio as a file called attempt.wav
+		System.out.println("Recording now?");
 		Thread BackgroundThread = new Thread() {
 			public void run() {
+				System.out.println("Actually recording");
 				try {
 					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
 					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
@@ -69,6 +70,7 @@ public class Audio {
 		for (int i=5; i>=0; i-- ) {
 			try {
 				Thread.sleep(1000);
+				System.out.println(i);
 			} catch (InterruptedException e) {}
 		}	
 

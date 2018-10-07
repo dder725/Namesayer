@@ -28,15 +28,19 @@ public class RecordingWindowController {
 		audio.startRecording();
 		Stage stage = (Stage) Label.getScene().getWindow();
 		stage.close();
+		System.out.println("Recording window closes");
 		listenWindow();
 	}
 
 	public void listenWindow() {
+		System.out.println("Open new window?");
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(_window));
 			Parent content = (Parent) loader.load();
+			System.out.println("Up to here?");
 			if (_window.equals("RecordingOptionsWindow.fxml")) {
+				System.out.println("_windows equals");
 				RecordingOptionsController window = loader.getController();
 				window.setName(_name);
 				window.PWreference(_practiceWindow);
@@ -48,7 +52,7 @@ public class RecordingWindowController {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show(); 
-
+			System.out.println("After stage.show");
 		} catch (IOException e) {
 		}
 
