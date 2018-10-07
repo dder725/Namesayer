@@ -79,7 +79,6 @@ public class PracticeWindowController {
 		Audio audio = new Audio();
 		audio.PWreference(this);
 		String fullName = _playlist.get(_index).toString();
-		System.out.println(fullName);
 		audio.setRecording(fullName, "RecordingOptionsWindow.fxml");
 	}
 

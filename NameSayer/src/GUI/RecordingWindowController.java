@@ -23,7 +23,6 @@ public class RecordingWindowController {
 
 
 	public void startRecording() {
-		System.out.println(_window);
 		Audio audio = new Audio();
 		audio.startRecording();
 		Stage stage = (Stage) Label.getScene().getWindow();
@@ -33,16 +32,13 @@ public class RecordingWindowController {
 	}
 
 	public void listenWindow() {
-		System.out.println("Open new window?");
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			System.out.println(_window);
 			loader.setLocation(getClass().getResource(_window));
-			System.out.println("Ok?");
+			System.out.println("Next window should open now");
 			Parent content = (Parent) loader.load();
-			System.out.println("Up to here?");
+			System.out.println("New window open");
 			if (_window.equals("RecordingOptionsWindow.fxml")) {
-				System.out.println("_windows equals");
 				RecordingOptionsController window = loader.getController();
 				window.setName(_name);
 				window.PWreference(_practiceWindow);
