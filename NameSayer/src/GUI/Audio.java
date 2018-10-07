@@ -18,10 +18,19 @@ public class Audio {
 
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
-	
+
 	public PracticeWindowController _practiceWindow;
 	public String _window;
 
+	
+
+	public void setDirectories(ArrayList<String> paths) {
+		_directories.clear();
+		_directories.addAll(paths);
+		_numFiles=_directories.size();
+		System.out.println(paths);
+	}
+	
 	public void setRecording(String name, String window) {
 		_window=window;
 		try {
@@ -38,14 +47,14 @@ public class Audio {
 		}
 	}
 
-
 	public void startRecording() {
-
-		//This section is supposed to record and save the audio as a file called audio.wav
+		//This section is supposed to record and save the audio as a file called attempt.wav
+		System.out.println("Recording now?");
 		Thread BackgroundThread = new Thread() {
 			public void run() {
+				System.out.println("Actually recording");
 				try {
-					String cmd = "ffmpeg -f alsa -i default -t 5 \"audio.wav\"";
+					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
 					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 					Process process = builder.start();
 					process.waitFor();
@@ -54,25 +63,23 @@ public class Audio {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
 			}
 		};
 		BackgroundThread.start();
-
 		//end of recording section
-
 		for (int i=5; i>=0; i-- ) {
 			try {
 				Thread.sleep(1000);
+				System.out.println(i);
 			} catch (InterruptedException e) {}
 		}	
 
 	}
 
-	public void playRecording(ArrayList<Name> name) {
-		mergePlay();
+	public void playMergedRecording(String fileName) {
+		mergePlay(fileName);
 		try {
-			System.out.println(name);
+			System.out.println(fileName);
 			String cmd = "$(realpath mergePlay.sh)";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
@@ -86,7 +93,7 @@ public class Audio {
 
 	public void playRecording(String path) {
 		try {
-			String cmd = "ffplay -autoexit audio.wav";
+			String cmd = "ffplay -autoexit attempt.wav";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
@@ -96,69 +103,58 @@ public class Audio {
 			e1.printStackTrace();
 		}		
 	}
-	
-	public void setVariables(ArrayList<Name> names) {
-		_numFiles = names.size();
+
+	public void mergePlay(String fileName) {
+
+		String directories = "";
 		for (int i=0; i<_numFiles; i++) {
-			//Currently using version 1 but can change when we incorporate other versions
-			String dir = names.get(i).getRecordingDir(1);
-			_directories.add(dir);
-			System.out.println(dir);
+			String dir = _directories.get(i);
+			directories = directories +"file "+ dir +"\n";
+		}
+
+		byte[] content1 = directories.getBytes(Charset.forName("UTF-8"));
+		FileOutputStream helper1;
+		try {
+			helper1 = new FileOutputStream("mylist.txt");
+			helper1.write(content1);
+			helper1.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String code = "#!/bin/bash\n" + 
+				"\n" + 
+				"ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n" + 
+				"\n" + 
+				"ffplay -autoexit "+fileName+ "";
+
+		byte[] content2 = code.getBytes(Charset.forName("UTF-8"));
+		FileOutputStream helper2;
+		try {
+			helper2 = new FileOutputStream("mergePlay.sh");
+			helper2.write(content2);
+			helper2.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			String cmd = "chmod +x $(realpath mergePlay.sh)";
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			process.waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
-	
 
-		public void mergePlay() {
-			
-			String directories = "";
-			for (int i=0; i<_numFiles; i++) {
-				String dir = _directories.get(i);
-				directories = directories +"file "+ dir +"\n";
-			}
 
-			byte[] content1 = directories.getBytes(Charset.forName("UTF-8"));
-			FileOutputStream helper1;
-			try {
-				helper1 = new FileOutputStream("mylist.txt");
-				helper1.write(content1);
-				helper1.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			String code = "#!/bin/bash\n" + 
-					"\n" + 
-					"ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.wav\n" + 
-					"\n" + 
-					"ffplay -autoexit output.wav";
-
-			byte[] content2 = code.getBytes(Charset.forName("UTF-8"));
-			FileOutputStream helper2;
-			try {
-				helper2 = new FileOutputStream("mergePlay.sh");
-				helper2.write(content2);
-				helper2.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				String cmd = "chmod +x $(realpath mergePlay.sh)";
-				ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-				Process process = builder.start();
-				process.waitFor();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	
-	
 	public void PWreference(PracticeWindowController pw) {
 		_practiceWindow=pw;
 	}

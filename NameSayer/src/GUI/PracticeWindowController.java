@@ -33,7 +33,8 @@ public class PracticeWindowController {
 	private ObservableList<ArrayList<Name>> _playlist;
 	private ObservableList<String> attempts;
 	private Integer _index = 0;
-
+	public int _numFiles;
+	public ArrayList<String> _directories= new ArrayList<String>();
 	@FXML
 	private Label nameLabel;
 
@@ -62,9 +63,16 @@ public class PracticeWindowController {
 	}
 	
 	public void playRecording() {
+		_numFiles = _playlist.get(_index).size();
+		_directories.clear();
+		for (int i=0; i<_numFiles; i++) {
+			//Currently using version 1 but can change when we incorporate other versions
+			String dir = _playlist.get(_index).get(i).getRecordingDir(1);
+			_directories.add(dir);
+		}
 		Audio audio = new Audio();
-		audio.setVariables(_playlist.get(_index));
-		audio.playRecording(_playlist.get(_index));
+		audio.setDirectories(_directories);
+		audio.playMergedRecording("fullName.wav");
 	}
 
 	public void makeRecording() {
@@ -76,14 +84,27 @@ public class PracticeWindowController {
 	}
 
 	public void compare() {
-		// Plays official recording from database
-		playRecording();
+		File file1 = new File("fullName.wav");
+		File file2 = new File("attempt.wav");
+		String fullNamePath = file1.getAbsolutePath();
+		String attemptPath = file2.getAbsolutePath();
+		_directories.clear();
+		_directories.add(fullNamePath);
+		_directories.add(attemptPath);
+		// Merges official and attempt
+		Audio audio = new Audio();
+		audio.setDirectories(_directories);
+		audio.playMergedRecording("compare.wav");
 		// Plays user recording
 	}
 	
 	public void nextName() {
-		File file = new File("output.wav");
-		file.delete();
+		File file1 = new File("fullName.wav");
+		File file2 = new File("attempt.wav");
+		File file3 = new File("compare.wav");
+		file1.delete();
+		file2.delete();
+		file3.delete();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
 //			populateVersionChoice();
@@ -143,10 +164,8 @@ public class PracticeWindowController {
 			versionChoice.getSelectionModel().selectedIndexProperty().addListener(listen);
 		} else {
 			versionChoice.getSelectionModel().selectedIndexProperty().removeListener(listen);
-
 		}
 	}
-
 
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
@@ -157,7 +176,6 @@ public class PracticeWindowController {
 		String name = nameLabel.getText();
 		return name;
 	}
-
 	
 	private void disableOptions() {
 		versionChoice.setDisable(true);
@@ -175,7 +193,6 @@ public class PracticeWindowController {
 
 		return versionDir;
 	}
-
 
 	private Integer getVersionNum() {
 		String dir = getSelectedRecordingDirectory();
@@ -199,10 +216,6 @@ public class PracticeWindowController {
 	public String getCurrentVersion() {
 		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
 		return version;
-	}
-
-	public void refreshAttemptsChoiceBox() {
-		populateAttemptChoice();
 	}
 	
 }

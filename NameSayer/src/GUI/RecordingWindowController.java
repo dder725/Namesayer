@@ -23,46 +23,36 @@ public class RecordingWindowController {
 
 
 	public void startRecording() {
+		System.out.println(_window);
 		Audio audio = new Audio();
 		audio.startRecording();
 		Stage stage = (Stage) Label.getScene().getWindow();
 		stage.close();
+		System.out.println("Recording window closes");
 		listenWindow();
 	}
 
 	public void listenWindow() {
+		System.out.println("Open new window?");
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(_window));
 			Parent content = (Parent) loader.load();
+			System.out.println("Up to here?");
 			if (_window.equals("RecordingOptionsWindow.fxml")) {
-				RecordingOptionsController window = (RecordingOptionsController) loader.getController();
+				System.out.println("_windows equals");
+				RecordingOptionsController window = loader.getController();
 				window.setName(_name);
 				window.PWreference(_practiceWindow);
 			}else if (_window.equals("MicTestWindow.fxml")) {
-				MicTestWindowController window = (MicTestWindowController) loader.getController();
+				MicTestWindowController window = loader.getController();
 				window.setName(_name);
 				window.PWreference(_practiceWindow);
 			}
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
-			stage.show();
-
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				public void handle(WindowEvent we) {
-					try {
-						String cmd = "rm \"audio.wav\"";
-						ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-						Process process = builder.start();
-						process.waitFor();
-					} catch (IOException E) {
-						E.printStackTrace();
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});   
-
+			stage.show(); 
+			System.out.println("After stage.show");
 		} catch (IOException e) {
 		}
 
