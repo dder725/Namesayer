@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import application.DataBase;
 import application.Name;
-
+import application.NamesListReader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -214,6 +214,8 @@ public class MainWindowController {
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
+		NamesListReader reader = new NamesListReader(nameList);
+		ArrayList<ArrayList<String>> names = reader.getListedNames();
 		System.out.println(nameList.getAbsolutePath());
 	}
 
