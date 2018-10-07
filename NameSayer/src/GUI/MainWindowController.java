@@ -118,6 +118,7 @@ public class MainWindowController {
 
 	public void clear() {
 		_currentName.clear();
+		currentNameText.setText("Choose names from the database");
 	}
 
 	public void practiceButton() {
@@ -182,7 +183,7 @@ public class MainWindowController {
 	public void addToPlaylist() {
 		if (_playlist.contains(_currentName)) {
 			ErrorDialog.showError("This name is already in the playlist");
-		} else {
+		} else if(!_currentName.isEmpty()) {
 
 			// Display the name in a formatted way in the table by overriding toString()
 			// method
@@ -199,9 +200,9 @@ public class MainWindowController {
 			};
 			currentNames.addAll(_currentName);
 			_playlist.add(currentNames);
+			_currentName.clear();
+			currentNameText.setText("Choose names from the database");
 		}
-		_currentName.clear();
-		currentNameText.setText("Choose names from the database");
 	}
 	
 	public void upload() {
