@@ -36,7 +36,9 @@ public class RecordingWindowController {
 		System.out.println("Open new window?");
 		try {
 			FXMLLoader loader = new FXMLLoader();
+			System.out.println(_window);
 			loader.setLocation(getClass().getResource(_window));
+			System.out.println("Ok?");
 			Parent content = (Parent) loader.load();
 			System.out.println("Up to here?");
 			if (_window.equals("RecordingOptionsWindow.fxml")) {

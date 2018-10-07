@@ -57,12 +57,15 @@ public class Audio {
 					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
 					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 					Process process = builder.start();
+					System.out.println("Bash not working?");
 					process.waitFor();
+					System.out.println("waitFor");
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				System.out.println("Actually finished recording");
 			}
 		};
 		BackgroundThread.start();
