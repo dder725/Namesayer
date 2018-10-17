@@ -26,7 +26,8 @@
    <top>
       <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="700.0" style="-fx-background-color: mediumseagreen;">
          <children>
-            <JFXTextField fx:id="searchBox" alignment="CENTER_RIGHT" labelFloat="true" prefHeight="26.0" prefWidth="261.0" promptText="Search for name" style="-fx-background-color: white;" />
+            <JFXButton prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: yellow;" text="Add" />
+            <JFXTextField fx:id="searchBox" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="214.0" promptText="Search for name" style="-fx-background-color: white;" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="2.0" visible="false" />
             <FontAwesomeIconView glyphName="SEARCH" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="0.0" visible="false" />

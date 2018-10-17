@@ -58,22 +58,24 @@ public class MainWindowController {
 		// Filter the list
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
 			String text = searchBox.getText();
+
+			// Check if it is the first word
+			if (text.contains(" ")) {
+				String[] names = text.split(" ");
+				text = names[names.length - 1];
+			}
+			
+			//Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else {
+			} else { //Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
+				System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
 			}
 		}, searchBox.textProperty()));
 
 		currentNameText.setText("Choose names from the database");
-		// Implement sort method here
-		// FXCollections.sort(_namesList, new Comparator<Name>() {
-		// @Override
-		// public int compare(final Name object1, final Name object2) {
-		// return object1.getName().compareTo(object2.getName());
-		// }
-		// });
 	}
 
 	public void addToName() {
@@ -116,6 +118,7 @@ public class MainWindowController {
 		});
 	}
 
+	// Reset the label
 	public void clear() {
 		_currentName.clear();
 		currentNameText.setText("Choose names from the database");
@@ -129,6 +132,7 @@ public class MainWindowController {
 		}
 	}
 
+	// Pop-up error window, in case of an empty playlist
 	public void noNames() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -150,8 +154,8 @@ public class MainWindowController {
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
 
-			//CHANGE THIS
-			//Pass the playlist to the practice window
+			// CHANGE THIS
+			// Pass the playlist to the practice window
 			Practice.setPlaylist(_playlist);
 
 			Stage stage = new Stage();
@@ -166,7 +170,7 @@ public class MainWindowController {
 					file2.delete();
 					file3.exists();
 				}
-			});  
+			});
 		} catch (IOException e) {
 		}
 	}
@@ -183,7 +187,7 @@ public class MainWindowController {
 	public void addToPlaylist() {
 		if (_playlist.contains(_currentName)) {
 			ErrorDialog.showError("This name is already in the playlist");
-		} else if(!_currentName.isEmpty()) {
+		} else if (!_currentName.isEmpty()) {
 
 			// Display the name in a formatted way in the table by overriding toString()
 			// method
@@ -204,18 +208,18 @@ public class MainWindowController {
 			currentNameText.setText("Choose names from the database");
 		}
 	}
-	
+
 	public void upload() {
-		//Restrict file search to .txt files only
+		// Restrict file search to .txt files only
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-		
+
 		Stage stage = new Stage();
 		FileChooser fileChooser = new FileChooser();
-		
-		//Set NameSayer directory as initial directory
+
+		// Set NameSayer directory as initial directory
 		File file = new File(System.getProperty("user.home") + "/NameSayer");
 		fileChooser.setInitialDirectory(file);
-		
+
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
@@ -223,7 +227,7 @@ public class MainWindowController {
 		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
 		System.out.println(names);
 		_playlist.addAll(names);
-		
+
 	}
 
 }
