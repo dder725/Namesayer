@@ -24,18 +24,18 @@
       </ToolBar>
    </bottom>
    <top>
-      <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="700.0" style="-fx-background-color: mediumseagreen;">
+      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="700.0" style="-fx-background-color: mediumseagreen;">
          <children>
-            <JFXButton prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: yellow;" text="Add" />
-            <JFXTextField fx:id="searchBox" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="214.0" promptText="Search for name" style="-fx-background-color: white;" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="2.0" visible="false" />
-            <FontAwesomeIconView glyphName="SEARCH" />
             <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="0.0" visible="false" />
             <Label alignment="CENTER" prefHeight="24.0" prefWidth="388.0" text="Playlist" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
+            <FontAwesomeIconView glyphName="SEARCH" />
+            <JFXTextField fx:id="searchBox" prefHeight="26.0" prefWidth="190.0" promptText="Search for a name" style="-fx-background-color: white;" />
+            <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: yellow;" text="Add" />
          </children>
       </HBox>
    </top>
@@ -50,7 +50,7 @@
                   <Text fx:id="currentNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="John Doe" textAlignment="CENTER" wrappingWidth="261.7294921875" />
                   <VBox prefHeight="52.0" prefWidth="142.0">
                      <children>
-                        <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" ripplerFill="#bfbfbf" style="-fx-background-color: lawngreen;" text="Add to playlist" />
+                        <JFXButton onAction="#addToPlaylist" prefHeight="26.0" prefWidth="149.0" ripplerFill="#bfbfbf" style="-fx-background-color: lawngreen;" text="Add to playlist" />
                         <JFXButton fx:id="clear" onAction="#clear" prefHeight="26.0" prefWidth="162.0" style="-fx-background-color: white;" text="Clear" />
                      </children>
                   </VBox>

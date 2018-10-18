@@ -59,16 +59,17 @@ public class MainWindowController {
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
 			String text = searchBox.getText();
 
-			// Check if it is the first word
+			// searchBox.selectPositionCaret(text.length());
+			// Check if it is a composite word
 			if (text.contains(" ")) {
 				String[] names = text.split(" ");
 				text = names[names.length - 1];
 			}
-			
-			//Do nothing for empty searchbox
+
+			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else { //Filter the database to the entered word
+			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
 				System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
@@ -78,16 +79,7 @@ public class MainWindowController {
 		currentNameText.setText("Choose names from the database");
 	}
 
-	public void addToName() {
-		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
-		String name = new String();
-		for (Name item : _currentName) {
-			name += item.getName() + " ";
-		}
-		currentNameText.setText(name);
-	}
-
-	// Add a name from the database to the playlist on doubleclick
+	// Add a name from the database to the searchbox on doubleclick
 	public void setupDoubleClickAdd() {
 		namesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -184,30 +176,46 @@ public class MainWindowController {
 		audio.setRecording(_namesList.get(0).toString(), "MicTestWindow.fxml");
 	}
 
+	public void addToName() {
+		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
+		String name = new String();
+		for (Name item : _currentName) {
+			name += item.getName() + " ";
+		}
+		searchBox.setText(name);
+		currentNameText.setText(name);
+	}
+
 	public void addToPlaylist() {
-		if (_playlist.contains(_currentName)) {
+		//Split a composite name
+		String[] text = searchBox.getText().split(" ");
+		
+		//Find the names objects of the given names
+		ArrayList<Name> namesFromText = new ArrayList<Name>() {
+			
+			@Override
+			// Display the name in a formatted way in the table by overriding toString() method
+			public String toString() {
+				String nameString = new String();
+				for (Name name : this) {
+					nameString += name.getName() + " ";
+				};
+				return nameString;
+			}
+		};
+		for (String word : text) {
+			namesFromText.add(DataBase.findName(word.toUpperCase()));
+			System.out.println("Found " + namesFromText.get(0).getName() + " name");
+		}
+		if (_playlist.contains(namesFromText)) {
 			ErrorDialog.showError("This name is already in the playlist");
 		} else if (!_currentName.isEmpty()) {
-
-			// Display the name in a formatted way in the table by overriding toString()
-			// method
-			ArrayList<Name> currentNames = new ArrayList<Name>() {
-				@Override
-				public String toString() {
-					String nameString = new String();
-					for (Name name : this) {
-						nameString += name.getName() + " ";
-					}
-					;
-					return nameString;
-				}
-			};
-			currentNames.addAll(_currentName);
-			_playlist.add(currentNames);
+			_playlist.add(namesFromText);
 			_currentName.clear();
 			currentNameText.setText("Choose names from the database");
 		}
 	}
+
 
 	public void upload() {
 		// Restrict file search to .txt files only
