@@ -14,6 +14,14 @@ public class RecordingWindowController {
 	@FXML Button recordButton;
 
 
+	/** Method to allow the user to test if their microphone is working
+	 */
+	public void micTest() {
+		
+		
+	}
+	
+	
 	/** Method called when user pushes the "Start Recording" button. 
 	 *  Calls the startRecording() method in the audio class and then 
 	 *  calls listenWindow()
@@ -27,7 +35,16 @@ public class RecordingWindowController {
 		listenWindow();
 	}
 
-
+	
+	
+	/** Method called when user pushes the "Stop Recording" button. 
+	 */
+	public void stopRecording() {
+		
+		
+	}
+	
+	
 	/** Method to open "Recording Options" window
 	 */
 	public void listenWindow() {
