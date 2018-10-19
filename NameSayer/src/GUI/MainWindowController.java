@@ -165,7 +165,7 @@ public class MainWindowController {
 					File file3 = new File("compare.wav");
 					file1.delete();
 					file2.delete();
-					file3.exists();
+					file3.delete();
 				}
 			});
 		} catch (IOException e) {
