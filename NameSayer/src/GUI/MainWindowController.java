@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.swing.JFileChooser;
@@ -17,6 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -58,34 +63,28 @@ public class MainWindowController {
 		// Filter the list
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
 			String text = searchBox.getText();
+
+			// searchBox.selectPositionCaret(text.length());
+			// Check if it is a composite word
+			if (text.contains(" ")) {
+				String[] names = text.split(" ");
+				text = names[names.length - 1];
+			}
+
+			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else {
+			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
+				System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
 			}
 		}, searchBox.textProperty()));
 
 		currentNameText.setText("Choose names from the database");
-		// Implement sort method here
-		// FXCollections.sort(_namesList, new Comparator<Name>() {
-		// @Override
-		// public int compare(final Name object1, final Name object2) {
-		// return object1.getName().compareTo(object2.getName());
-		// }
-		// });
 	}
 
-	public void addToName() {
-		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
-		String name = new String();
-		for (Name item : _currentName) {
-			name += item.getName() + " ";
-		}
-		currentNameText.setText(name);
-	}
-
-	// Add a name from the database to the playlist on doubleclick
+	// Add a name from the database to the searchbox on doubleclick
 	public void setupDoubleClickAdd() {
 		namesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -116,6 +115,7 @@ public class MainWindowController {
 		});
 	}
 
+	// Reset the label
 	public void clear() {
 		_currentName.clear();
 		currentNameText.setText("Choose names from the database");
@@ -129,6 +129,7 @@ public class MainWindowController {
 		}
 	}
 
+	// Pop-up error window, in case of an empty playlist
 	public void noNames() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -150,8 +151,8 @@ public class MainWindowController {
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
 
-			//CHANGE THIS
-			//Pass the playlist to the practice window
+			// CHANGE THIS
+			// Pass the playlist to the practice window
 			Practice.setPlaylist(_playlist);
 
 			Stage stage = new Stage();
@@ -166,7 +167,7 @@ public class MainWindowController {
 					file2.delete();
 					file3.delete();
 				}
-			});  
+			});
 		} catch (IOException e) {
 		}
 	}
@@ -180,42 +181,111 @@ public class MainWindowController {
 		audio.setRecording(_namesList.get(0).toString(), "MicTestWindow.fxml");
 	}
 
-	public void addToPlaylist() {
-		if (_playlist.contains(_currentName)) {
-			ErrorDialog.showError("This name is already in the playlist");
-		} else if(!_currentName.isEmpty()) {
+	public void addToName() {
+		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
+		String name = new String();
+		for (Name item : _currentName) {
+			name += item.getName() + " ";
+		}
+		searchBox.setText(name);
+		currentNameText.setText(name);
+	}
 
+	public void addToPlaylist() {
+		// Split a composite name
+		String[] text = searchBox.getText().split(" ");
+
+		// Create an array of the names not in the database
+		List<String> namesNotInDatabase = new ArrayList<String>();
+		// Find the names objects of the given names
+		ArrayList<Name> namesFromText = new ArrayList<Name>() {
+			@Override
 			// Display the name in a formatted way in the table by overriding toString()
 			// method
-			ArrayList<Name> currentNames = new ArrayList<Name>() {
-				@Override
-				public String toString() {
-					String nameString = new String();
-					for (Name name : this) {
-						nameString += name.getName() + " ";
-					}
-					;
-					return nameString;
+			public String toString() {
+				String nameString = new String();
+				for (Name name : this) {
+					nameString += name.getName() + " ";
 				}
-			};
-			currentNames.addAll(_currentName);
-			_playlist.add(currentNames);
+				;
+				return nameString;
+			}
+		};
+		for (String word : text) {
+			// Check if the name exists in the database
+			Name name = DataBase.findName(word.toUpperCase());
+			if (name != null) {
+				namesFromText.add(name);
+			} else {
+				namesNotInDatabase.add(word);
+				name = new Name(word);
+				namesFromText.add(name);
+			}
+			;
+		}
+
+		// Check if the name is already in the playlist
+		if (_playlist.contains(namesFromText)) {
+			ErrorDialog.showError("This name is already in the playlist");
+		} else if (!namesFromText.isEmpty() && namesNotInDatabase.isEmpty()) { // Add a name to a playlist if a
+																				// searchbox is not empty and there are
+																				// no unknown names
+			System.out.println(namesFromText);
+			_playlist.add(namesFromText);
 			_currentName.clear();
 			currentNameText.setText("Choose names from the database");
 		}
+
+		// Display a warning window if a name is not found
+		if (!namesNotInDatabase.isEmpty()) {
+
+			// Sort out do and does depending on whether a single or multiple names had not
+			// been found
+			String extraMessage;
+			if (namesNotInDatabase.size() == 1) {
+				extraMessage = " does not exist in the database!";
+			} else {
+				extraMessage = " do not exist in the database!";
+			}
+
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Unknown names");
+			alert.setHeaderText(
+					namesNotInDatabase.stream().map(Object::toString).collect(Collectors.joining(", ")) + extraMessage);
+			alert.setContentText("Add it to the playlist?");
+
+			Optional<ButtonType> option = alert.showAndWait();
+
+			if (option.get() == null || option.get() == ButtonType.CANCEL) {
+				// Do nothing
+			} else if (option.get() == ButtonType.OK) {
+				// TODO: Check if the name is already in the playlist
+				System.out.println(namesFromText);
+				_playlist.add(namesFromText);
+				_currentName.clear();
+				currentNameText.setText("Choose names from the database");
+			} else {
+				// Do nothing
+			}
+			// Show a warning window
+			// ErrorDialog.showError("Names are not found",
+			// namesNotInDatabase.stream().map(Object::toString).collect(Collectors.joining(",
+			// ")) + extraMessage);
+		}
+
 	}
-	
+
 	public void upload() {
-		//Restrict file search to .txt files only
+		// Restrict file search to .txt files only
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-		
+
 		Stage stage = new Stage();
 		FileChooser fileChooser = new FileChooser();
-		
-		//Set NameSayer directory as initial directory
+
+		// Set NameSayer directory as initial directory
 		File file = new File(System.getProperty("user.home") + "/NameSayer");
 		fileChooser.setInitialDirectory(file);
-		
+
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
@@ -223,7 +293,7 @@ public class MainWindowController {
 		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
 		System.out.println(names);
 		_playlist.addAll(names);
-		
+
 	}
 
 }
