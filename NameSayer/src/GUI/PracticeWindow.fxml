@@ -35,7 +35,6 @@
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <ChoiceBox fx:id="versionChoice" layoutX="217.0" layoutY="14.0" prefWidth="150.0" />
-                  <CheckBox fx:id="badRecordingCheckBox" layoutX="232.0" layoutY="52.0" mnemonicParsing="false" onAction="#markAsBad" text="Bad recording" />
                </children>
             </Pane>
          </children>

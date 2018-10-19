@@ -22,7 +22,6 @@
         <buttons>
           <Button mnemonicParsing="false" onAction="#listen" text="Listen" />
             <Button mnemonicParsing="false" onAction="#redoRecording" text="Redo recording" />
-            <Button mnemonicParsing="false" onAction="#saveRecording" text="Save recording" />
             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#close" text="Close" />
         </buttons>
       </ButtonBar>

@@ -1,17 +1,14 @@
 package GUI;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-
-import application.Name;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Audio {
@@ -19,96 +16,36 @@ public class Audio {
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
 
-	public PracticeWindowController _practiceWindow;
-	public String _window;
 
-	
-
+	/**Adds file paths to the ArrayList _directories, so that files can be merged
+	 */
 	public void setDirectories(ArrayList<String> paths) {
 		_directories.clear();
 		_directories.addAll(paths);
 		_numFiles=_directories.size();
-		System.out.println(paths);
 	}
-	
-	public void setRecording(String name, String window) {
-		_window=window;
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
-			Parent content = (Parent) loader.load();
-			RecordingWindowController recording = (RecordingWindowController) loader.getController();
-			recording.PWreference(_practiceWindow);
-			recording.setWindow(window);
-			Stage stage = new Stage();
-			stage.setScene(new Scene(content));
-			stage.show();
-		} catch (IOException e) {
+
+
+	/** Method called when user wants to play a recording. Input is the name of the file to 
+	 *  play, either audio from database (fullName.wav), user attempt recording (attempt.wav), 
+	 *  or the audio comparing the database recording and user attempt (compare.wav) 
+	 */
+	public void playRecording(String fileName) {
+		//If the audio file exists play the recording
+		File file= new File(fileName);
+		if (file.exists()) {
+			playFile(fileName);
+		} else {		//else create recording then play
+			makeMeregedFile(fileName);
+			playFile(fileName);
 		}
 	}
 
-	public void startRecording() {
-		//This section is supposed to record and save the audio as a file called attempt.wav
-		System.out.println("Recording now?");
-		Thread BackgroundThread = new Thread() {
-			public void run() {
-				System.out.println("Actually recording");
-				try {
-					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
-					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-					Process process = builder.start();
-					System.out.println("Bash not working?");
-					process.waitFor();
-					System.out.println("waitFor");
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				System.out.println("Actually finished recording");
-			}
-		};
-		BackgroundThread.start();
-		//end of recording section
-		for (int i=5; i>=0; i-- ) {
-			try {
-				Thread.sleep(1000);
-				System.out.println(i);
-			} catch (InterruptedException e) {}
-		}	
 
-	}
-
-	public void playMergedRecording(String fileName) {
-		mergePlay(fileName);
-		try {
-			System.out.println(fileName);
-			String cmd = "$(realpath mergePlay.sh)";
-			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-			Process process = builder.start();
-			process.waitFor();
-		} catch (IOException E) {
-			E.printStackTrace();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}		
-	}
-
-	public void playRecording(String path) {
-		try {
-			String cmd = "ffplay -autoexit attempt.wav";
-			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-			Process process = builder.start();
-			process.waitFor();
-		} catch (IOException E) {
-			E.printStackTrace();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}		
-	}
-
-	public void mergePlay(String fileName) {
-
+	/** Method that takes the file paths from the ArrayList _directories, and merges the 
+	 *  the audio into one file (either fullName.wav or compare.wav) 
+	 */
+	public void makeMeregedFile(String fileName) {
 		String directories = "";
 		for (int i=0; i<_numFiles; i++) {
 			String dir = _directories.get(i);
@@ -126,27 +63,8 @@ public class Audio {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		String code = "#!/bin/bash\n" + 
-				"\n" + 
-				"ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n" + 
-				"\n" + 
-				"ffplay -autoexit "+fileName+ "";
-
-		byte[] content2 = code.getBytes(Charset.forName("UTF-8"));
-		FileOutputStream helper2;
 		try {
-			helper2 = new FileOutputStream("mergePlay.sh");
-			helper2.write(content2);
-			helper2.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			String cmd = "chmod +x $(realpath mergePlay.sh)";
+			String cmd = "ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
@@ -158,8 +76,69 @@ public class Audio {
 	}
 
 
-	public void PWreference(PracticeWindowController pw) {
-		_practiceWindow=pw;
+	/** Method to play the audio file (either fullName.wav, attempt.wav or compare.wav)
+	 */
+	public void playFile(String fileName) {
+		try {
+			String cmd = "ffplay -autoexit -nodisp "+fileName+ "";;
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			process.waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+
+
+	/** Method called when user want to create new recording. Opens a new window 
+	 *  (RecordingWindow.fxml) so that user can start recording
+	 */
+	public void setRecording(String name, String window) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
+			Parent content = (Parent) loader.load();
+			RecordingWindowController recording = (RecordingWindowController) loader.getController();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+		}
+	}
+
+
+	/** This method records the users attempt and saves the audio as a file 
+	 *  called attempt.wav
+	 */
+	public void startRecording() {
+		Thread BackgroundThread = new Thread() {
+			public void run() {
+				try {
+					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
+					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+					Process process = builder.start();
+					System.out.println("\"Recording done\" should print after 5 seconds");
+					process.waitFor();
+					System.out.println("Recording done");
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		BackgroundThread.start();
+		//end of recording section
+		for (int i=5; i>=0; i-- ) {
+			try {
+				Thread.sleep(1000);
+				System.out.println(i);
+			} catch (InterruptedException e) {}
+		}	
+	}
+
+
 
 }

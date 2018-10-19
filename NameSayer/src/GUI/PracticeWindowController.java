@@ -1,56 +1,30 @@
 package GUI;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import com.jfoenix.controls.JFXButton;
-
 import application.Name;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<ArrayList<Name>> _playlist;
-	private ObservableList<String> attempts;
 	private Integer _index = 0;
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
-	@FXML
-	private Label nameLabel;
-
-	@FXML
-	private ChoiceBox<String> versionChoice;
-
-	@FXML
-	private JFXButton makeRecording;
-	@FXML
-	private JFXButton nextName;
-	@FXML
-	private JFXButton listen;
-	@FXML
-	private JFXButton compare;
-	@FXML
-	private CheckBox badRecordingCheckBox;
+	@FXML private Label nameLabel;
+	@FXML private ChoiceBox<String> versionChoice;
+	@FXML private JFXButton makeRecording;
+	@FXML private JFXButton nextName;
+	@FXML private JFXButton listen;
+	@FXML private JFXButton compare;
+	@FXML private CheckBox badRecordingCheckBox;
 
 	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
@@ -72,12 +46,14 @@ public class PracticeWindowController {
 		}
 		Audio audio = new Audio();
 		audio.setDirectories(_directories);
-		audio.playMergedRecording("fullName.wav");
+		audio.playRecording("fullName.wav");
 	}
 
+	
 	public void makeRecording() {
+		File file = new File("attempt.wav");
+		file.delete();
 		Audio audio = new Audio();
-		audio.PWreference(this);
 		String fullName = _playlist.get(_index).toString();
 		audio.setRecording(fullName, "RecordingOptionsWindow.fxml");
 	}
@@ -93,7 +69,7 @@ public class PracticeWindowController {
 		// Merges official and attempt
 		Audio audio = new Audio();
 		audio.setDirectories(_directories);
-		audio.playMergedRecording("compare.wav");
+		audio.playRecording("compare.wav");
 		// Plays user recording
 	}
 	
@@ -152,11 +128,11 @@ public class PracticeWindowController {
 				if (versionNum <= 0) {
 					versionNum = 1;
 				}
-				if (_playlist.get(_index).isBadRecording(versionNum)) {
-					badRecordingCheckBox.setSelected(true);
-				} else {
-					badRecordingCheckBox.setSelected(false);
-				}
+//				if (_playlist.get(_index).isBadRecording(versionNum)) {
+//					badRecordingCheckBox.setSelected(true);
+//				} else {
+//					badRecordingCheckBox.setSelected(false);
+//				}
 			}
 		};
 		if (!toRemove) {
@@ -182,7 +158,6 @@ public class PracticeWindowController {
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
 		compare.setDisable(true);
-		badRecordingCheckBox.setVisible(false);
 	}
 
 	public String getSelectedRecordingDirectory() {
@@ -201,16 +176,16 @@ public class PracticeWindowController {
 		return numOfVersion;
 	}
 
-	public void markAsBad() {
-		String dir = getSelectedRecordingDirectory();
-
-		if (badRecordingCheckBox.isSelected()) {
-			_playlist.get(_index).modifyBadTag(dir, true, getVersionNum());
-
-		} else if (!badRecordingCheckBox.isSelected()) {
-			_playlist.get(_index).modifyBadTag(dir, false, getVersionNum());
-		}
-	}
+//	public void markAsBad() {
+//		String dir = getSelectedRecordingDirectory();
+//
+//		if (badRecordingCheckBox.isSelected()) {
+//			_playlist.get(_index).modifyBadTag(dir, true, getVersionNum());
+//
+//		} else if (!badRecordingCheckBox.isSelected()) {
+//			_playlist.get(_index).modifyBadTag(dir, false, getVersionNum());
+//		}
+//	}
 
 	public String getCurrentVersion() {
 		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
