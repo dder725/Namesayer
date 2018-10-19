@@ -260,17 +260,17 @@ public class MainWindowController {
 				// Do nothing
 			} else if (option.get() == ButtonType.OK) {
 				// TODO: Check if the name is already in the playlist
-				System.out.println(namesFromText);
-				_playlist.add(namesFromText);
-				_currentName.clear();
-				currentNameText.setText("Choose names from the database");
+				if (_playlist.contains(namesFromText)) {
+					ErrorDialog.showError("This name is already in the playlist");
+				} else {
+					System.out.println(namesFromText);
+					_playlist.add(namesFromText);
+					_currentName.clear();
+					currentNameText.setText("Choose names from the database");
+				}
 			} else {
 				// Do nothing
 			}
-			// Show a warning window
-			// ErrorDialog.showError("Names are not found",
-			// namesNotInDatabase.stream().map(Object::toString).collect(Collectors.joining(",
-			// ")) + extraMessage);
 		}
 
 	}

@@ -73,11 +73,16 @@ public class Name {
 
 		oldRecordingName.renameTo(newRecordingName);
 	}
-	
-	public boolean equals(Name name) {
-		if(this.getName().equals(name)) {
+
+	// Two names are the same if they their spelling is the same
+	@Override
+	public boolean equals(Object name) {
+		Name nameToCompare = (Name) name;
+		if (name instanceof Name && this.getName().equals(nameToCompare.getName())) {
+			System.out.println(nameToCompare.getName() + " Found to be equal to " + this.getName());
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 }
