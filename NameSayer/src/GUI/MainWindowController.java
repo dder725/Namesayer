@@ -272,7 +272,9 @@ public class MainWindowController {
 				// Do nothing
 			}
 		}
-
+		
+		//Refresh searchbox
+		searchBox.setText("");
 	}
 
 	public void upload() {
@@ -290,10 +292,14 @@ public class MainWindowController {
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
 		NamesListReader reader = new NamesListReader(nameList);
+		
 		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
 		System.out.println(names);
+		
+		//Check if the file was empty
+		if(!names.isEmpty()) {
 		_playlist.addAll(names);
-
+		}
 	}
 
 }
