@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -20,18 +19,13 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="202.0" prefWidth="600.0">
+            <Pane prefHeight="292.0" prefWidth="600.0">
                <children>
                   <Text fx:id="nameLabel" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600.6708984375">
                      <font>
-                        <Font size="70.0" />
+                        <Font size="58.0" />
                      </font>
                   </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ChoiceBox fx:id="versionChoice" layoutX="225.0" layoutY="28.0" prefWidth="150.0" />
                </children>
             </Pane>
          </children>
