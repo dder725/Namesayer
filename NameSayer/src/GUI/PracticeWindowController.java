@@ -10,15 +10,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class PracticeWindowController {
 	private ObservableList<ArrayList<Name>> _playlist;
 	private Integer _index = 0;
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
-	@FXML private Label nameLabel;
+	@FXML private Text nameLabel;
 	@FXML private ChoiceBox<String> versionChoice;
 	@FXML private JFXButton makeRecording;
 	@FXML private JFXButton nextName;
@@ -32,7 +32,7 @@ public class PracticeWindowController {
 		//setListenerVersionChoice(false);
 		setLabel();
 		//populateAttemptChoice();
-		// Check if the first name in the playlist is a bad recording
+		// Check if the first name in the play list is a bad recording
 		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
 	

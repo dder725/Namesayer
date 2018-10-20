@@ -2,10 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,18 +20,18 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="179.0" prefWidth="600.0">
+            <Pane prefHeight="202.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="nameLabel" alignment="BOTTOM_CENTER" prefHeight="177.0" prefWidth="600.0" text="Test" textAlignment="CENTER">
+                  <Text fx:id="nameLabel" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600.6708984375">
                      <font>
-                        <Font size="66.0" />
+                        <Font size="70.0" />
                      </font>
-                  </Label>
+                  </Text>
                </children>
-            </HBox>
+            </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ChoiceBox fx:id="versionChoice" layoutX="217.0" layoutY="14.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="versionChoice" layoutX="225.0" layoutY="28.0" prefWidth="150.0" />
                </children>
             </Pane>
          </children>
