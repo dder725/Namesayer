@@ -19,22 +19,12 @@ public class PracticeWindowController {
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
 	@FXML private Text nameLabel;
-	@FXML private ChoiceBox<String> versionChoice;
 	@FXML private JFXButton makeRecording;
 	@FXML private JFXButton nextName;
 	@FXML private JFXButton listen;
 	@FXML private JFXButton compare;
 	@FXML private CheckBox badRecordingCheckBox;
 
-	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
-		_playlist = playlist;
-		//populateVersionChoice();
-		//setListenerVersionChoice(false);
-		setLabel();
-		//populateAttemptChoice();
-		// Check if the first name in the play list is a bad recording
-		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
-	}
 	
 	public void playRecording() {
 		_numFiles = _playlist.get(_index).size();
@@ -82,7 +72,6 @@ public class PracticeWindowController {
 		file3.delete();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
-//			populateVersionChoice();
 //			setBadRecordingCheckbox(_playlist.get(_index));
 			setLabel();
 		} else {
@@ -91,6 +80,7 @@ public class PracticeWindowController {
 		};
 	}
 
+	
 	public void setLabel() {
 		String fullName = "";
 		for(int i=0; i<_playlist.get(_index).size(); i++) {
@@ -100,81 +90,104 @@ public class PracticeWindowController {
 		setNameLabel(fullName, 66);
 	}
 
-	private void setBadRecordingCheckbox(Name name) {
-		if (name.isBadRecording(getVersionNum())) {
-			badRecordingCheckBox.setSelected(true);
-		} else {
-			badRecordingCheckBox.setSelected(false);
-		}
-	}
-
-//	private void populateVersionChoice() {
-//		if (_index != 0) {
-//			versionChoice.getItems().clear();
-//		}
-//		versionChoice.getItems().addAll(_playlist.get(_index).getVersions());
-//		versionChoice.getSelectionModel().selectFirst();
-//	}
-
-	private void setListenerVersionChoice(Boolean toRemove) {
-		ChangeListener<Number> listen = new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-				// String version =
-				// versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
-				// int versionNum =
-				// Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
-				int versionNum = observableValue.getValue().intValue() + 1;
-				if (versionNum <= 0) {
-					versionNum = 1;
-				}
-//				if (_playlist.get(_index).isBadRecording(versionNum)) {
-//					badRecordingCheckBox.setSelected(true);
-//				} else {
-//					badRecordingCheckBox.setSelected(false);
-//				}
-			}
-		};
-		if (!toRemove) {
-			versionChoice.getSelectionModel().selectedIndexProperty().addListener(listen);
-		} else {
-			versionChoice.getSelectionModel().selectedIndexProperty().removeListener(listen);
-		}
-	}
-
+	
 	private void setNameLabel(String name, Integer size) {
 		nameLabel.setText(name);
 		nameLabel.setFont(new Font("System", size));
 	}
 
+	
 	public String getNameLabel() {
 		String name = nameLabel.getText();
 		return name;
 	}
 	
+	/**
+	 * Method that gets called when the user selects the versions button
+	 */
+	public void versionsButton() {
+		
+		
+	}
+	
+	
+	/**
+	 * Method that gets called when the user selects the rate audio button
+	 */
+	public void rateRecordingButton() {
+		
+		
+	}
+	
+	
 	private void disableOptions() {
-		versionChoice.setDisable(true);
 		nextName.setDisable(true);
 		listen.setDisable(true);
 		makeRecording.setDisable(true);
 		compare.setDisable(true);
 	}
-
-	public String getSelectedRecordingDirectory() {
-		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-		String versionDir = _playlist.get(_index).get(0).getRecordingDir(numOfVersion);
-
-		return versionDir;
+	
+	
+	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
+		_playlist = playlist;
+		setLabel();
+		//populateAttemptChoice();
+		// Check if the first name in the play list is a bad recording
+		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
+	
+	
+//	private void setBadRecordingCheckbox(Name name) {
+//		if (name.isBadRecording(getVersionNum())) {
+//			badRecordingCheckBox.setSelected(true);
+//		} else {
+//			badRecordingCheckBox.setSelected(false);
+//		}
+//	}
 
-	private Integer getVersionNum() {
-		String dir = getSelectedRecordingDirectory();
-		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
 
-		return numOfVersion;
-	}
+//	private void setListenerVersionChoice(Boolean toRemove) {
+//		ChangeListener<Number> listen = new ChangeListener<Number>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+//				// String version =
+//				// versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
+//				// int versionNum =
+//				// Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
+//				int versionNum = observableValue.getValue().intValue() + 1;
+//				if (versionNum <= 0) {
+//					versionNum = 1;
+//				}
+//				if (_playlist.get(_index).isBadRecording(versionNum)) {
+///					badRecordingCheckBox.setSelected(true);
+//				} else {
+//					badRecordingCheckBox.setSelected(false);
+//				}
+//			}
+//		};
+//		if (!toRemove) {
+//			versionChoice.getSelectionModel().selectedIndexProperty().addListener(listen);
+//		} else {
+//			versionChoice.getSelectionModel().selectedIndexProperty().removeListener(listen);
+//		}
+//	}
+
+
+//	public String getSelectedRecordingDirectory() {
+//		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+//		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
+//		String versionDir = _playlist.get(_index).get(0).getRecordingDir(numOfVersion);
+//
+//		return versionDir;
+//	}
+//
+//	private Integer getVersionNum() {
+//		String dir = getSelectedRecordingDirectory();
+//		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
+//		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
+//
+//		return numOfVersion;
+//	}
 
 //	public void markAsBad() {
 //		String dir = getSelectedRecordingDirectory();
@@ -187,9 +200,9 @@ public class PracticeWindowController {
 //		}
 //	}
 
-	public String getCurrentVersion() {
-		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
-		return version;
-	}
+//	public String getCurrentVersion() {
+//		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
+//		return version;
+//	}
 	
 }
