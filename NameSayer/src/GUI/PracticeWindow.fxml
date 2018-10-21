@@ -29,8 +29,8 @@
          <children>
             <Pane layoutY="208.0" prefHeight="83.0" prefWidth="600.0">
                <children>
-                  <JFXButton layoutX="307.0" layoutY="26.0" onAction="#versionsButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Try different versions" />
-                  <JFXButton layoutX="123.0" layoutY="26.0" onAction="#rateRecordingButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Rate audio quality" />
+                  <JFXButton fx:id="versionsButton" layoutX="307.0" layoutY="26.0" onAction="#versionsButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Try different versions" />
+                  <JFXButton fx:id="rateAudioButton" layoutX="123.0" layoutY="26.0" onAction="#rateRecordingButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Rate audio quality" />
                </children>
             </Pane>
             <Pane prefHeight="197.0" prefWidth="600.0">
