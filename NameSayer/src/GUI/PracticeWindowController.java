@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -28,7 +29,6 @@ public class PracticeWindowController {
 	@FXML private JFXButton listen;
 	@FXML private JFXButton compare;
 	@FXML private CheckBox badRecordingCheckBox;
-	@FXML private FlowPane rateButtonPane;
 
 	
 	public void playRecording() {
@@ -134,17 +134,15 @@ public class PracticeWindowController {
 			for(int i=0; i<_playlist.get(_index).size(); i++) {
 				String name = _playlist.get(_index).get(i).getName();
 		        JFXButton button = new JFXButton(name);
+		        button.setStyle("-fx-background-color: khaki");
 		        buttons.add(button);
 			}
-			rateButtonPane = new FlowPane();
-			System.out.println(buttons);
-			//rateButtonPane.getChildren().addAll(buttons);
-			 
 				try {
 					FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(getClass().getResource("RateAudioWindow.fxml"));
 					Parent content = (Parent) loader.load();
 					RateAudioController controller = loader.getController();
+					controller.addButtons(buttons);
 					Stage stage = new Stage();
 					stage.setScene(new Scene(content));
 					stage.show();
