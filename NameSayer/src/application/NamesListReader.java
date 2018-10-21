@@ -40,21 +40,32 @@ public class NamesListReader {
 				_index++;
 			}
 			_index = 0;
-			//Find matching names in the database
-			for(ArrayList<String> name : _namesAsString) {
-				_names.add(new ArrayList<Name>());
-				for(String word : name) {
-					System.out.println("Looking for" + word);
-					for(Name dataName : database) {
-						if(dataName.getName().equalsIgnoreCase(word)) {
+			// Find matching names in the database
+			for (ArrayList<String> name : _namesAsString) {
+				_names.add(new ArrayList<Name>() {
+					@Override
+					// Display the name in a formatted way in the table by overriding toString()
+					// method
+					public String toString() {
+						String nameString = new String();
+						for (Name name : this) {
+							nameString += name.getName() + " ";
+						}
+						;
+						return nameString;
+					}
+				});
+				// Add the names to the list only if they exist in the database
+				for (String word : name) {
+					for (Name dataName : database) {
+						if (dataName.getName().equalsIgnoreCase(word)) {
 							_names.get(_index).add(dataName);
-							System.out.println(dataName.getName());
 						}
 					}
 				}
 				_index++;
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

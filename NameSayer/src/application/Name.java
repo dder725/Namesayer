@@ -9,15 +9,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Name {
 	public SimpleStringProperty nameProperty = new SimpleStringProperty();
-	public SimpleStringProperty star = new SimpleStringProperty();
 	private String _name;
+	
 	private HashMap<Integer, String> _recordings = new HashMap<Integer, String>();
 	private HashMap<Integer, String> _recordingsDir = new HashMap<Integer, String>();
 
 	public Name(String name) {
 		this._name = name;
 		nameProperty.set(_name);
-		star.set("*");
+
 	}
 
 	public void addRecordingFile(String dir) {
