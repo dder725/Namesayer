@@ -79,7 +79,7 @@ public class Name {
 	public boolean equals(Object name) {
 		Name nameToCompare = (Name) name;
 		if (name instanceof Name && this.getName().equals(nameToCompare.getName())) {
-			System.out.println(nameToCompare.getName() + " Found to be equal to " + this.getName());
+			//System.out.println(nameToCompare.getName() + " Found to be equal to " + this.getName());
 			return true;
 		} else {
 			return false;
