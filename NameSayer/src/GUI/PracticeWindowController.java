@@ -1,14 +1,21 @@
 package GUI;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import com.jfoenix.controls.JFXButton;
 import application.Name;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PracticeWindowController {
 	private ObservableList<ArrayList<Name>> _playlist;
@@ -21,6 +28,7 @@ public class PracticeWindowController {
 	@FXML private JFXButton listen;
 	@FXML private JFXButton compare;
 	@FXML private CheckBox badRecordingCheckBox;
+	@FXML private FlowPane rateButtonPane;
 
 	
 	public void playRecording() {
@@ -103,7 +111,15 @@ public class PracticeWindowController {
 	 * Method that gets called when the user selects the versions button
 	 */
 	public void versionsButton() {
-		
+        List<JFXButton> buttons = new ArrayList<>();
+
+        // create buttons for each name
+		for(int i=0; i<_playlist.get(_index).size(); i++) {
+			String name = _playlist.get(_index).get(i).getName();
+	        JFXButton button = new JFXButton(name);
+	        //add buttons to window
+		}
+
 		
 	}
 	
@@ -112,8 +128,28 @@ public class PracticeWindowController {
 	 * Method that gets called when the user selects the rate audio button
 	 */
 	public void rateRecordingButton() {
-		
-		
+	       List<JFXButton> buttons = new ArrayList<>();
+
+	        // create buttons for each name
+			for(int i=0; i<_playlist.get(_index).size(); i++) {
+				String name = _playlist.get(_index).get(i).getName();
+		        JFXButton button = new JFXButton(name);
+		        buttons.add(button);
+			}
+			rateButtonPane = new FlowPane();
+			System.out.println(buttons);
+			//rateButtonPane.getChildren().addAll(buttons);
+			 
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("RateAudioWindow.fxml"));
+					Parent content = (Parent) loader.load();
+					RateAudioController controller = loader.getController();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(content));
+					stage.show();
+				} catch (IOException e) {
+				}
 	}
 	
 	
