@@ -182,13 +182,13 @@ public class MainWindowController {
 	}
 
 	public void addToName() {
-		_currentName.add(namesListView.getSelectionModel().getSelectedItem());
-		String name = new String();
-		for (Name item : _currentName) {
-			name += item.getName() + " ";
+		// Update the searchbox with the selected database name
+		if (!searchBox.getText().isEmpty()) {
+			searchBox.setText(searchBox.getText().substring(0, searchBox.getText().lastIndexOf(" ")) + " "
+					+ namesListView.getSelectionModel().getSelectedItem().getName());
+		} else {
+			searchBox.setText(namesListView.getSelectionModel().getSelectedItem().getName());
 		}
-		searchBox.setText(name);
-		currentNameText.setText(name);
 	}
 
 	public void addToPlaylist() {
@@ -227,54 +227,41 @@ public class MainWindowController {
 		// Check if the name is already in the playlist
 		if (_playlist.contains(namesFromText)) {
 			ErrorDialog.showError("This name is already in the playlist");
-		} else if (!namesFromText.isEmpty() && namesNotInDatabase.isEmpty()) { // Add a name to a playlist if a
-																				// searchbox is not empty and there are
-																				// no unknown names
-			System.out.println(namesFromText);
+		} else if (!namesFromText.isEmpty() && namesNotInDatabase.isEmpty() && searchBox.getText().length() <= 50) {
+			// Add a name to a playlist if a searchbox is not empty and there are no unknown
+			// names
 			_playlist.add(namesFromText);
 			_currentName.clear();
 			currentNameText.setText("Choose names from the database");
 		}
 
 		// Display a warning window if a name is not found
-		if (!namesNotInDatabase.isEmpty()) {
+		if (!namesNotInDatabase.isEmpty() || searchBox.getText().length() > 50) {
 
-			// Sort out do and does depending on whether a single or multiple names had not
-			// been found
-			String extraMessage;
+			// Select the error message depending on the type of error
+			String extraMessage, explanation;
 			if (namesNotInDatabase.size() == 1) {
 				extraMessage = " does not exist in the database!";
-			} else {
+				explanation = "You cannot add unknown names to the playlist";
+			} else if (namesNotInDatabase.size() > 1) {
 				extraMessage = " do not exist in the database!";
+				explanation = "You cannot add unknown names to the playlist";
+			} else {
+				extraMessage = "The names cannot be longer than 50 characters";
+				explanation = "Please shorten the name to add it to the playlist";
 			}
 
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Unknown names");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
 			alert.setHeaderText(
 					namesNotInDatabase.stream().map(Object::toString).collect(Collectors.joining(", ")) + extraMessage);
-			alert.setContentText("Add it to the playlist?");
+			alert.setContentText(explanation);
 
-			Optional<ButtonType> option = alert.showAndWait();
-
-			if (option.get() == null || option.get() == ButtonType.CANCEL) {
-				// Do nothing
-			} else if (option.get() == ButtonType.OK) {
-				// TODO: Check if the name is already in the playlist
-				if (_playlist.contains(namesFromText)) {
-					ErrorDialog.showError("This name is already in the playlist");
-				} else {
-					System.out.println(namesFromText);
-					_playlist.add(namesFromText);
-					_currentName.clear();
-					currentNameText.setText("Choose names from the database");
-				}
-			} else {
-				// Do nothing
-			}
+			alert.showAndWait();
+		} else {
+			// Refresh searchbox
+			searchBox.setText("");
 		}
-		
-		//Refresh searchbox
-		searchBox.setText("");
 	}
 
 	public void upload() {
@@ -292,13 +279,15 @@ public class MainWindowController {
 		fileChooser.setTitle("Open Resource File");
 		File nameList = fileChooser.showOpenDialog(stage);
 		NamesListReader reader = new NamesListReader(nameList);
-		
+
 		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
 		System.out.println(names);
-		
-		//Check if the file was empty
-		if(!names.isEmpty()) {
-		_playlist.addAll(names);
+
+		// Add a name if it is not empty
+		for (ArrayList<Name> name : names) {
+			if (!name.isEmpty() && !_playlist.contains(name)) {
+				_playlist.add(name);
+			}
 		}
 	}
 
