@@ -4,11 +4,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PracticeWindowController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.PracticeWindowController">
    <top>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
          <children>
@@ -16,21 +15,6 @@
          </children>
       </AnchorPane>
    </top>
-   <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="292.0" prefWidth="600.0">
-               <children>
-                  <Text fx:id="nameLabel" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600.6708984375">
-                     <font>
-                        <Font size="58.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </VBox>
-   </center>
    <bottom>
       <Pane prefHeight="66.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
          <children>
@@ -40,4 +24,25 @@
             <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" onAction="#nextName" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Next name" />
          </children></Pane>
    </bottom>
+   <center>
+      <Pane prefHeight="176.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutY="208.0" prefHeight="83.0" prefWidth="600.0">
+               <children>
+                  <JFXButton layoutX="307.0" layoutY="26.0" onAction="#versionsButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Try different versions" />
+                  <JFXButton layoutX="123.0" layoutY="26.0" onAction="#rateRecordingButton" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: khaki;" text="Rate audio quality" />
+               </children>
+            </Pane>
+            <Pane prefHeight="197.0" prefWidth="600.0">
+               <children>
+                  <Text fx:id="nameLabel" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600.6708984375">
+                     <font>
+                        <Font size="54.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </center>
 </BorderPane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.RateAudioController">
+   <bottom>
+      <FlowPane fx:id="rateButtonPane" prefHeight="135.0" prefWidth="450.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <Pane prefHeight="95.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a name to rate the quality of the audio" textAlignment="CENTER" wrappingWidth="450.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <Pane prefHeight="36.0" prefWidth="450.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="171.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate Recordings" />
+         </children>
+      </Pane>
+   </top>
+</BorderPane>

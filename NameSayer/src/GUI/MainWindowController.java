@@ -76,7 +76,7 @@ public class MainWindowController {
 				return null;
 			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
-				System.out.println(uppercase);
+				// System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
 			}
 		}, searchBox.textProperty()));
