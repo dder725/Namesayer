@@ -4,12 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import com.jfoenix.controls.JFXButton;
 import application.Name;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
