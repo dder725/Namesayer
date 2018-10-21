@@ -111,16 +111,26 @@ public class PracticeWindowController {
 	 * Method that gets called when the user selects the versions button
 	 */
 	public void versionsButton() {
-        List<JFXButton> buttons = new ArrayList<>();
+	       List<JFXButton> buttons = new ArrayList<>();
 
-        // create buttons for each name
-		for(int i=0; i<_playlist.get(_index).size(); i++) {
-			String name = _playlist.get(_index).get(i).getName();
-	        JFXButton button = new JFXButton(name);
-	        //add buttons to window
-		}
-
-		
+	        // create buttons for each name
+	       // need to change so that only names with multiple versions are added as buttons
+			for(int i=0; i<_playlist.get(_index).size(); i++) {
+				String name = _playlist.get(_index).get(i).getName();
+		        JFXButton button = new JFXButton(name);
+		        buttons.add(button);
+			}
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("VersionsWindow.fxml"));
+					Parent content = (Parent) loader.load();
+					VersionWindowController controller = loader.getController();
+					controller.addButtons(buttons);
+					Stage stage = new Stage();
+					stage.setScene(new Scene(content));
+					stage.show();
+				} catch (IOException e) {
+				}
 	}
 	
 	
@@ -134,7 +144,6 @@ public class PracticeWindowController {
 			for(int i=0; i<_playlist.get(_index).size(); i++) {
 				String name = _playlist.get(_index).get(i).getName();
 		        JFXButton button = new JFXButton(name);
-		        button.setStyle("-fx-background-color: khaki");
 		        buttons.add(button);
 			}
 				try {

@@ -2,7 +2,6 @@ package GUI;
 
 
 import java.util.List;
-
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
