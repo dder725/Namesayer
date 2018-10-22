@@ -140,7 +140,7 @@ public class DataBase {
 	
 	//Create a text file which stores bad recordings
 	private void createBadRecordingsFile() {
-		_badRecordings = new File(System.getProperty("user.dir"), "/NameSayer/badRecordings.txt");
+		_badRecordings = new File(System.getProperty("user.dir"), "/badRecordings.txt");
 		if (!_badRecordings.exists()) {
 			try {
 				_badRecordings.createNewFile();
@@ -160,7 +160,7 @@ public class DataBase {
 			Timestamp timestamp = new Timestamp(time);
 
 			output = new BufferedWriter(
-					new FileWriter(System.getProperty("user.dir") + "/NameSayer/badRecordings.txt", true));
+					new FileWriter(System.getProperty("user.dir") + "/badRecordings.txt", true));
 			if (isBad) {
 				output.append(dir + " MARKED as (Bad) at " + timestamp + System.lineSeparator());
 			} else {
