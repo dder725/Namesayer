@@ -2,29 +2,30 @@ package GUI;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class RecordingWindowController {	
-	@FXML Button recordButton;
+	@FXML JFXButton recordButton;
+	@FXML JFXButton stopButton;
 	@FXML ProgressBar progressBar;
 	private IntegerProperty seconds = new SimpleIntegerProperty(500);
+	Thread thread = new Thread();
+	Timeline timeline = new Timeline();
+	Audio audio;
 
 
 	/** Method to allow the user to test if their microphone is working
@@ -40,7 +41,8 @@ public class RecordingWindowController {
 	 *  calls listenWindow()
 	 */
 	public void startRecording() {
-		Audio audio = new Audio();
+		stopButton.setDisable(false);
+		audio = new Audio();
 		audio.startRecording();
 
 		progressBar.progressProperty().bind(seconds.divide(500.0).subtract(1).multiply(-1));
@@ -48,7 +50,7 @@ public class RecordingWindowController {
 		Task<Void> task = new Task<Void>() {
 			@Override
 			public Void call() {
-				Timeline timeline = new Timeline();
+				timeline = new Timeline();
 				timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5), new KeyValue(seconds, 0)));
 				timeline.play();
 				timeline.setOnFinished(e -> {
@@ -57,23 +59,26 @@ public class RecordingWindowController {
 				return null;
 			}
 		};
-		Thread thread = new Thread(task);
+		thread = new Thread(task);
 		thread.start();
 	}
 
 
 	public void recordingFinished() {
 		Stage stage = (Stage) progressBar.getScene().getWindow();
-		stage.close();
 		listenWindow();
+		stage.close();
+		
 	}
 
 
 	/** Method called when user pushes the "Stop Recording" button. 
 	 */
 	public void stopRecording() {
-
-
+		stopButton.setDisable(false);
+		audio.stopRecording();
+		timeline.stop();
+		recordingFinished();
 	}
 
 

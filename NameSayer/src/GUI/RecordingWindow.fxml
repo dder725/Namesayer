@@ -20,7 +20,7 @@
          <children>
             <JFXButton fx:id="recordButton" layoutX="235.0" layoutY="18.0" onAction="#startRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Start Recording" />
             <JFXButton layoutX="53.0" layoutY="18.0" onAction="#micTest" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Test Mic" />
-            <JFXButton layoutX="413.0" layoutY="18.0" onAction="#stopRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Stop Recording" />
+            <JFXButton fx:id="stopButton" layoutX="413.0" layoutY="18.0" onAction="#stopRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Stop Recording" disable="true" />
          </children>
       </Pane>
    </bottom>
