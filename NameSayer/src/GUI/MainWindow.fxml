@@ -17,8 +17,8 @@
    <bottom>
       <ToolBar style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
         <items>
-            <JFXButton buttonType="RAISED" onAction="#upload" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload a playlist" />
-            <JFXButton buttonType="RAISED" onAction="#upload" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload a database" />
+            <JFXButton buttonType="RAISED" onAction="#uploadPlaylist" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload a playlist" />
+            <JFXButton buttonType="RAISED" onAction="#uploadDatabase" ripplerFill="#bfbfbf" style="-fx-background-color: darkseagreen;" text="Upload a database" />
             <JFXButton text="Help" />
         </items>
       </ToolBar>

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.swing.JFileChooser;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -56,6 +55,7 @@ public class MainWindowController {
 	private JFXTextField searchBox;
 
 	public void populateTableView() {
+		_namesList.clear();
 		namesListView.setItems(_filteredNamesList);
 		playlistView.setItems(_playlist);
 		_namesList.addAll(DataBase.getNamesList());
@@ -74,7 +74,9 @@ public class MainWindowController {
 			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else if(searchBox.getText().charAt(searchBox.getText().length() - 1) == ' ') { //Refresh the database to original view if spacebar is pressd
+			} else if (searchBox.getText().charAt(searchBox.getText().length() - 1) == ' ') { // Refresh the database to
+																								// original view if
+																								// spacebar is pressd
 				return (Name) -> !(Name.getName().toUpperCase().isEmpty());
 			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
@@ -255,13 +257,13 @@ public class MainWindowController {
 			searchBox.setText("");
 		}
 	}
-	
-	//Remove all entries in the playlist
+
+	// Remove all entries in the playlist
 	public void clearPlaylist() {
 		_playlist.clear();
 	}
 
-	public void upload() {
+	public void uploadPlaylist() {
 		// Restrict file search to .txt files only
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
 
@@ -286,6 +288,27 @@ public class MainWindowController {
 				_playlist.add(name);
 			}
 		}
+	}
+
+	public void uploadDatabase() {
+		// Restrict file search to .zip files only
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip");
+
+		Stage stage = new Stage();
+		FileChooser fileChooser = new FileChooser();
+
+		// Set NameSayer directory as initial directory
+		File file = new File(System.getProperty("user.home") + "/NameSayer");
+		fileChooser.setInitialDirectory(file);
+
+		fileChooser.getExtensionFilters().add(extFilter);
+		fileChooser.setTitle("Open Resource File");
+		File databaseFile = fileChooser.showOpenDialog(stage);
+		
+		//Reinstantiate database
+		DataBase.reinstantiateDataBase(databaseFile);
+		populateTableView();
+
 	}
 
 }

@@ -34,15 +34,19 @@ public class DataBase {
 
 	}
 
-	public static void instantiateDataBase() { // Implement Database as a singleton (can't create use more than two
-												// databases at once)
-		if (instance == null) {
-			synchronized (DataBase.class) {
-				if (instance == null) {
+	public static void instantiateDataBase() {
 					instance = new DataBase();
-				}
-			}
+	}
+	
+	//Reinstantiate the database with a new file
+	public static void reinstantiateDataBase(File dataBaseFile) {
+		File file = new File(System.getProperty("user.home") + "/NameSayer/" + dataBaseFile.getName());
+		if (!file.exists()) {
+			unzip(dataBaseFile.getAbsolutePath(),
+					System.getProperty("user.home") + "/NameSayer/" + dataBaseFile.getName());
+			// TODO createBadRecordingsFile();
 		}
+		traverse(file.getAbsolutePath());
 	}
 
 	private static void unzip(String filePath, String destDir) {
@@ -99,7 +103,8 @@ public class DataBase {
 		}
 	}
 
-	private void traverse(String destDir) {
+	private static void traverse(String destDir) {
+		_names.clear();
 		String entryName;
 		Map<String, Integer> occurencesOfName = new HashMap<String, Integer>();
 		File dir = new File(destDir);
