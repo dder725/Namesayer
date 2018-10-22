@@ -6,17 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.ChoiceBox;
 
 public class Name {
 	public SimpleStringProperty nameProperty = new SimpleStringProperty();
 	private String _name;
-	
+	private ChoiceBox _versions;
 	private HashMap<Integer, String> _recordings = new HashMap<Integer, String>();
 	private HashMap<Integer, String> _recordingsDir = new HashMap<Integer, String>();
 
 	public Name(String name) {
 		this._name = name;
 		nameProperty.set(_name);
+		_versions = new ChoiceBox();
 
 	}
 
@@ -83,6 +85,30 @@ public class Name {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	
+	public ChoiceBox getChoiceBox() {
+		return _versions;
+	}
+
+	public void setCheckBox() {
+		_versions.getItems().clear();
+		_versions.getItems().addAll(this.getVersions());
+		_versions.getSelectionModel().selectFirst();
+		
+	}
+	
+	
+	public String getSelectedRecordingDirectory() {
+		if (getVersions().size() == 1) {
+			return getRecordingDir(1);
+		} else {
+		String selectedVersion = _versions.getSelectionModel().getSelectedItem().toString();
+		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
+		String versionDir = this.getRecordingDir(numOfVersion);
+		return versionDir;
 		}
 	}
 }
