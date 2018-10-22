@@ -161,10 +161,16 @@ public class PracticeWindowController {
 	public void rateRecordingButton() {
 		List<JFXButton> buttons = new ArrayList<>();
 
-		// create buttons for each name
+		//Create buttons for each name
 		for(int i=0; i<_playlist.get(_index).size(); i++) {
 			String name = _playlist.get(_index).get(i).getName();
 			JFXButton button = new JFXButton(name);
+			if(_playlist.get(_index).get(i).isBadRecording()) {
+				System.out.println(_playlist.get(_index).get(i).getName() + " is bad");
+				button.setStyle("-fx-background-color: red");
+			} else {
+				button.setStyle("-fx-background-color: darkseagreen");
+			}
 			buttons.add(button);
 		}
 		try {
@@ -173,6 +179,8 @@ public class PracticeWindowController {
 			Parent content = (Parent) loader.load();
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);
+			controller.setNames(_playlist.get(_index));
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -209,7 +217,7 @@ public class PracticeWindowController {
 		rateAudioButton.setTooltip(new Tooltip("Rate the recording of this name"));
 	}
 	
-	//Display reward every 5 practiced names
+	//Display a reward window every 5 practiced names
 	public void reward() {
 		if((_index + 1) % 5 == 0 && _index != 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);

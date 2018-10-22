@@ -1,6 +1,8 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -48,32 +50,41 @@ public class Name {
 		_recordingsDir.put(num, dir);
 	}
 
-	public Boolean isBadRecording(int num) {
-		int tagIndex = getRecordingDir(num).lastIndexOf("(Bad)");
-		if (tagIndex != -1) {
+	// Check if selected recording is bad
+	public Boolean isBadRecording() {
+		System.out.println();
+		// If the absolute path contains (Bad) tag, the recording is bad
+		if (this.getSelectedRecordingDirectory().contains("Bad")) {
+			System.out.println(this.getName() + " is Bad");
 			return true;
 		} else {
+			System.out.println(this.getName() + " is NOT Bad");
 			return false;
 		}
 	}
 
-	public void modifyBadTag(String dir, Boolean isBad, Integer recordingNum) {
-		File oldRecordingName = new File(dir);
-		File newRecordingName;
-
-		// If isBad is true, mark recording with a (Bad) tag
-		if (isBad) {
-			newRecordingName = new File(dir + "(Bad)");
-			// Add it to the badRecordings.txt
-			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), true);
-			updateRecordingDir(recordingNum, oldRecordingName.getAbsolutePath() + "\\(Bad\\)");
-		} else { // Remove the (Bad) tag if isBad is false
-			newRecordingName = new File(dir.substring(0, (dir.lastIndexOf("("))));
-			DataBase.addABadRecording(oldRecordingName.getAbsolutePath(), false);
-			updateRecordingDir(recordingNum, newRecordingName.getAbsolutePath());
+	//Change (Bad) tag at the end of the selected recording file
+	public void modifyBadTag(Boolean isBad) {
+		int recordingNum = this.getSelectedRecordingNum();
+		File recordingName = new File(this.getSelectedRecordingDirectory());
+		
+		if(!this.isBadRecording()) {
+			File newName = new File(recordingName.getPath() + "(Bad)");
+			recordingName.renameTo(newName);
+			recordingName = newName;
+			_recordingsDir.put(recordingNum, recordingName.getPath());
+			
+			//Add it to badRecordings.txt
+			DataBase.addABadRecording(recordingName.getAbsolutePath(), true);
+		} else { //Remove the (Bad) tag if isBad is false
+			File newName = new File(recordingName.getPath().replace("(Bad)", ""));
+			recordingName.renameTo(newName);
+			recordingName = newName;
+			_recordingsDir.put(recordingNum, recordingName.getPath());
+			
+			//Add it to badRecordings.txt
+			DataBase.addABadRecording(recordingName.getAbsolutePath(), true);
 		}
-
-		oldRecordingName.renameTo(newRecordingName);
 	}
 
 	// Two names are the same if they their spelling is the same
@@ -81,14 +92,14 @@ public class Name {
 	public boolean equals(Object name) {
 		Name nameToCompare = (Name) name;
 		if (name instanceof Name && this.getName().equals(nameToCompare.getName())) {
-			//System.out.println(nameToCompare.getName() + " Found to be equal to " + this.getName());
+			// System.out.println(nameToCompare.getName() + " Found to be equal to " +
+			// this.getName());
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	
+
 	public ChoiceBox getChoiceBox() {
 		return _versions;
 	}
@@ -97,18 +108,30 @@ public class Name {
 		_versions.getItems().clear();
 		_versions.getItems().addAll(this.getVersions());
 		_versions.getSelectionModel().selectFirst();
-		
+
 	}
-	
-	
+
 	public String getSelectedRecordingDirectory() {
 		if (getVersions().size() == 1) {
 			return getRecordingDir(1);
 		} else {
-		String selectedVersion = _versions.getSelectionModel().getSelectedItem().toString();
-		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-		String versionDir = this.getRecordingDir(numOfVersion);
-		return versionDir;
+			String selectedVersion = _versions.getSelectionModel().getSelectedItem().toString();
+			Integer numOfVersion = Character
+					.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
+			String versionDir = this.getRecordingDir(numOfVersion);
+			System.out.println(versionDir);
+			return versionDir;
+		}
+	}
+
+	public int getSelectedRecordingNum() {
+		if (getVersions().size() == 1) {
+			return 1;
+		} else {
+			String selectedVersion = _versions.getSelectionModel().getSelectedItem().toString();
+			Integer numOfVersion = Character
+					.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
+			return numOfVersion;
 		}
 	}
 }

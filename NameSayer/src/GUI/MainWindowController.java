@@ -202,7 +202,6 @@ public class MainWindowController {
 	public void addToName() {
 		// Update the searchbox with the selected database name
 		if (!searchBox.getText().isEmpty() && searchBox.getText().contains(" ")) {
-			System.out.println(namesListView.getSelectionModel().getSelectedItem().getName());
 			searchBox.setText(searchBox.getText().substring(0, searchBox.getText().lastIndexOf(" ")) + " "
 					+ namesListView.getSelectionModel().getSelectedItem().getName());
 		} else {
