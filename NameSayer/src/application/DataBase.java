@@ -24,10 +24,10 @@ public class DataBase {
 	private static File _badRecordings;
 
 	private DataBase() {
-		File file = new File(System.getProperty("user.home") + "/NameSayer/names");
+		File file = new File(System.getProperty("user.dir") + "/names");
 		if (!file.exists()) {
-			unzip(System.getProperty("user.home") + "/NameSayer/names.zip",
-					System.getProperty("user.home") + "/NameSayer/names");
+			unzip(System.getProperty("user.dir") + "/names.zip",
+					System.getProperty("user.dir") + "/names");
 			createBadRecordingsFile();
 		}
 		traverse(file.getAbsolutePath());
@@ -40,10 +40,10 @@ public class DataBase {
 	
 	//Reinstantiate the database with a new file
 	public static void reinstantiateDataBase(File dataBaseFile) {
-		File file = new File(System.getProperty("user.home") + "/NameSayer/" + dataBaseFile.getName());
+		File file = new File(System.getProperty("user.dir") + dataBaseFile.getName());
 		if (!file.exists()) {
 			unzip(dataBaseFile.getAbsolutePath(),
-					System.getProperty("user.home") + "/NameSayer/" + dataBaseFile.getName());
+					System.getProperty("user.dir") + dataBaseFile.getName());
 			// TODO createBadRecordingsFile();
 		}
 		traverse(file.getAbsolutePath());
@@ -140,7 +140,7 @@ public class DataBase {
 	
 	//Create a text file which stores bad recordings
 	private void createBadRecordingsFile() {
-		_badRecordings = new File(System.getProperty("user.home"), "/NameSayer/badRecordings.txt");
+		_badRecordings = new File(System.getProperty("user.dir"), "/NameSayer/badRecordings.txt");
 		if (!_badRecordings.exists()) {
 			try {
 				_badRecordings.createNewFile();
@@ -160,7 +160,7 @@ public class DataBase {
 			Timestamp timestamp = new Timestamp(time);
 
 			output = new BufferedWriter(
-					new FileWriter(System.getProperty("user.home") + "/NameSayer/badRecordings.txt", true));
+					new FileWriter(System.getProperty("user.dir") + "/NameSayer/badRecordings.txt", true));
 			if (isBad) {
 				output.append(dir + " MARKED as (Bad) at " + timestamp + System.lineSeparator());
 			} else {

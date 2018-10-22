@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -271,7 +270,7 @@ public class MainWindowController {
 		FileChooser fileChooser = new FileChooser();
 
 		// Set NameSayer directory as initial directory
-		File file = new File(System.getProperty("user.home") + "/NameSayer");
+		File file = new File(System.getProperty("user.dir") + "/NameSayer");
 		fileChooser.setInitialDirectory(file);
 
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -298,14 +297,14 @@ public class MainWindowController {
 		FileChooser fileChooser = new FileChooser();
 
 		// Set NameSayer directory as initial directory
-		File file = new File(System.getProperty("user.home") + "/NameSayer");
+		File file = new File(System.getProperty("user.dir") + "/NameSayer");
 		fileChooser.setInitialDirectory(file);
 
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Open Resource File");
 		File databaseFile = fileChooser.showOpenDialog(stage);
-		
-		//Reinstantiate database
+
+		// Reinstantiate database
 		DataBase.reinstantiateDataBase(databaseFile);
 		populateTableView();
 
