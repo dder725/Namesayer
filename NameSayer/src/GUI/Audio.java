@@ -130,13 +130,8 @@ public class Audio {
 			}
 		};
 		BackgroundThread.start();
+		
 		//end of recording section
-		for (int i=5; i>=0; i-- ) {
-			try {
-				Thread.sleep(1000);
-				System.out.println(i);
-			} catch (InterruptedException e) {}
-		}	
 	}
 
 
