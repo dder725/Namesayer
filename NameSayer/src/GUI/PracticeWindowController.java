@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,7 +22,7 @@ public class PracticeWindowController {
 	private Integer _index = 0;
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
-	private List<JFXButton> versionButtons = new ArrayList<>();
+	private List<ChoiceBox> versionButtons = new ArrayList<>();
 	@FXML private Text nameLabel;
 	@FXML private JFXButton makeRecording;
 	@FXML private JFXButton nextName;
@@ -37,7 +37,7 @@ public class PracticeWindowController {
 		_directories.clear();
 		for (int i=0; i<_numFiles; i++) {
 			//Currently using version 1 but can change when we incorporate other versions
-			String dir = _playlist.get(_index).get(i).getRecordingDir(1);
+			String dir = _playlist.get(_index).get(i).getSelectedRecordingDirectory();
 			_directories.add(dir);
 		}
 		Audio audio = new Audio();
@@ -106,8 +106,9 @@ public class PracticeWindowController {
 			String name = _playlist.get(_index).get(i).getName();
 			Collection<String> versions = _playlist.get(_index).get(i).getVersions();
 			if (versions.size() > 1) {
-				JFXButton button = new JFXButton(name);
-				versionButtons.add(button);
+				_playlist.get(_index).get(i).setCheckBox();
+				ChoiceBox versionChoices = _playlist.get(_index).get(i).getChoiceBox();
+				versionButtons.add(versionChoices);
 			}
 		}
 		if (versionButtons.isEmpty()) {
@@ -134,12 +135,14 @@ public class PracticeWindowController {
 	 * Method that gets called when the user selects the versions button
 	 */
 	public void versionsButton() {
+		File file = new File("fullName.wav");
+		file.delete();
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("VersionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			VersionWindowController controller = loader.getController();
-			controller.addButtons(versionButtons);
+			controller.addChoiceBoxes(versionButtons);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -203,56 +206,6 @@ public class PracticeWindowController {
 
 
 
-
-	//	private void setListenerVersionChoice(Boolean toRemove) {
-	//		ChangeListener<Number> listen = new ChangeListener<Number>() {
-	//			@Override
-	//			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-	//				// String version =
-	//				// versionChoice.getItems().get(observableValue.getValue().intValue()).toString();
-	//				// int versionNum =
-	//				// Character.getNumericValue(version.charAt(version.lastIndexOf('_') + 1));
-	//				int versionNum = observableValue.getValue().intValue() + 1;
-	//				if (versionNum <= 0) {
-	//					versionNum = 1;
-	//				}
-	//				if (_playlist.get(_index).isBadRecording(versionNum)) {
-	///					badRecordingCheckBox.setSelected(true);
-	//				} else {
-	//					badRecordingCheckBox.setSelected(false);
-	//				}
-	//			}
-	//		};
-	//		if (!toRemove) {
-	//			versionChoice.getSelectionModel().selectedIndexProperty().addListener(listen);
-	//		} else {
-	//			versionChoice.getSelectionModel().selectedIndexProperty().removeListener(listen);
-	//		}
-	//	}
-
-
-
-
-	//	public String getSelectedRecordingDirectory() {
-	//		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-	//		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-	//		String versionDir = _playlist.get(_index).get(0).getRecordingDir(numOfVersion);
-	//
-	//		return versionDir;
-	//	}
-	//
-
-
-	//	private Integer getVersionNum() {
-	//		String dir = getSelectedRecordingDirectory();
-	//		String selectedVersion = versionChoice.getSelectionModel().getSelectedItem().toString();
-	//		Integer numOfVersion = Character.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
-	//
-	//		return numOfVersion;
-	//	}
-
-
-
 	//	public void markAsBad() {
 	//		String dir = getSelectedRecordingDirectory();
 	//
@@ -265,10 +218,5 @@ public class PracticeWindowController {
 	//	}
 
 
-
-	//	public String getCurrentVersion() {
-	//		String version = versionChoice.getSelectionModel().getSelectedItem().toString();
-	//		return version;
-	//	}
 
 }
