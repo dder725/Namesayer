@@ -115,12 +115,6 @@ public class MainWindowController {
 		});
 	}
 
-	// Reset the label
-	public void clear() {
-		_currentName.clear();
-		currentNameText.setText("Choose names from the database");
-	}
-
 	public void practiceButton() {
 		if (_playlist.isEmpty()) {
 			noNames();
@@ -260,6 +254,11 @@ public class MainWindowController {
 			// Refresh searchbox
 			searchBox.setText("");
 		}
+	}
+	
+	//Remove all entries in the playlist
+	public void clearPlaylist() {
+		_playlist.clear();
 	}
 
 	public void upload() {
