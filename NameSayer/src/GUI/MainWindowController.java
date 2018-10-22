@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -39,21 +40,22 @@ public class MainWindowController {
 	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
 	@FXML
-	private Text currentNameText;
-
-	@FXML
 	private JFXListView<Name> namesListView;
 
 	@FXML
 	private JFXListView<ArrayList<Name>> playlistView;
 
-	@FXML
-	private JFXButton add, clear;
+	@FXML private JFXButton add;
+	@FXML private JFXButton clear; 
+	@FXML private JFXButton practice;
+	@FXML private JFXButton uploadPlaylist;
+	@FXML private JFXButton uploadDatabase;
 
 	@FXML
 	private JFXTextField searchBox;
 
 	public void populateTableView() {
+		setHints();
 		_namesList.clear();
 		namesListView.setItems(_filteredNamesList);
 		playlistView.setItems(_playlist);
@@ -83,6 +85,16 @@ public class MainWindowController {
 		}, searchBox.textProperty()));
 	}
 
+	//Set help tooltips for the buttons
+	private void setHints() {
+		add.setTooltip(new Tooltip("Add the entered name to the playlist"));
+		clear.setTooltip(new Tooltip("Clear the current playlist"));
+		practice.setTooltip(new Tooltip("Practice the current playlist"));
+		uploadPlaylist.setTooltip(new Tooltip("Upload a .txt playlist"));
+		uploadDatabase.setTooltip(new Tooltip("Upload your own .zip database of names"));
+		namesListView.setTooltip(new Tooltip("Double click to add to the searchbox"));
+		playlistView.setTooltip(new Tooltip("Double click to remove from the playlist"));
+	}
 	// Add a name from the database to the searchbox on doubleclick
 	public void setupDoubleClickAdd() {
 		namesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -95,6 +107,7 @@ public class MainWindowController {
 		});
 	}
 
+	//Remove selected name from the playlist
 	public void removeFromPractice() {
 		if (!_playlist.isEmpty()) {
 			_playlist.remove(playlistView.getSelectionModel().getSelectedIndex());
