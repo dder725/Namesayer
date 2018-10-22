@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javafx.scene.control.Tooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -20,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -40,16 +40,26 @@ public class MainWindowController {
 	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
 	@FXML
+	private Text currentNameText;
+
+	@FXML
 	private JFXListView<Name> namesListView;
 
 	@FXML
 	private JFXListView<ArrayList<Name>> playlistView;
 
-	@FXML private JFXButton add;
-	@FXML private JFXButton clear; 
-	@FXML private JFXButton practice;
-	@FXML private JFXButton uploadPlaylist;
-	@FXML private JFXButton uploadDatabase;
+	@FXML
+	private JFXButton add;
+	@FXML
+	private JFXButton clear;
+	@FXML
+	private JFXButton practice;
+	@FXML
+	private JFXButton uploadPlaylist;
+	@FXML
+	private JFXButton uploadDatabase;
+	@FXML
+	private JFXButton shuffle;
 
 	@FXML
 	private JFXTextField searchBox;
@@ -64,18 +74,18 @@ public class MainWindowController {
 		// Filter the list
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
 			String text = searchBox.getText();
-			
+
 			// Check if it is a composite word by checking for non-word characters
 			if (text.matches(".*[^A-Za-z].*")) {
 				String[] names = text.split("[\\W]");
 				text = names[names.length - 1];
 				System.out.println("Non-word char is found");
-			} 
+			}
 
 			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else if (!Character.isLetter(searchBox.getText().charAt(searchBox.getText().length() - 1))) { 
+			} else if (!Character.isLetter(searchBox.getText().charAt(searchBox.getText().length() - 1))) {
 				// Refresh the database to the original view if a non-word character is entered
 				return (Name) -> !(Name.getName().toUpperCase().isEmpty());
 			} else { // Filter the database to the entered word
@@ -85,7 +95,7 @@ public class MainWindowController {
 		}, searchBox.textProperty()));
 	}
 
-	//Set help tooltips for the buttons
+	// Set help tooltips for the buttons
 	private void setHints() {
 		add.setTooltip(new Tooltip("Add the entered name to the playlist"));
 		clear.setTooltip(new Tooltip("Clear the current playlist"));
@@ -94,7 +104,9 @@ public class MainWindowController {
 		uploadDatabase.setTooltip(new Tooltip("Upload your own .zip database of names"));
 		namesListView.setTooltip(new Tooltip("Double click to add to the searchbox"));
 		playlistView.setTooltip(new Tooltip("Double click to remove from the playlist"));
+		shuffle.setTooltip(new Tooltip("Randomise the playlist"));
 	}
+
 	// Add a name from the database to the searchbox on doubleclick
 	public void setupDoubleClickAdd() {
 		namesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -107,7 +119,6 @@ public class MainWindowController {
 		});
 	}
 
-	//Remove selected name from the playlist
 	public void removeFromPractice() {
 		if (!_playlist.isEmpty()) {
 			_playlist.remove(playlistView.getSelectionModel().getSelectedIndex());
