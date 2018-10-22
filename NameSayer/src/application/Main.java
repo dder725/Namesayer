@@ -62,16 +62,16 @@ public class Main extends Application {
 	}
 
 	public void makeScript() {
+		String workingDir = System.getProperty("user.dir");
 		String code = "		#!/bin/bash\n" + 
 				"\n" + 
 				"\n" + 
 				"		if [ ! -d UserAttempts ]; then\n" + 
-				"		        dir=$(pwd)\n" + 
-				"		        mkdir $HOME/NameSayer/UserAttempts\n" + 
-				"		        cd $HOME/NameSayer/names\n" + 
+				"		        mkdir "+workingDir+"/UserAttempts\n" + 
+				"		        cd "+workingDir+"/names\n" + 
 				"		        for x in ./*_1; do\n" + 
 				"					x=\"${x%_1}\"\n" + 
-				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" $HOME/NameSayer/UserAttempts\n" + 
+				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" "+workingDir+"/UserAttempts\n" + 
 				"		        done\n" + 
 				"		fi";
 
