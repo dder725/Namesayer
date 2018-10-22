@@ -74,14 +74,14 @@ public class MainWindowController {
 			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
+			} else if(searchBox.getText().charAt(searchBox.getText().length() - 1) == ' ') { //Refresh the database to original view if spacebar is pressd
+				return (Name) -> !(Name.getName().toUpperCase().isEmpty());
 			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
 				// System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
 			}
 		}, searchBox.textProperty()));
-
-		currentNameText.setText("Choose names from the database");
 	}
 
 	// Add a name from the database to the searchbox on doubleclick
@@ -192,8 +192,8 @@ public class MainWindowController {
 	}
 
 	public void addToPlaylist() {
-		// Split a composite name
-		String[] text = searchBox.getText().split(" ");
+		// Remove any extra spaces and split a composite name
+		String[] text = searchBox.getText().trim().replaceAll(" +", " ").split(" ");
 
 		// Create an array of the names not in the database
 		List<String> namesNotInDatabase = new ArrayList<String>();
@@ -231,8 +231,6 @@ public class MainWindowController {
 			// Add a name to a playlist if a searchbox is not empty and there are no unknown
 			// names
 			_playlist.add(namesFromText);
-			_currentName.clear();
-			currentNameText.setText("Choose names from the database");
 		}
 
 		// Display a warning window if a name is not found
