@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RecordingWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.RecordingWindowController">
    <top>
       <AnchorPane prefHeight="53.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +20,7 @@
          <children>
             <JFXButton fx:id="recordButton" layoutX="235.0" layoutY="18.0" onAction="#startRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Start Recording" />
             <JFXButton layoutX="53.0" layoutY="18.0" onAction="#micTest" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Test Mic" />
-            <JFXButton layoutX="413.0" layoutY="18.0" onAction="#stopRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Stop Recording" />
+            <JFXButton fx:id="stopButton" layoutX="413.0" layoutY="18.0" onAction="#stopRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Stop Recording" disable="true" />
          </children>
       </Pane>
    </bottom>

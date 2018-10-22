@@ -15,6 +15,7 @@ public class Audio {
 
 	public int _numFiles;
 	public ArrayList<String> _directories= new ArrayList<String>();
+	Process process;
 
 
 	/**Adds file paths to the ArrayList _directories, so that files can be merged
@@ -118,10 +119,8 @@ public class Audio {
 				try {
 					String cmd = "ffmpeg -f alsa -i default -t 5 \"attempt.wav\"";
 					ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
-					Process process = builder.start();
-					System.out.println("\"Recording done\" should print after 5 seconds");
+					process = builder.start();
 					process.waitFor();
-					System.out.println("Recording done");
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
@@ -130,15 +129,13 @@ public class Audio {
 			}
 		};
 		BackgroundThread.start();
+
 		//end of recording section
-		for (int i=5; i>=0; i-- ) {
-			try {
-				Thread.sleep(1000);
-				System.out.println(i);
-			} catch (InterruptedException e) {}
-		}	
 	}
 
 
+	public void stopRecording() {
+		process.destroy();
+	}
 
 }
