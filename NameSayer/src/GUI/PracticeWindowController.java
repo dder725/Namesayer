@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
@@ -71,6 +73,7 @@ public class PracticeWindowController {
 	}
 
 	public void nextName() {
+		reward();
 		File file1 = new File("fullName.wav");
 		File file2 = new File("attempt.wav");
 		File file3 = new File("compare.wav");
@@ -205,6 +208,18 @@ public class PracticeWindowController {
 		versionsButton.setTooltip(new Tooltip("Select a different recording of this name"));
 		rateAudioButton.setTooltip(new Tooltip("Rate the recording of this name"));
 	}
+	
+	//Display reward every 5 practiced names
+	public void reward() {
+		if((_index + 1) % 5 == 0 && _index != 0) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Well done!");
+			alert.setHeaderText("Good job!");
+			alert.setContentText("You have practiced " + (_index + 1) + " names so far!");
+			alert.showAndWait();
+		}
+	}
+	
 
 	//	private void setBadRecordingCheckbox(Name name) {
 	//		if (name.isBadRecording(getVersionNum())) {
