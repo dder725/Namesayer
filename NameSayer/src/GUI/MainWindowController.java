@@ -167,10 +167,11 @@ public class MainWindowController {
 			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			PracticeWindowController Practice = loader.getController();
-
+			
 			// CHANGE THIS
 			// Pass the playlist to the practice window
 			Practice.setPlaylist(_playlist);
+			Practice.setHints();
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));

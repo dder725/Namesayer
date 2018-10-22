@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -195,6 +196,15 @@ public class PracticeWindowController {
 		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
 
+	//Set hints on buttons in the window
+	public void setHints() {
+		makeRecording.setTooltip(new Tooltip("Record your attempt of this name"));
+		nextName.setTooltip(new Tooltip("Proceed to the next name in the playlist"));
+		listen.setTooltip(new Tooltip("Listen to the recording of this name"));
+		compare.setTooltip(new Tooltip("Play the original recording followed by your attempt"));
+		versionsButton.setTooltip(new Tooltip("Select a different recording of this name"));
+		rateAudioButton.setTooltip(new Tooltip("Rate the recording of this name"));
+	}
 
 	//	private void setBadRecordingCheckbox(Name name) {
 	//		if (name.isBadRecording(getVersionNum())) {
