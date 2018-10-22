@@ -62,24 +62,22 @@ public class MainWindowController {
 		// Filter the list
 		_filteredNamesList.predicateProperty().bind(javafx.beans.binding.Bindings.createObjectBinding(() -> {
 			String text = searchBox.getText();
-
-			// searchBox.selectPositionCaret(text.length());
-			// Check if it is a composite word
-			if (text.contains(" ")) {
-				String[] names = text.split(" ");
+			
+			// Check if it is a composite word by checking for non-word characters
+			if (text.matches(".*[^A-Za-z].*")) {
+				String[] names = text.split("[\\W]");
 				text = names[names.length - 1];
-			}
+				System.out.println("Non-word char is found");
+			} 
 
 			// Do nothing for empty searchbox
 			if (text == null || text.isEmpty()) {
 				return null;
-			} else if (searchBox.getText().charAt(searchBox.getText().length() - 1) == ' ') { // Refresh the database to
-																								// original view if
-																								// spacebar is pressd
+			} else if (!Character.isLetter(searchBox.getText().charAt(searchBox.getText().length() - 1))) { 
+				// Refresh the database to the original view if a non-word character is entered
 				return (Name) -> !(Name.getName().toUpperCase().isEmpty());
 			} else { // Filter the database to the entered word
 				final String uppercase = text.toUpperCase();
-				// System.out.println(uppercase);
 				return (Name) -> Name.getName().toUpperCase().contains(uppercase);
 			}
 		}, searchBox.textProperty()));
@@ -189,7 +187,7 @@ public class MainWindowController {
 
 	public void addToPlaylist() {
 		// Remove any extra spaces and split a composite name
-		String[] text = searchBox.getText().trim().replaceAll(" +", " ").split(" ");
+		String[] text = searchBox.getText().trim().replaceAll(" +", " ").split("[\\W]");
 
 		// Create an array of the names not in the database
 		List<String> namesNotInDatabase = new ArrayList<String>();
