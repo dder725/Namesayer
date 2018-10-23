@@ -45,12 +45,12 @@ public class PracticeWindowController {
 	@FXML private JFXButton versionsButton;
 	@FXML private JFXButton rateAudioButton;
 
-	
+	//[TIA]Add comments
 	public void sceneResize(Stage stage) {
 		nameLabel.wrappingWidthProperty().bind(stage.widthProperty().subtract(15));
 	}
 	
-	
+	//[TIA]Add comments
 	public void createRecording(String fileName) {
 		_numFiles = _playlist.get(_index).size();
 		_directories.clear();
@@ -69,6 +69,7 @@ public class PracticeWindowController {
 		audio.playRecording("fullName.wav");
 	}
 
+	//[TIA]Add comments
 	public void makeRecording() {
 		File file1 = new File("attempt.wav");
 		File file2 = new File("compare.wav");
@@ -79,6 +80,7 @@ public class PracticeWindowController {
 		audio.setRecording(fullName, "RecordingOptionsWindow.fxml", this);
 	}
 
+	//[TIA]Add comments
 	public void compare() {
 		File file1 = new File("fullName.wav");
 		String name = getNameLabel();
@@ -101,7 +103,8 @@ public class PracticeWindowController {
 
 		}
 	}
-
+	
+	//[TIA]Add comments
 	public void nextName() {
 		reward();
 		File file1 = new File("fullName.wav");
@@ -121,6 +124,7 @@ public class PracticeWindowController {
 		;
 	}
 
+	//[TIA]Add comments
 	public void setLabel() {
 		String fullName = "";
 		for (int i = 0; i < _playlist.get(_index).size(); i++) {
@@ -140,6 +144,7 @@ public class PracticeWindowController {
 		setButtons();
 	}
 
+	//[TIA]Add comments
 	public void setButtons() {
 		versionButtons.clear();
 		// create buttons for each name
@@ -172,6 +177,7 @@ public class PracticeWindowController {
 	/**
 	 * Method that gets called when the user selects the versions button
 	 */
+	//[TIA]Add comments
 	public void versionsButton() {
 		File file1 = new File("fullName.wav");
 		File file2 = new File("compare.wav");
@@ -184,6 +190,7 @@ public class PracticeWindowController {
 			VersionWindowController controller = loader.getController();
 			controller.addChoiceBoxes(versionButtons);
 			controller.PWreference(this);
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
@@ -198,7 +205,7 @@ public class PracticeWindowController {
 	}
 
 	/**
-	 * Method that gets called when the user selects the rate audio button
+	 * Rate selected recordings of the name being practiced
 	 */
 	public void rateRecordingButton() {
 		List<JFXButton> buttons = new ArrayList<>();
@@ -207,8 +214,9 @@ public class PracticeWindowController {
 		for (int i = 0; i < _playlist.get(_index).size(); i++) {
 			String name = _playlist.get(_index).get(i).getName();
 			JFXButton button = new JFXButton(name);
+			
+			//Red button for Bad recording, Green button for Good recording
 			if (_playlist.get(_index).get(i).isBadRecording()) {
-				System.out.println(_playlist.get(_index).get(i).getName() + " is bad");
 				button.setStyle("-fx-background-color: tomato");
 			} else {
 				button.setStyle("-fx-background-color: darkseagreen");
@@ -216,12 +224,14 @@ public class PracticeWindowController {
 			buttons.add(button);
 		}
 		try {
+			//Load rating window
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RateAudioWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);
 			controller.setNames(_playlist.get(_index));
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
@@ -230,6 +240,7 @@ public class PracticeWindowController {
 		}
 	}
 
+	//Disable all butttons
 	private void disableOptions() {
 		nextName.setDisable(true);
 		listen.setDisable(true);
@@ -239,12 +250,13 @@ public class PracticeWindowController {
 		rateAudioButton.setDisable(true);
 	}
 
+	//Set the playlist for this practice
 	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
 		setLabel();
 	}
 
-	// Set hints on buttons in the window
+	// Set hints on buttons
 	public void setHints() {
 		makeRecording.setTooltip(new Tooltip("Record your attempt of this name"));
 		nextName.setTooltip(new Tooltip("Proceed to the next name in the playlist"));
@@ -281,11 +293,9 @@ public class PracticeWindowController {
 					if (new_val.doubleValue() > old_val.doubleValue()) {
 						volumeGlyph.setIcon(FontAwesomeIcon.VOLUME_UP);
 						VolumeControl.setMasterOutputVolume((float) (new_val.floatValue() / 100));
-						System.out.println("Volume up");
 					} else {
 						volumeGlyph.setIcon(FontAwesomeIcon.VOLUME_DOWN);
 						VolumeControl.setMasterOutputVolume((float) (new_val.floatValue() / 100));
-						System.out.println("Volume down");
 					}
 				} else {
 					setMute();

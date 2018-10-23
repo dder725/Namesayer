@@ -146,18 +146,21 @@ public class MainWindowController {
 			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			PracticeWindowController controller = loader.getController();
-			// CHANGE THIS
+
 			// Pass the playlist to the practice window
 			controller.setPlaylist(_playlist);
 			controller.setHints();
 			controller.setVolumeControl();
 			controller.createRecording("fullName.wav");
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
 			controller.sceneResize(stage);
 			stage.show();
 			controller.setHints();
+			
+			//[TIA]ADD COMMENT HERE
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					File file1 = new File("fullName.wav");
@@ -172,16 +175,17 @@ public class MainWindowController {
 		}
 	}
 
+	//Shuffle the entries in the playlist
 	public void randomiseList() {
 		FXCollections.shuffle(_playlist);
 	}
 
+	// Update the searchbox with the selected database name
 	public void addToName() {
-		// Update the searchbox with the selected database name
-		if (!searchBox.getText().isEmpty() && searchBox.getText().contains(" ")) {
+		if (!searchBox.getText().isEmpty() && searchBox.getText().contains(" ")) { //Add the name to the end of the existing search in the searchbox
 			searchBox.setText(searchBox.getText().substring(0, searchBox.getText().lastIndexOf(" ")) + " "
 					+ namesListView.getSelectionModel().getSelectedItem().getName());
-		} else {
+		} else { //If the searchbox is empty, fill it with the selected name
 			searchBox.setText(namesListView.getSelectionModel().getSelectedItem().getName());
 		}
 	}
