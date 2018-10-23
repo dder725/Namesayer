@@ -54,7 +54,7 @@ public class PracticeWindowController {
 		file.delete();
 		Audio audio = new Audio();
 		String fullName = _playlist.get(_index).toString();
-		audio.setRecording(fullName, "RecordingOptionsWindow.fxml");
+		audio.setRecording(fullName, "RecordingOptionsWindow.fxml", this);
 	}
 
 	public void compare() {

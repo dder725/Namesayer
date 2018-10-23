@@ -26,6 +26,7 @@ public class RecordingWindowController {
 	Thread thread = new Thread();
 	Timeline timeline = new Timeline();
 	Audio audio;
+	private PracticeWindowController _practiceWindow;
 
 
 	/** Method to allow the user to test if their microphone is working
@@ -89,12 +90,18 @@ public class RecordingWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			RecordingOptionsController window = loader.getController();
+			RecordingOptionsController controller = loader.getController();
+			controller.PWreference(_practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show(); 
 		} catch (IOException e) {
 		}
 	}
+	
+	public void PWreference(PracticeWindowController pw) {
+		_practiceWindow=pw;
+	}
+	
 
 }

@@ -95,13 +95,15 @@ public class Audio {
 
 	/** Method called when user want to create new recording. Opens a new window 
 	 *  (RecordingWindow.fxml) so that user can start recording
+	 * @param _practiceWindow 
 	 */
-	public void setRecording(String name, String window) {
+	public void setRecording(String name, String window, PracticeWindowController practiceWindow) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			RecordingWindowController recording = (RecordingWindowController) loader.getController();
+			RecordingWindowController controller = (RecordingWindowController) loader.getController();
+			controller.PWreference(practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();

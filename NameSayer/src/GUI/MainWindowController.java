@@ -194,10 +194,6 @@ public class MainWindowController {
 		FXCollections.shuffle(_playlist);
 	}
 
-	public void micTest() {
-		Audio audio = new Audio();
-		audio.setRecording(_namesList.get(0).toString(), "MicTestWindow.fxml");
-	}
 
 	public void addToName() {
 		// Update the searchbox with the selected database name

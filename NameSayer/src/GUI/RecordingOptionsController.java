@@ -1,6 +1,8 @@
 package GUI;
 
 import java.io.File;
+import java.io.IOException;
+
 import application.Name;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -31,10 +33,32 @@ public class RecordingOptionsController {
 	 *  the "close" button. Deletes the file attempt.wav
 	 */
 	public void close() {
-		File file = new File("attempt.wav");
-		file.delete();
+		saveRecording();
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 		stage.close();
+
+	}
+	
+	public void saveRecording() {
+		String name = _practiceWindow.getNameLabel();
+		name = name.replaceFirst("\\s+","");
+		name = name.replaceAll("\\s+","_");
+		File file = new File("UserAttempts/"+name+".wav");
+		if (file.exists()) {
+			file.delete();
+		}
+		try {
+			// need the cmd to be moving audio.wav into a file in current directory, attempts 
+			//directory, name folder, save under name.wav
+			String cmd = "dir=$(pwd); mv \"attempt.wav\" $dir/UserAttempts/"+name+".wav";
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			process.waitFor();
+		} catch (IOException E) {
+			E.printStackTrace();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 
 	}
 	

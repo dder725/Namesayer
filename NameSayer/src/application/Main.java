@@ -69,10 +69,11 @@ public class Main extends Application {
 				"		if [ ! -d UserAttempts ]; then\n" + 
 				"		        mkdir "+workingDir+"/UserAttempts\n" + 
 				"		        cd "+workingDir+"/names\n" + 
-				"		        for x in ./*_1; do\n" + 
-				"					x=\"${x%_1}\"\n" + 
-				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" "+workingDir+"/UserAttempts\n" + 
-				"		        done\n" + 
+// Code to add a folder for each name into UserAttempts
+//				"		        for x in ./*_1; do\n" + 
+//				"					x=\"${x%_1}\"\n" + 
+//				"		        	mkdir \"${x}_attempts\" && mv \"${x}_attempts\" "+workingDir+"/UserAttempts\n" + 
+//				"		        done\n" + 
 				"		fi";
 
 		byte[] content = code.getBytes(Charset.forName("UTF-8"));
