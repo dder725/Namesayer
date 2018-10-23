@@ -61,6 +61,7 @@ public class PracticeWindowController {
 		}
 		Audio audio = new Audio();
 		audio.setDirectories(_directories);
+		System.out.println(_directories);
 		audio.createRecording(fileName);
 	}
 	

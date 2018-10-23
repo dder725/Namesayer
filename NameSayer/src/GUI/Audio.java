@@ -40,35 +40,47 @@ public class Audio {
 			makeMeregedFile(fileName);
 			playFile(fileName);
 		}
-			
+
 	}
 
-	
-	 public void createRecording(String fileName) {
-			//If the audio file exists play the recording
-			File file= new File(fileName);
-			if (!file.exists()) {
-				makeMeregedFile(fileName);
-			}
-	 }
-	
+
+	public void createRecording(String fileName) {
+		//If the audio file exists play the recording
+		File file= new File(fileName);
+		if (!file.exists()) {
+			makeMeregedFile(fileName);
+		}
+	}
+
 
 	/** Method that takes the file paths from the ArrayList _directories, and merges the 
 	 *  the audio into one file (either fullName.wav or compare.wav) 
 	 */
 	public void makeMeregedFile(String fileName) {
 		String cmd = "";
+		String recordingName;
 		if (_directories.size()==1) {
-			cmd = "cp "+_directories.get(0) +" "+fileName;
+			if(_directories.get(0).contains("(Bad")) {
+				recordingName = badRecordingFormat(_directories.get(0));
+			} else {
+				recordingName = _directories.get(0);
+			}
+			cmd = "cp "+ recordingName +" "+fileName;
 		}else {
 			int i;
 			String files = "";
 			String channels = "";
 			for (i=0; i<_directories.size(); i++) {
-				files = files +" -i "+_directories.get(i);
+				if(_directories.get(i).contains("(Bad")) {
+					recordingName = badRecordingFormat(_directories.get(i));
+				} else {
+					recordingName = _directories.get(i);
+				}
+				files = files +" -i "+recordingName;
 				channels = channels +"["+i+":0]";
 			}
 			cmd = "ffmpeg"+ files +" -filter_complex '"+channels +"concat=n="+ i +":v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
+			System.out.println(cmd);
 		}
 		try {
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
@@ -79,6 +91,18 @@ public class Audio {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * Method to change the naming format of the directory of a file that is marked as bad (contains "(Bad)" ).
+	 * Bash script does not recognise the syntax '(' and ')', so they are surrounded by single quotes so that
+	 * the name is recognised by the bash script.
+	 */
+	public String badRecordingFormat(String dir) {
+		dir = dir.replaceAll("\\(","'(");
+		dir = dir.replaceAll("\\)",")'");
+		return dir;
 	}
 
 

@@ -53,7 +53,7 @@ public class Name {
 	// Check if selected recording is bad
 	public Boolean isBadRecording() {
 		// If the absolute path contains (Bad) tag, the recording is bad
-		if (this.getSelectedRecordingDirectory().contains("Bad")) {
+		if (this.getSelectedRecordingDirectory().contains("(Bad)")) {
 			return true;
 		} else {
 			return false;
