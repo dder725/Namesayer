@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MainWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainWindowController">
    <bottom>
       <ToolBar style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
         <items>
@@ -46,7 +46,7 @@
             </VBox>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="77.0" prefWidth="44.0" />
             <FontAwesomeIconView glyphName="SEARCH" wrappingWidth="20.142857551574707" />
-            <JFXTextField fx:id="searchBox" prefHeight="42.0" prefWidth="230.0" promptText="Search for a name" style="-fx-background-color: white;" />
+            <JFXTextField fx:id="searchBox" onAction="#addToPlaylist" prefHeight="42.0" prefWidth="230.0" promptText="Search for a name" style="-fx-background-color: white;" />
             <JFXButton fx:id="add" onAction="#addToPlaylist" prefHeight="45.0" prefWidth="109.0" style="-fx-background-color: yellow;" text="Add" />
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="200.0" />
          </children>
