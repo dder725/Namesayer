@@ -36,12 +36,22 @@ public class Audio {
 		File file= new File(fileName);
 		if (file.exists()) {
 			playFile(fileName);
-		} else {		//else create recording then play
+		} else {
 			makeMeregedFile(fileName);
 			playFile(fileName);
 		}
+			
 	}
 
+	
+	 public void createRecording(String fileName) {
+			//If the audio file exists play the recording
+			File file= new File(fileName);
+			if (!file.exists()) {
+				makeMeregedFile(fileName);
+			}
+	 }
+	
 
 	/** Method that takes the file paths from the ArrayList _directories, and merges the 
 	 *  the audio into one file (either fullName.wav or compare.wav) 
@@ -51,33 +61,15 @@ public class Audio {
 		if (_directories.size()==1) {
 			cmd = "cp "+_directories.get(0) +" "+fileName;
 		}else {
-
-			String directories = "";
-			for (int i=0; i<_numFiles; i++) {
-				String dir = _directories.get(i);
-				directories = directories +"file "+ dir +"\n";
-			}
-
-			byte[] content1 = directories.getBytes(Charset.forName("UTF-8"));
-			FileOutputStream helper1;
-			try {
-				helper1 = new FileOutputStream("mylist.txt");
-				helper1.write(content1);
-				helper1.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			int i;
 			String files = "";
-			for (int i=0; i<_directories.size(); i++) {
+			String channels = "";
+			for (i=0; i<_directories.size(); i++) {
 				files = files +" -i "+_directories.get(i);
+				channels = channels +"["+i+":0]";
 			}
-			//for 2 files only!!!
-			//String cmd = "ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n";
-			cmd = "ffmpeg"+ files +" -filter_complex '[0:0][1:0]concat=n=2:v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
+			cmd = "ffmpeg"+ files +" -filter_complex '"+channels +"concat=n="+ i +":v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
 		}
-		System.out.println(cmd);
 		try {
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();

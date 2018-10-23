@@ -53,7 +53,8 @@ public class PracticeWindowController {
 	@FXML
 	private JFXButton rateAudioButton;
 
-	public void playRecording() {
+	
+	public void createRecording(String fileName) {
 		_numFiles = _playlist.get(_index).size();
 		_directories.clear();
 		for (int i = 0; i < _numFiles; i++) {
@@ -63,6 +64,19 @@ public class PracticeWindowController {
 		}
 		Audio audio = new Audio();
 		audio.setDirectories(_directories);
+		audio.createRecording(fileName);
+	}
+	
+	public void playRecording() {
+//		_numFiles = _playlist.get(_index).size();
+//		_directories.clear();
+//		for (int i=0; i<_numFiles; i++) {
+//			//Currently using version 1 but can change when we incorporate other versions
+//			String dir = _playlist.get(_index).get(i).getSelectedRecordingDirectory();
+//			_directories.add(dir);
+//		}
+		Audio audio = new Audio();
+//		audio.setDirectories(_directories);
 		audio.playRecording("fullName.wav");
 	}
 
@@ -109,8 +123,8 @@ public class PracticeWindowController {
 		file3.delete();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
-			// setBadRecordingCheckbox(_playlist.get(_index));
 			setLabel();
+			createRecording("fullName.wav");
 		} else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
 			disableOptions();
@@ -162,8 +176,10 @@ public class PracticeWindowController {
 	 * Method that gets called when the user selects the versions button
 	 */
 	public void versionsButton() {
-		File file = new File("fullName.wav");
-		file.delete();
+		File file1 = new File("fullName.wav");
+		File file2 = new File("compare.wav");
+		file1.delete();
+		file2.delete();
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("VersionsWindow.fxml"));
