@@ -171,11 +171,12 @@ public class MainWindowController {
 			// CHANGE THIS
 			// Pass the playlist to the practice window
 			Practice.setPlaylist(_playlist);
-			Practice.setHints();
+			Practice.setVolumeControl();
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
+			Practice.setHints();
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					File file1 = new File("fullName.wav");
@@ -289,7 +290,7 @@ public class MainWindowController {
 		FileChooser fileChooser = new FileChooser();
 
 		// Set NameSayer directory as initial directory
-		File file = new File(System.getProperty("user.dir") + "/NameSayer");
+		File file = new File(System.getProperty("user.dir"));
 		fileChooser.setInitialDirectory(file);
 
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -316,7 +317,7 @@ public class MainWindowController {
 		FileChooser fileChooser = new FileChooser();
 
 		// Set NameSayer directory as initial directory
-		File file = new File(System.getProperty("user.dir") + "/NameSayer");
+		File file = new File(System.getProperty("user.dir"));
 		fileChooser.setInitialDirectory(file);
 
 		fileChooser.getExtensionFilters().add(extFilter);

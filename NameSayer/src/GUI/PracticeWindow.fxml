@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.PracticeWindowController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PracticeWindowController">
    <top>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice" textAlignment="CENTER" wrappingWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <JFXSlider fx:id="volumeSlider" layoutX="445.0" layoutY="6.0" prefHeight="33.0" prefWidth="150.0" showTickMarks="true" />
+            <FontAwesomeIconView fx:id="volumeGlyph" layoutX="424.0" layoutY="26.0" onMouseClicked="#setMute" size="15" text="" />
          </children>
       </AnchorPane>
    </top>

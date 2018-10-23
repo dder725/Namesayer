@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -40,12 +42,12 @@ public class RecordingWindowController {
 			loader.setLocation(getClass().getResource("MicTestWindow.fxml"));
 			Parent content = (Parent) loader.load(); 
 			MicTestWindowController Practice = (MicTestWindowController) loader.getController();
-			System.out.println("Loaded the fxml");
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Did not load the fxml");
+			e.printStackTrace();
 		}
 	}
 
@@ -121,5 +123,4 @@ public class RecordingWindowController {
 		_practiceWindow=pw;
 	}
 	
-
 }
