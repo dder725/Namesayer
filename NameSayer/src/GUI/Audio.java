@@ -111,6 +111,7 @@ public class Audio {
 			controller.PWreference(practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
 		}

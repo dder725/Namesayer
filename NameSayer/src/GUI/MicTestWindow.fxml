@@ -10,7 +10,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MicTestWindowController">
    <children>
-      <Label alignment="CENTER" prefHeight="70.0" prefWidth="655.0" style="-fx-background-color: mediumseagreen;" text="Microphone Test">
+      <Label alignment="CENTER" prefHeight="70.0" prefWidth="655.0" style="-fx-background-color: steelblue;" text="Microphone Test">
          <font>
             <Font size="26.0" />
          </font></Label>

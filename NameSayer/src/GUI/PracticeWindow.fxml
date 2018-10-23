@@ -11,21 +11,21 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.PracticeWindowController">
    <top>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice" textAlignment="CENTER" wrappingWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <JFXSlider fx:id="volumeSlider" layoutX="445.0" layoutY="6.0" prefHeight="33.0" prefWidth="150.0" showTickMarks="true" />
             <FontAwesomeIconView fx:id="volumeGlyph" layoutX="424.0" layoutY="26.0" onMouseClicked="#setMute" size="15" text="" />
+            <JFXSlider fx:id="volumeSlider" layoutX="450.0" layoutY="5.0" prefHeight="33.0" prefWidth="150.0" showTickMarks="true" />
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <Pane prefHeight="66.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="66.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="listen" layoutX="14.0" layoutY="20.0" onAction="#playRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Listen" />
-            <JFXButton fx:id="compare" layoutX="158.0" layoutY="20.0" onAction="#compare" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Compare" textAlignment="CENTER" />
-            <JFXButton fx:id="makeRecording" layoutX="307.0" layoutY="20.0" onAction="#makeRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Make recording" />
-            <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" onAction="#nextName" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Next name" />
+            <JFXButton fx:id="listen" layoutX="14.0" layoutY="20.0" onAction="#playRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Listen" />
+            <JFXButton fx:id="compare" layoutX="158.0" layoutY="20.0" onAction="#compare" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Compare" textAlignment="CENTER" />
+            <JFXButton fx:id="makeRecording" layoutX="307.0" layoutY="20.0" onAction="#makeRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Make recording" />
+            <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" onAction="#nextName" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Next name" />
          </children></Pane>
    </bottom>
    <center>
@@ -41,7 +41,7 @@
                <children>
                   <Text fx:id="nameLabel" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600">
                      <font>
-                        <Font size="54.0" />
+                        <Font size="50.0" />
                      </font>
                   </Text>
                </children>

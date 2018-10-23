@@ -15,14 +15,14 @@
       </Text>
    </center>
    <bottom>
-      <Pane prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="okButton" layoutX="235.0" layoutY="19.0" onAction="#okButton" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Ok" />
+            <JFXButton fx:id="okButton" layoutX="235.0" layoutY="19.0" onAction="#okButton" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Ok" />
          </children>
       </Pane>
    </bottom>
    <top>
-      <Pane prefHeight="51.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="51.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="274.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice" />
          </children>

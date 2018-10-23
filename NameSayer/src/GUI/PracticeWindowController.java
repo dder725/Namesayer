@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
-
 import application.Name;
 import application.VolumeControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -36,31 +35,20 @@ public class PracticeWindowController {
 	public ArrayList<String> _directories = new ArrayList<String>();
 	private List<ChoiceBox> versionButtons = new ArrayList<>();
 
-	@FXML
-	JFXSlider volumeSlider;
-	@FXML
-	FontAwesomeIconView volumeGlyph;
-	@FXML
-	private Text nameLabel;
-	@FXML
-	private JFXButton makeRecording;
-	@FXML
-	private JFXButton nextName;
-	@FXML
-	private JFXButton listen;
-	@FXML
-	private JFXButton compare;
-	@FXML
-	private JFXButton versionsButton;
-	@FXML
-	private JFXButton rateAudioButton;
+	@FXML JFXSlider volumeSlider;
+	@FXML FontAwesomeIconView volumeGlyph;
+	@FXML private Text nameLabel;
+	@FXML private JFXButton makeRecording;
+	@FXML private JFXButton nextName;
+	@FXML private JFXButton listen;
+	@FXML private JFXButton compare;
+	@FXML private JFXButton versionsButton;
+	@FXML private JFXButton rateAudioButton;
 
 	
 	public void sceneResize(Stage stage) {
 		nameLabel.wrappingWidthProperty().bind(stage.widthProperty().subtract(15));
 	}
-	
-	
 	
 	
 	public void createRecording(String fileName) {
@@ -77,15 +65,7 @@ public class PracticeWindowController {
 	}
 	
 	public void playRecording() {
-//		_numFiles = _playlist.get(_index).size();
-//		_directories.clear();
-//		for (int i=0; i<_numFiles; i++) {
-//			//Currently using version 1 but can change when we incorporate other versions
-//			String dir = _playlist.get(_index).get(i).getSelectedRecordingDirectory();
-//			_directories.add(dir);
-//		}
 		Audio audio = new Audio();
-//		audio.setDirectories(_directories);
 		audio.playRecording("fullName.wav");
 	}
 
@@ -147,7 +127,16 @@ public class PracticeWindowController {
 			String name = _playlist.get(_index).get(i).getName();
 			fullName = fullName + " " + name;
 		}
-		setNameLabel(fullName, 66);
+		int length = fullName.length(); 
+		int size;
+		if (length <=25 ) {
+			size=56;
+		}else if (length <= 35) {
+			size = 50;
+		}else {
+			size = 45;
+		}
+		setNameLabel(fullName, size);
 		setButtons();
 	}
 
@@ -156,7 +145,6 @@ public class PracticeWindowController {
 		// create buttons for each name
 		// need to change so that only names with multiple versions are added as buttons
 		for (int i = 0; i < _playlist.get(_index).size(); i++) {
-			String name = _playlist.get(_index).get(i).getName();
 			Collection<String> versions = _playlist.get(_index).get(i).getVersions();
 			if (versions.size() > 1) {
 				_playlist.get(_index).get(i).setCheckBox();
@@ -198,6 +186,7 @@ public class PracticeWindowController {
 			controller.PWreference(this);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show();
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
@@ -220,7 +209,7 @@ public class PracticeWindowController {
 			JFXButton button = new JFXButton(name);
 			if (_playlist.get(_index).get(i).isBadRecording()) {
 				System.out.println(_playlist.get(_index).get(i).getName() + " is bad");
-				button.setStyle("-fx-background-color: red");
+				button.setStyle("-fx-background-color: tomato");
 			} else {
 				button.setStyle("-fx-background-color: darkseagreen");
 			}
@@ -233,9 +222,9 @@ public class PracticeWindowController {
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);
 			controller.setNames(_playlist.get(_index));
-
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
 		}
