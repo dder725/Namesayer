@@ -15,6 +15,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +27,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class PracticeWindowController {
 	private ObservableList<ArrayList<Name>> _playlist;
@@ -53,6 +55,13 @@ public class PracticeWindowController {
 	@FXML
 	private JFXButton rateAudioButton;
 
+	
+	public void sceneResize(Stage stage) {
+		nameLabel.wrappingWidthProperty().bind(stage.widthProperty().subtract(15));
+	}
+	
+	
+	
 	
 	public void createRecording(String fileName) {
 		_numFiles = _playlist.get(_index).size();
@@ -186,9 +195,15 @@ public class PracticeWindowController {
 			Parent content = (Parent) loader.load();
 			VersionWindowController controller = loader.getController();
 			controller.addChoiceBoxes(versionButtons);
+			controller.PWreference(this);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					createRecording("fullName.wav");
+				}
+			});
 		} catch (IOException e) {
 		}
 	}

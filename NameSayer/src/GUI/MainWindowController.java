@@ -173,6 +173,7 @@ public class MainWindowController {
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			controller.sceneResize(stage);
 			stage.show();
 			controller.setHints();
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
