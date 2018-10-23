@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PracticeWindowController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.PracticeWindowController">
    <top>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,7 @@
             </Pane>
             <Pane prefHeight="197.0" prefWidth="600.0">
                <children>
-                  <Text fx:id="nameLabel" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600.6708984375">
+                  <Text fx:id="nameLabel" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600">
                      <font>
                         <Font size="54.0" />
                      </font>

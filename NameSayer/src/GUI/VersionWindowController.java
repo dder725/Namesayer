@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class VersionWindowController {
 	
 	@FXML private FlowPane versionButtonPane;
+	PracticeWindowController _practiceWindow;
 	
 	public void addChoiceBoxes(List<ChoiceBox> versions) {
 		versionButtonPane.setAlignment(Pos.CENTER);
@@ -19,8 +20,13 @@ public class VersionWindowController {
 	}
 
 	public void setButton() {
+		_practiceWindow.createRecording("fullName.wav");
 		Stage stage = (Stage) versionButtonPane.getScene().getWindow();
 		stage.close();
+	}
+	
+	public void PWreference(PracticeWindowController pw) {
+		_practiceWindow=pw;
 	}
 	
 }
