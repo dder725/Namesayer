@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.NoNamesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.NoNamesController">
    <center>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add some names to start practicing!" textAlignment="CENTER" wrappingWidth="315.75830078125" BorderPane.alignment="CENTER">
          <font>
@@ -15,14 +15,14 @@
       </Text>
    </center>
    <bottom>
-      <Pane prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="okButton" layoutX="235.0" layoutY="19.0" onAction="#okButton" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Ok" />
+            <JFXButton fx:id="okButton" layoutX="235.0" layoutY="19.0" onAction="#okButton" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Ok" />
          </children>
       </Pane>
    </bottom>
    <top>
-      <Pane prefHeight="51.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="51.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="274.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice" />
          </children>

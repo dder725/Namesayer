@@ -209,7 +209,7 @@ public class PracticeWindowController {
 			JFXButton button = new JFXButton(name);
 			if (_playlist.get(_index).get(i).isBadRecording()) {
 				System.out.println(_playlist.get(_index).get(i).getName() + " is bad");
-				button.setStyle("-fx-background-color: red");
+				button.setStyle("-fx-background-color: tomato");
 			} else {
 				button.setStyle("-fx-background-color: darkseagreen");
 			}

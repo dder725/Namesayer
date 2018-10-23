@@ -22,7 +22,7 @@
       </Pane>
    </center>
    <top>
-      <Pane prefHeight="36.0" prefWidth="450.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="36.0" prefWidth="450.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="171.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate Recordings" />
          </children>

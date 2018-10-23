@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.RecordingOptionsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RecordingOptionsController">
    <center>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The recording is done! " BorderPane.alignment="CENTER">
          <font>
@@ -16,18 +16,18 @@
       </Text>
    </center>
    <top>
-      <AnchorPane prefHeight="55.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="55.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="237.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finished Recording" />
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <Pane prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton layoutX="235.0" layoutY="16.0" onAction="#redoRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Redo Recording" />
-            <JFXButton fx:id="closeButton" layoutX="412.0" layoutY="16.0" onAction="#close" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Close" />
-            <JFXButton layoutX="45.0" layoutY="16.0" onAction="#listen" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: darkseagreen;" text="Listen" />
+            <JFXButton layoutX="235.0" layoutY="16.0" onAction="#redoRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Redo Recording" />
+            <JFXButton fx:id="closeButton" layoutX="412.0" layoutY="16.0" onAction="#close" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Close" />
+            <JFXButton layoutX="45.0" layoutY="16.0" onAction="#listen" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Listen" />
          </children>
       </Pane>
    </bottom>
