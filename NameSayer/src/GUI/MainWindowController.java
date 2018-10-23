@@ -171,12 +171,13 @@ public class MainWindowController {
 			// Pass the playlist to the practice window
 			controller.setPlaylist(_playlist);
 			controller.setHints();
+			controller.setVolumeControl();
 			controller.createRecording("fullName.wav");
 			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
-			Practice.setHints();
+			controller.setHints();
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					File file1 = new File("fullName.wav");
