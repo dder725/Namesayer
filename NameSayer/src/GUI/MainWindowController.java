@@ -3,16 +3,12 @@ package GUI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javafx.scene.control.Tooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,7 +16,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,33 +31,18 @@ import javafx.scene.input.MouseEvent;
 public class MainWindowController {
 	private ObservableList<Name> _namesList = FXCollections.observableArrayList();
 	private ObservableList<ArrayList<Name>> _playlist = FXCollections.observableArrayList();
-	private ObservableList<Name> _currentName = FXCollections.observableArrayList();
 	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
-	@FXML
-	private Text currentNameText;
-
-	@FXML
-	private JFXListView<Name> namesListView;
-
-	@FXML
-	private JFXListView<ArrayList<Name>> playlistView;
-
-	@FXML
-	private JFXButton add;
-	@FXML
-	private JFXButton clear;
-	@FXML
-	private JFXButton practice;
-	@FXML
-	private JFXButton uploadPlaylist;
-	@FXML
-	private JFXButton uploadDatabase;
-	@FXML
-	private JFXButton shuffle;
-
-	@FXML
-	private JFXTextField searchBox;
+	@FXML private Text currentNameText;
+	@FXML private JFXListView<Name> namesListView;
+	@FXML private JFXListView<ArrayList<Name>> playlistView;
+	@FXML private JFXButton add;
+	@FXML private JFXButton clear;
+	@FXML private JFXButton practice;
+	@FXML private JFXButton uploadPlaylist;
+	@FXML private JFXButton uploadDatabase;
+	@FXML private JFXButton shuffle;
+	@FXML private JFXTextField searchBox;
 
 	public void populateTableView() {
 		setHints();
@@ -152,10 +132,9 @@ public class MainWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			NoNamesController Practice = (NoNamesController) loader.getController();
-
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
 		}
@@ -173,9 +152,9 @@ public class MainWindowController {
 			controller.setHints();
 			controller.setVolumeControl();
 			controller.createRecording("fullName.wav");
-			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			controller.sceneResize(stage);
 			stage.show();
 			controller.setHints();

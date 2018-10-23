@@ -41,10 +41,9 @@ public class RecordingWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("MicTestWindow.fxml"));
 			Parent content = (Parent) loader.load(); 
-			MicTestWindowController Practice = (MicTestWindowController) loader.getController();
-			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -109,6 +108,7 @@ public class RecordingWindowController {
 			controller.PWreference(_practiceWindow);
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setResizable(false);
 			stage.show(); 
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {

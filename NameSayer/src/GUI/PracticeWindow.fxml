@@ -41,7 +41,7 @@
                <children>
                   <Text fx:id="nameLabel" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="600">
                      <font>
-                        <Font size="54.0" />
+                        <Font size="50.0" />
                      </font>
                   </Text>
                </children>
