@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.VersionWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.VersionWindowController">
    <bottom>
       <FlowPane fx:id="versionButtonPane" prefHeight="191.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
    </bottom>
@@ -21,14 +21,14 @@
             </Text>
             <Pane layoutY="99.0" prefHeight="49.0" prefWidth="500.0">
                <children>
-                  <JFXButton layoutX="225.0" layoutY="9.0" onAction="#setButton" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: darkseagreen;" text="Set" />
+                  <JFXButton layoutX="225.0" layoutY="9.0" onAction="#setButton" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: lightsteelblue;" text="Set" />
                </children>
             </Pane>
          </children>
       </Pane>
    </center>
    <top>
-      <Pane prefHeight="36.0" prefWidth="450.0" style="-fx-background-color: mediumseagreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="36.0" prefWidth="450.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="222.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versions" />
          </children>
