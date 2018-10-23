@@ -40,9 +40,6 @@ public class MainWindowController {
 	FilteredList<Name> _filteredNamesList = new FilteredList<>(_namesList, data -> true);
 
 	@FXML
-	private Text currentNameText;
-
-	@FXML
 	private JFXListView<Name> namesListView;
 
 	@FXML
@@ -173,7 +170,7 @@ public class MainWindowController {
 			controller.setHints();
 			controller.setVolumeControl();
 			controller.createRecording("fullName.wav");
-			
+
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -195,7 +192,6 @@ public class MainWindowController {
 	public void randomiseList() {
 		FXCollections.shuffle(_playlist);
 	}
-
 
 	public void addToName() {
 		// Update the searchbox with the selected database name
@@ -254,7 +250,10 @@ public class MainWindowController {
 
 			// Select the error message depending on the type of error
 			String extraMessage, explanation;
-			if (namesNotInDatabase.size() == 1) {
+			if (searchBox.getText().isEmpty()) {
+				extraMessage = "The searchbox is empty";
+				explanation = "There is no name to add!";
+			} else if (namesNotInDatabase.size() == 1) {
 				extraMessage = " does not exist in the database!";
 				explanation = "You cannot add unknown names to the playlist";
 			} else if (namesNotInDatabase.size() > 1) {
