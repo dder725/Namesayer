@@ -36,12 +36,22 @@ public class Audio {
 		File file= new File(fileName);
 		if (file.exists()) {
 			playFile(fileName);
-		} else {		//else create recording then play
+		} else {
 			makeMeregedFile(fileName);
 			playFile(fileName);
 		}
+			
 	}
 
+	
+	 public void createRecording(String fileName) {
+			//If the audio file exists play the recording
+			File file= new File(fileName);
+			if (!file.exists()) {
+				makeMeregedFile(fileName);
+			}
+	 }
+	
 
 	/** Method that takes the file paths from the ArrayList _directories, and merges the 
 	 *  the audio into one file (either fullName.wav or compare.wav) 
@@ -60,7 +70,6 @@ public class Audio {
 			}
 			cmd = "ffmpeg"+ files +" -filter_complex '"+channels +"concat=n="+ i +":v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
 		}
-		System.out.println(cmd);
 		try {
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();

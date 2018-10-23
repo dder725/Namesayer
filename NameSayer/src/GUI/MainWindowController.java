@@ -166,13 +166,13 @@ public class MainWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
 			Parent content = (Parent) loader.load();
-			PracticeWindowController Practice = loader.getController();
-			
+			PracticeWindowController controller = loader.getController();
 			// CHANGE THIS
 			// Pass the playlist to the practice window
-			Practice.setPlaylist(_playlist);
-			Practice.setHints();
-
+			controller.setPlaylist(_playlist);
+			controller.setHints();
+			controller.createRecording("fullName.wav");
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
