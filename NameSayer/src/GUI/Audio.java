@@ -47,25 +47,38 @@ public class Audio {
 	 *  the audio into one file (either fullName.wav or compare.wav) 
 	 */
 	public void makeMeregedFile(String fileName) {
-		String directories = "";
-		for (int i=0; i<_numFiles; i++) {
-			String dir = _directories.get(i);
-			directories = directories +"file "+ dir +"\n";
-		}
+		String cmd = "";
+		if (_directories.size()==1) {
+			cmd = "cp "+_directories.get(0) +" "+fileName;
+		}else {
 
-		byte[] content1 = directories.getBytes(Charset.forName("UTF-8"));
-		FileOutputStream helper1;
-		try {
-			helper1 = new FileOutputStream("mylist.txt");
-			helper1.write(content1);
-			helper1.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			String directories = "";
+			for (int i=0; i<_numFiles; i++) {
+				String dir = _directories.get(i);
+				directories = directories +"file "+ dir +"\n";
+			}
+
+			byte[] content1 = directories.getBytes(Charset.forName("UTF-8"));
+			FileOutputStream helper1;
+			try {
+				helper1 = new FileOutputStream("mylist.txt");
+				helper1.write(content1);
+				helper1.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String files = "";
+			for (int i=0; i<_directories.size(); i++) {
+				files = files +" -i "+_directories.get(i);
+			}
+			//for 2 files only!!!
+			//String cmd = "ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n";
+			cmd = "ffmpeg"+ files +" -filter_complex '[0:0][1:0]concat=n=2:v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
 		}
+		System.out.println(cmd);
 		try {
-			String cmd = "ffmpeg -f concat -safe 0 -i mylist.txt -c copy "+fileName+ "\n";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();
@@ -81,7 +94,7 @@ public class Audio {
 	 */
 	public void playFile(String fileName) {
 		try {
-			String cmd = "ffplay -autoexit -nodisp "+fileName+ "";;
+			String cmd = "ffplay -autoexit -nodisp "+fileName+ "";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
 			process.waitFor();

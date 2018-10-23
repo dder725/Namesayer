@@ -50,8 +50,10 @@ public class PracticeWindowController {
 
 
 	public void makeRecording() {
-		File file = new File("attempt.wav");
-		file.delete();
+		File file1 = new File("attempt.wav");
+		File file2 = new File("compare.wav");
+		file1.delete();
+		file2.delete();
 		Audio audio = new Audio();
 		String fullName = _playlist.get(_index).toString();
 		audio.setRecording(fullName, "RecordingOptionsWindow.fxml", this);
@@ -59,17 +61,24 @@ public class PracticeWindowController {
 
 	public void compare() {
 		File file1 = new File("fullName.wav");
-		File file2 = new File("attempt.wav");
-		String fullNamePath = file1.getAbsolutePath();
-		String attemptPath = file2.getAbsolutePath();
-		_directories.clear();
-		_directories.add(fullNamePath);
-		_directories.add(attemptPath);
-		// Merges official and attempt
-		Audio audio = new Audio();
-		audio.setDirectories(_directories);
-		audio.playRecording("compare.wav");
-		// Plays user recording
+		String name = getNameLabel();
+		name = name.replaceFirst("\\s+","");
+		name = name.replaceAll("\\s+","_");
+		File file2 = new File("UserAttempts/"+name+".wav");
+		if (!file2.exists()) {
+			ErrorDialog.showError("There is no user attempt to compare with", "Make a recording to compare your name pronounciation!");
+		}else {
+			String fullNamePath = file1.getAbsolutePath();
+			String attemptPath = file2.getAbsolutePath();
+			_directories.clear();
+			_directories.add(fullNamePath);
+			_directories.add(attemptPath);
+			// Merges official and attempt
+			Audio audio = new Audio();
+			audio.setDirectories(_directories);
+			audio.playRecording("compare.wav");
+
+		}
 	}
 
 	public void nextName() {
@@ -180,7 +189,7 @@ public class PracticeWindowController {
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);
 			controller.setNames(_playlist.get(_index));
-			
+
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.show();
@@ -202,9 +211,6 @@ public class PracticeWindowController {
 	public void setPlaylist(ObservableList<ArrayList<Name>> playlist) {
 		_playlist = playlist;
 		setLabel();
-		//populateAttemptChoice();
-		// Check if the first name in the play list is a bad recording
-		//setBadRecordingCheckbox(_playlist.get(_index).get(0));
 	}
 
 	//Set hints on buttons in the window
@@ -216,7 +222,7 @@ public class PracticeWindowController {
 		versionsButton.setTooltip(new Tooltip("Select a different recording of this name"));
 		rateAudioButton.setTooltip(new Tooltip("Rate the recording of this name"));
 	}
-	
+
 	//Display a reward window every 5 practiced names
 	public void reward() {
 		if((_index + 1) % 5 == 0 && _index != 0) {
@@ -227,29 +233,6 @@ public class PracticeWindowController {
 			alert.showAndWait();
 		}
 	}
-	
-
-	//	private void setBadRecordingCheckbox(Name name) {
-	//		if (name.isBadRecording(getVersionNum())) {
-	//			badRecordingCheckBox.setSelected(true);
-	//		} else {
-	//			badRecordingCheckBox.setSelected(false);
-	//		}
-	//	}
-
-
-
-	//	public void markAsBad() {
-	//		String dir = getSelectedRecordingDirectory();
-	//
-	//		if (badRecordingCheckBox.isSelected()) {
-	//			_playlist.get(_index).modifyBadTag(dir, true, getVersionNum());
-	//
-	//		} else if (!badRecordingCheckBox.isSelected()) {
-	//			_playlist.get(_index).modifyBadTag(dir, false, getVersionNum());
-	//		}
-	//	}
-
 
 
 }
