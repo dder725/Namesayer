@@ -59,7 +59,6 @@ public class MainWindowController {
 			if (text.matches(".*[^A-Za-z].*")) {
 				String[] names = text.split("[\\W]");
 				text = names[names.length - 1];
-				System.out.println("Non-word char is found");
 			}
 
 			// Do nothing for empty searchbox
@@ -133,6 +132,7 @@ public class MainWindowController {
 			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			Stage stage = new Stage();
+			stage.setTitle("Error!");
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
 			stage.show();
@@ -156,6 +156,7 @@ public class MainWindowController {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
+			stage.setTitle("NameSayer: Practice mode");
 			controller.sceneResize(stage);
 			stage.show();
 			controller.setHints();

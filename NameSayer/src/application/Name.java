@@ -52,13 +52,10 @@ public class Name {
 
 	// Check if selected recording is bad
 	public Boolean isBadRecording() {
-		System.out.println();
 		// If the absolute path contains (Bad) tag, the recording is bad
 		if (this.getSelectedRecordingDirectory().contains("Bad")) {
-			System.out.println(this.getName() + " is Bad");
 			return true;
 		} else {
-			System.out.println(this.getName() + " is NOT Bad");
 			return false;
 		}
 	}
@@ -92,8 +89,6 @@ public class Name {
 	public boolean equals(Object name) {
 		Name nameToCompare = (Name) name;
 		if (name instanceof Name && this.getName().equals(nameToCompare.getName())) {
-			// System.out.println(nameToCompare.getName() + " Found to be equal to " +
-			// this.getName());
 			return true;
 		} else {
 			return false;
@@ -119,7 +114,7 @@ public class Name {
 			Integer numOfVersion = Character
 					.getNumericValue(selectedVersion.charAt(selectedVersion.lastIndexOf('_') + 1));
 			String versionDir = this.getRecordingDir(numOfVersion);
-			System.out.println(versionDir);
+
 			return versionDir;
 		}
 	}

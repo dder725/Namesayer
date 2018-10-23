@@ -194,6 +194,7 @@ public class PracticeWindowController {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
+			stage.setTitle("NameSayer: Recording versions");
 			stage.show();
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
@@ -234,6 +235,7 @@ public class PracticeWindowController {
 			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setTitle("NameSayer: Rate the recordings");
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
@@ -287,7 +289,6 @@ public class PracticeWindowController {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
 				if (new_val.floatValue() > 0) {
 					if (VolumeControl.getMasterOutputMute()) {
-						System.out.println("The system is mute");
 						VolumeControl.setMasterOutputMute(false);
 					}
 					if (new_val.doubleValue() > old_val.doubleValue()) {

@@ -41,8 +41,10 @@ public class RecordingWindowController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("MicTestWindow.fxml"));
 			Parent content = (Parent) loader.load(); 
+	
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setTitle("NameSayer: Mic test");
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {

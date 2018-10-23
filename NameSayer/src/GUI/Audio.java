@@ -109,8 +109,10 @@ public class Audio {
 			Parent content = (Parent) loader.load();
 			RecordingWindowController controller = (RecordingWindowController) loader.getController();
 			controller.PWreference(practiceWindow);
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
+			stage.setTitle("NameSayer: Record your attempt");
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
