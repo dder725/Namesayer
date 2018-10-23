@@ -35,8 +35,18 @@ public class RecordingWindowController {
 	/** Method to allow the user to test if their microphone is working
 	 */
 	public void micTest() {
-
-
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("MicTestWindow.fxml"));
+			Parent content = (Parent) loader.load(); 
+			MicTestWindowController Practice = (MicTestWindowController) loader.getController();
+			System.out.println("Loaded the fxml");
+			Stage stage = new Stage();
+			stage.setScene(new Scene(content));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Did not load the fxml");
+		}
 	}
 
 
