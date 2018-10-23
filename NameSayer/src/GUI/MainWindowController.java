@@ -152,7 +152,6 @@ public class MainWindowController {
 			controller.setHints();
 			controller.setVolumeControl();
 			controller.createRecording("fullName.wav");
-			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setResizable(false);
@@ -287,7 +286,6 @@ public class MainWindowController {
 		NamesListReader reader = new NamesListReader(nameList);
 
 		ArrayList<ArrayList<Name>> names = reader.getListedNames(_namesList);
-		System.out.println(names);
 
 		// Add a name if it is not empty
 		for (ArrayList<Name> name : names) {
