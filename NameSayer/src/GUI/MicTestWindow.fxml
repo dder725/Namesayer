@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MicTestWindowController">
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#listen" prefHeight="31.0" prefWidth="66.0" text="Listen" BorderPane.alignment="CENTER" />
-   </bottom>
-   <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mic Test" BorderPane.alignment="CENTER" />
-   </top>
-   <center>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The recording is finished, listen to see if the microphone is working" textAlignment="CENTER" wrappingWidth="571.6708984375" BorderPane.alignment="CENTER">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MicTestWindowController">
+   <children>
+      <Label alignment="CENTER" prefHeight="70.0" prefWidth="655.0" style="-fx-background-color: mediumseagreen;" text="Microphone Test">
          <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-   </center>
-</BorderPane>
+            <Font size="26.0" />
+         </font></Label>
+      <Separator opacity="0.0" prefHeight="26.0" prefWidth="600.0" />
+      <AnchorPane fx:id="pane" prefHeight="228.0" prefWidth="610.0">
+         <children>
+            <JFXProgressBar fx:id="level" layoutX="68.0" layoutY="73.0" prefHeight="55.0" prefWidth="467.0" progress="0.0" />
+            <JFXButton layoutX="-4.0" layoutY="191.0" onAction="#testMic" prefHeight="37.0" prefWidth="606.0" style="-fx-background-color: khaki;" text="Test sensitivity" />
+         </children></AnchorPane>
+      <Label alignment="CENTER" prefHeight="55.0" prefWidth="600.0" text="If the level appears to be too small, check your system's microphone sensitivity settings" />
+   </children>
+</VBox>
