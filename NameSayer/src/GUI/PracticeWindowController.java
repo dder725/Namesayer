@@ -44,6 +44,7 @@ public class PracticeWindowController {
 	@FXML private JFXButton compare;
 	@FXML private JFXButton versionsButton;
 	@FXML private JFXButton rateAudioButton;
+	@FXML private JFXButton previousButton;
 
 	//[TIA]Add comments
 	public void sceneResize(Stage stage) {
@@ -107,12 +108,7 @@ public class PracticeWindowController {
 	//[TIA]Add comments
 	public void nextName() {
 		reward();
-		File file1 = new File("fullName.wav");
-		File file2 = new File("attempt.wav");
-		File file3 = new File("compare.wav");
-		file1.delete();
-		file2.delete();
-		file3.delete();
+		deleteTempFiles();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
 			setLabel();
@@ -123,6 +119,32 @@ public class PracticeWindowController {
 		}
 		;
 	}
+	
+	//[TIA]Add comments
+	public void previousName() {
+		deleteTempFiles();
+		_index--;
+		if (_index == 0) {
+			previousButton.setDisabled(true);
+			setLabel();
+			createRecording("fullName.wav");
+		} else {
+			setLabel();
+			createRecording("fullName.wav");
+		}
+		;
+	}
+	
+	public void deleteTempFiles() {
+		File file1 = new File("fullName.wav");
+		File file2 = new File("attempt.wav");
+		File file3 = new File("compare.wav");
+		file1.delete();
+		file2.delete();
+		file3.delete();
+	}
+	
+	
 
 	//[TIA]Add comments
 	public void setLabel() {
@@ -142,6 +164,7 @@ public class PracticeWindowController {
 		}
 		setNameLabel(fullName, size);
 		setButtons();
+		previousButton.setDisabled(true);
 	}
 
 	//[TIA]Add comments
