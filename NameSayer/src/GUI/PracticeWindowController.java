@@ -44,6 +44,7 @@ public class PracticeWindowController {
 	@FXML private JFXButton compare;
 	@FXML private JFXButton versionsButton;
 	@FXML private JFXButton rateAudioButton;
+	@FXML private JFXButton previousButton;
 
 	//[TIA]Add comments
 	public void sceneResize(Stage stage) {
@@ -107,16 +108,12 @@ public class PracticeWindowController {
 	//[TIA]Add comments
 	public void nextName() {
 		reward();
-		File file1 = new File("fullName.wav");
-		File file2 = new File("attempt.wav");
-		File file3 = new File("compare.wav");
-		file1.delete();
-		file2.delete();
-		file3.delete();
+		deleteTempFiles();
 		_index++;
 		//Check if reached the end of the playlist
 		if (_index <= _playlist.size() - 1) {
 			setLabel();
+			previousButton.setDisable(false);
 			createRecording("fullName.wav");
 		} else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
@@ -124,6 +121,33 @@ public class PracticeWindowController {
 		}
 		;
 	}
+	
+	//[TIA]Add comments
+	public void previousName() {
+		deleteTempFiles();
+		_index--;
+		if (_index == 0) {
+			previousButton.setDisable(true);
+			setLabel();
+			createRecording("fullName.wav");
+		} else {
+			setLabel();
+			previousButton.setDisable(false);
+			createRecording("fullName.wav");
+		}
+		;
+	}
+	
+	public void deleteTempFiles() {
+		File file1 = new File("fullName.wav");
+		File file2 = new File("attempt.wav");
+		File file3 = new File("compare.wav");
+		file1.delete();
+		file2.delete();
+		file3.delete();
+	}
+	
+	
 
 	//[TIA]Add comments
 	public void setLabel() {
@@ -143,6 +167,7 @@ public class PracticeWindowController {
 		}
 		setNameLabel(fullName, size);
 		setButtons();
+		previousButton.setDisable(true);
 	}
 
 	//[TIA]Add comments
@@ -250,6 +275,7 @@ public class PracticeWindowController {
 		compare.setDisable(true);
 		versionsButton.setDisable(true);
 		rateAudioButton.setDisable(true);
+		previousButton.setDisable(true);
 	}
 
 	//Set the playlist for this practice

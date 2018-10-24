@@ -1,12 +1,7 @@
 package GUI;
 
-import java.io.File;
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
-
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

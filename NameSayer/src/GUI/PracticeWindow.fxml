@@ -22,10 +22,11 @@
    <bottom>
       <Pane prefHeight="66.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="listen" layoutX="14.0" layoutY="20.0" onAction="#playRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Listen" />
-            <JFXButton fx:id="compare" layoutX="158.0" layoutY="20.0" onAction="#compare" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Compare" textAlignment="CENTER" />
-            <JFXButton fx:id="makeRecording" layoutX="307.0" layoutY="20.0" onAction="#makeRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Make recording" />
-            <JFXButton fx:id="nextName" layoutX="456.0" layoutY="20.0" onAction="#nextName" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Next name" />
+            <JFXButton fx:id="listen" layoutX="98.0" layoutY="18.0" onAction="#playRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Listen" />
+            <JFXButton fx:id="compare" layoutX="235.0" layoutY="18.0" onAction="#compare" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Compare" textAlignment="CENTER" />
+            <JFXButton fx:id="makeRecording" layoutX="372.0" layoutY="18.0" onAction="#makeRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Make recording" />
+            <JFXButton fx:id="nextName" layoutX="509.0" layoutY="18.0" onAction="#nextName" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: lightsteelblue;" text="Next " />
+            <JFXButton fx:id="previousButton" layoutX="14.0" layoutY="18.0" onAction="#previousName" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: lightsteelblue;" text="Previous" />
          </children></Pane>
    </bottom>
    <center>

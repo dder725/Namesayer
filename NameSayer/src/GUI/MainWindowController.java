@@ -165,12 +165,7 @@ public class MainWindowController {
 			//[TIA]ADD COMMENT HERE
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
-					File file1 = new File("fullName.wav");
-					File file2 = new File("attempt.wav");
-					File file3 = new File("compare.wav");
-					file1.delete();
-					file2.delete();
-					file3.delete();
+					controller.deleteTempFiles();
 				}
 			});
 		} catch (IOException e) {
