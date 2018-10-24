@@ -59,6 +59,7 @@ public class RecordingWindowController {
 	 */
 	public void startRecording() {
 		stopButton.setDisable(false);
+		recordButton.setDisable(true);
 		audio = new Audio();
 		audio.startRecording();
 
@@ -92,7 +93,8 @@ public class RecordingWindowController {
 	/** Method called when user pushes the "Stop Recording" button. 
 	 */
 	public void stopRecording() {
-		stopButton.setDisable(false);
+		stopButton.setDisable(true);
+		recordButton.setDisable(false);
 		audio.stopRecording();
 		timeline.stop();
 		recordingFinished();
