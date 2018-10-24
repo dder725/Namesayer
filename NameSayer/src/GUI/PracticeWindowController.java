@@ -111,6 +111,7 @@ public class PracticeWindowController {
 		deleteTempFiles();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
+			previousButton.setDisable(false);
 			setLabel();
 			createRecording("fullName.wav");
 		} else {
@@ -125,7 +126,7 @@ public class PracticeWindowController {
 		deleteTempFiles();
 		_index--;
 		if (_index == 0) {
-			previousButton.setDisabled(true);
+			previousButton.setDisable(true);
 			setLabel();
 			createRecording("fullName.wav");
 		} else {
@@ -164,7 +165,7 @@ public class PracticeWindowController {
 		}
 		setNameLabel(fullName, size);
 		setButtons();
-		previousButton.setDisabled(true);
+		previousButton.setDisable(true);
 	}
 
 	//[TIA]Add comments
