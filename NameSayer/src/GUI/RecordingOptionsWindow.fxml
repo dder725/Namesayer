@@ -26,7 +26,7 @@
       <Pane prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: steelblue;" BorderPane.alignment="CENTER">
          <children>
             <JFXButton layoutX="235.0" layoutY="16.0" onAction="#redoRecording" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Redo Recording" />
-            <JFXButton fx:id="closeButton" layoutX="412.0" layoutY="16.0" onAction="#close" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Close" />
+            <JFXButton fx:id="closeButton" layoutX="412.0" layoutY="16.0" onAction="#close" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Save" />
             <JFXButton layoutX="45.0" layoutY="16.0" onAction="#listen" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: lightsteelblue;" text="Listen" />
          </children>
       </Pane>

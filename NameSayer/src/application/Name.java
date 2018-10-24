@@ -70,12 +70,11 @@ public class Name {
 			recordingName.renameTo(newName);
 			recordingName = newName;
 			_recordingsDir.put(recordingNum, recordingName.getPath());
-		} else { // Remove the (Bad) tag if isBad is false
+		} else { //Remove the (Bad) tag if isBad is false
 			File newName = new File(recordingName.getPath().replace("(Bad)", ""));
 			recordingName.renameTo(newName);
 			recordingName = newName;
 			_recordingsDir.put(recordingNum, recordingName.getPath());
-
 		}
 	}
 
