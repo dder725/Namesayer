@@ -111,8 +111,8 @@ public class PracticeWindowController {
 		deleteTempFiles();
 		_index++;
 		if (_index <= _playlist.size() - 1) {
-			previousButton.setDisable(false);
 			setLabel();
+			previousButton.setDisable(false);
 			createRecording("fullName.wav");
 		} else {
 			setNameLabel("Congratulations! \n You finished this practice!", 30);
@@ -131,6 +131,7 @@ public class PracticeWindowController {
 			createRecording("fullName.wav");
 		} else {
 			setLabel();
+			previousButton.setDisable(false);
 			createRecording("fullName.wav");
 		}
 		;
@@ -273,6 +274,7 @@ public class PracticeWindowController {
 		compare.setDisable(true);
 		versionsButton.setDisable(true);
 		rateAudioButton.setDisable(true);
+		previousButton.setDisable(true);
 	}
 
 	//Set the playlist for this practice
