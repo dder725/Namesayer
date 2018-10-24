@@ -1,4 +1,4 @@
-package GUI;
+package Controllers;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -131,7 +131,7 @@ public class MainWindowController {
 	public void noNames() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("noNamesWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/noNamesWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Error!");
@@ -145,7 +145,7 @@ public class MainWindowController {
 	public void practiceWindow() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("PracticeWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/PracticeWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			PracticeWindowController controller = loader.getController();
 

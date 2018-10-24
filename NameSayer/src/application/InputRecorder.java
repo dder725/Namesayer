@@ -1,4 +1,4 @@
-package GUI;
+package application;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +19,10 @@ import javax.sound.sampled.TargetDataLine;
  * @author tel3342311
  *
  */
-public class Recorder implements Runnable {
+public class InputRecorder implements Runnable {
 	final ProgressBar meter;
 
-	Recorder(final ProgressBar meter) {
+	public InputRecorder(final ProgressBar meter) {
 		this.meter = meter;
 	}
 
@@ -34,7 +34,7 @@ public class Recorder implements Runnable {
 		try {
 			lineMic = getLine();
 		} catch (LineUnavailableException ex) {
-			Logger.getLogger(Recorder.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(InputRecorder.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		TargetDataLine line = (TargetDataLine) lineMic;
 

@@ -1,4 +1,4 @@
-package GUI;
+package Controllers;
 
 import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -21,7 +22,9 @@ import javafx.util.Duration;
 public class RecordingWindowController {	
 	@FXML JFXButton recordButton;
 	@FXML JFXButton stopButton;
+	@FXML JFXButton testMicButton;
 	@FXML ProgressBar progressBar;
+	
 	private IntegerProperty seconds = new SimpleIntegerProperty(500);
 	Thread thread = new Thread();
 	Timeline timeline = new Timeline();
@@ -34,9 +37,11 @@ public class RecordingWindowController {
 	public void micTest() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("MicTestWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/MicTestWindow.fxml"));
 			Parent content = (Parent) loader.load(); 
-	
+			MicTestWindowController controller = loader.getController();
+			controller.setHints();
+			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setTitle("NameSayer: Mic test");
@@ -101,7 +106,7 @@ public class RecordingWindowController {
 	public void listenWindow() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RecordingOptionsWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/RecordingOptionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingOptionsController controller = loader.getController();
 			controller.PWreference(_practiceWindow);
@@ -122,4 +127,11 @@ public class RecordingWindowController {
 		_practiceWindow=pw;
 	}
 	
+	//Set useful hints for interactive elements
+	public void setHints() {
+		testMicButton.setTooltip(new Tooltip("Check if your microphone is working well"));
+		recordButton.setTooltip(new Tooltip("Start recording your attempt of a name"));
+		stopButton.setTooltip(new Tooltip("Stop recording your attempt"));
+		progressBar.setTooltip(new Tooltip("The progress of recording process"));
+	}
 }

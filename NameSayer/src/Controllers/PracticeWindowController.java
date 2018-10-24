@@ -1,4 +1,4 @@
-package GUI;
+package Controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -211,7 +211,7 @@ public class PracticeWindowController {
 		file2.delete();
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("VersionsWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/VersionsWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			VersionWindowController controller = loader.getController();
 			controller.addChoiceBoxes(versionButtons);
@@ -257,7 +257,7 @@ public class PracticeWindowController {
 		try {
 			//Load rating window
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RateAudioWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/RateAudioWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);

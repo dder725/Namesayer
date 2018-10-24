@@ -1,4 +1,4 @@
-package GUI;
+package Controllers;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

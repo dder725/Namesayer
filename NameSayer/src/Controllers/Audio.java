@@ -1,4 +1,4 @@
-package GUI;
+package Controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,9 +125,10 @@ public class Audio {
 	public void setRecording(String name, String window, PracticeWindowController practiceWindow) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RecordingWindow.fxml"));
+			loader.setLocation(getClass().getResource("/GUI/RecordingWindow.fxml"));
 			Parent content = (Parent) loader.load();
 			RecordingWindowController controller = (RecordingWindowController) loader.getController();
+			controller.setHints();
 			controller.PWreference(practiceWindow);
 			
 			Stage stage = new Stage();
