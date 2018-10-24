@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 
 public class RateAudioController {
@@ -34,9 +35,13 @@ public class RateAudioController {
 							// Toggle the quality of the recording as a Name button is pressed
 							if (!name.isBadRecording()) {
 								name.modifyBadTag(true);
+								//Set a hint for the button
+								button.setTooltip(new Tooltip("Bad"));
 								button.setStyle("-fx-background-color: red");
 							} else {
 								name.modifyBadTag(false);
+								//Set a hint for the button
+								button.setTooltip(new Tooltip("Good"));
 								button.setStyle("-fx-background-color: darkseagreen");
 							}
 						}

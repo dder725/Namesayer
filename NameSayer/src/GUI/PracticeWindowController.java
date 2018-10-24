@@ -245,8 +245,12 @@ public class PracticeWindowController {
 			//Red button for Bad recording, Green button for Good recording
 			if (_playlist.get(_index).get(i).isBadRecording()) {
 				button.setStyle("-fx-background-color: tomato");
+				//Set a hint for the button
+				button.setTooltip(new Tooltip("Bad"));
 			} else {
 				button.setStyle("-fx-background-color: darkseagreen");
+				//Set a hint for the button
+				button.setTooltip(new Tooltip("Good"));
 			}
 			buttons.add(button);
 		}
