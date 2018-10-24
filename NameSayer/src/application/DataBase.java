@@ -26,25 +26,22 @@ public class DataBase {
 	private DataBase() {
 		File file = new File(System.getProperty("user.dir") + "/names");
 		if (!file.exists()) {
-			unzip(System.getProperty("user.dir") + "/names.zip",
-					System.getProperty("user.dir") + "/names");
-			createBadRecordingsFile();
+			unzip(System.getProperty("user.dir") + "/names.zip", System.getProperty("user.dir") + "/names");
 		}
 		traverse(file.getAbsolutePath());
 
 	}
 
+	//Instantiate database on start
 	public static void instantiateDataBase() {
-					instance = new DataBase();
+		instance = new DataBase();
 	}
-	
-	//Reinstantiate the database with a new file
+
+	// Reinstantiate the database with a new file
 	public static void reinstantiateDataBase(File dataBaseFile) {
 		File file = new File(System.getProperty("user.dir") + dataBaseFile.getName());
 		if (!file.exists()) {
-			unzip(dataBaseFile.getAbsolutePath(),
-					System.getProperty("user.dir") + dataBaseFile.getName());
-			// TODO createBadRecordingsFile();
+			unzip(dataBaseFile.getAbsolutePath(), System.getProperty("user.dir") + dataBaseFile.getName());
 		}
 		traverse(file.getAbsolutePath());
 	}
@@ -75,15 +72,9 @@ public class DataBase {
 					occurencesOfName.put(entryName, 1);
 					_names.put(entryName, new Name(entryName));
 				}
+				// Create a file with appropriate [Name]_[Version]
 				File newFile = new File(
-						destDir + File.separator + entryName + "_" + occurencesOfName.get(entryName).toString()); // Create
-																													// a
-																													// file
-																													// with
-																													// an
-																													// appropriate
-																													// name
-																													// [Name]_[Version]
+						destDir + File.separator + entryName + "_" + occurencesOfName.get(entryName).toString());
 				_names.get(entryName).addRecordingFile(newFile.getAbsolutePath()); // add a new recording to the name
 
 				FileOutputStream fos = new FileOutputStream(newFile);
@@ -93,7 +84,6 @@ public class DataBase {
 				}
 				fos.close();
 				zEntry = zipIs.getNextEntry();
-				// Create a new Name object
 			}
 			zipIs.closeEntry();
 			zipIs.close();
@@ -104,8 +94,11 @@ public class DataBase {
 	}
 
 	private static void traverse(String destDir) {
+		// Clear the previous list of names
 		_names.clear();
+
 		String entryName;
+		// Count occurences of each name to number the versions
 		Map<String, Integer> occurencesOfName = new HashMap<String, Integer>();
 		File dir = new File(destDir);
 
@@ -133,43 +126,9 @@ public class DataBase {
 		return _names.values();
 	}
 
-	//Find a name object based on a name
+	// Find a name object based on a name
 	public static Name findName(String name) {
 		return _names.get(name);
 	}
-	
-	//Create a text file which stores bad recordings
-	private void createBadRecordingsFile() {
-		_badRecordings = new File(System.getProperty("user.dir"), "/badRecordings.txt");
-		if (!_badRecordings.exists()) {
-			try {
-				_badRecordings.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
-	public static void addABadRecording(String dir, Boolean isBad) {
-		Writer output;
-		try {
-			// Get the current timestamp
-			Date date = new Date();
-			long time = date.getTime();
-			Timestamp timestamp = new Timestamp(time);
-
-			output = new BufferedWriter(
-					new FileWriter(System.getProperty("user.dir") + "/badRecordings.txt", true));
-			if (isBad) {
-				output.append(dir + " MARKED as (Bad) at " + timestamp + System.lineSeparator());
-			} else {
-				output.append(dir + " UNMARKED as (Bad) at " + timestamp + System.lineSeparator());
-			}
-			output.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
