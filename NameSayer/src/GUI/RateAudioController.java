@@ -49,6 +49,5 @@ public class RateAudioController {
 	// Pass the names to the ratings window
 	public void setNames(ArrayList<Name> names) {
 		_names = names;
-		System.out.println(_names);
 	}
 }

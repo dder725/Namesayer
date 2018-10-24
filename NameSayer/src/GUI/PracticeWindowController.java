@@ -61,7 +61,6 @@ public class PracticeWindowController {
 		}
 		Audio audio = new Audio();
 		audio.setDirectories(_directories);
-		System.out.println(_directories);
 		audio.createRecording(fileName);
 	}
 	
@@ -233,7 +232,6 @@ public class PracticeWindowController {
 			RateAudioController controller = loader.getController();
 			controller.addButtons(buttons);
 			controller.setNames(_playlist.get(_index));
-			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(content));
 			stage.setTitle("NameSayer: Rate the recordings");

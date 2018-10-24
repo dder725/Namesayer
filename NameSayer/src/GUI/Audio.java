@@ -80,7 +80,6 @@ public class Audio {
 				channels = channels +"["+i+":0]";
 			}
 			cmd = "ffmpeg"+ files +" -filter_complex '"+channels +"concat=n="+ i +":v=0:a=1[out]' -map '[out]' "+fileName+ "\n";
-			System.out.println(cmd);
 		}
 		try {
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
