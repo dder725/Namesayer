@@ -70,17 +70,11 @@ public class Name {
 			recordingName.renameTo(newName);
 			recordingName = newName;
 			_recordingsDir.put(recordingNum, recordingName.getPath());
-			
-			//Add it to badRecordings.txt
-			DataBase.addABadRecording(recordingName.getAbsolutePath(), true);
 		} else { //Remove the (Bad) tag if isBad is false
 			File newName = new File(recordingName.getPath().replace("(Bad)", ""));
 			recordingName.renameTo(newName);
 			recordingName = newName;
 			_recordingsDir.put(recordingNum, recordingName.getPath());
-			
-			//Add it to badRecordings.txt
-			DataBase.addABadRecording(recordingName.getAbsolutePath(), true);
 		}
 	}
 
