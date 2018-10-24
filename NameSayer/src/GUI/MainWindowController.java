@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class MainWindowController {
 	@FXML private JFXButton uploadDatabase;
 	@FXML private JFXButton shuffle;
 	@FXML private JFXTextField searchBox;
+	@FXML private JFXButton help;
 
 	public void populateTableView() {
 		setHints();
@@ -315,6 +317,22 @@ public class MainWindowController {
 		clearPlaylist();
 		populateTableView();
 
+	}
+	
+	//Open the User Manual if Help button is pressed
+	public void openUserManual() {
+		try {
+			String cmd = "xdg-open UserManual.pdf";
+			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
+			Process process = builder.start();
+			help.setDisable(true);
+			process.waitFor();
+			help.setDisable(false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

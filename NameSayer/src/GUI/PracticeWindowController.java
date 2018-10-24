@@ -114,6 +114,7 @@ public class PracticeWindowController {
 		file2.delete();
 		file3.delete();
 		_index++;
+		//Check if reached the end of the playlist
 		if (_index <= _playlist.size() - 1) {
 			setLabel();
 			createRecording("fullName.wav");
