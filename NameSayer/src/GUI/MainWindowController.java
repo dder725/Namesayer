@@ -185,9 +185,9 @@ public class MainWindowController {
 	public void addToName() {
 		if (!searchBox.getText().isEmpty() && searchBox.getText().contains(" ")) { //Add the name to the end of the existing search in the searchbox
 			searchBox.setText(searchBox.getText().substring(0, searchBox.getText().lastIndexOf(" ")) + " "
-					+ namesListView.getSelectionModel().getSelectedItem().getName());
+					+ namesListView.getSelectionModel().getSelectedItem().getName() + " ");
 		} else { //If the searchbox is empty, fill it with the selected name
-			searchBox.setText(namesListView.getSelectionModel().getSelectedItem().getName());
+			searchBox.setText(namesListView.getSelectionModel().getSelectedItem().getName() + " ");
 		}
 	}
 
