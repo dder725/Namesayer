@@ -316,18 +316,19 @@ public class MainWindowController {
 	
 	//Open the User Manual if Help button is pressed
 	public void openUserManual() {
+		File tmpDir = new File(System.getProperty("user.dir") + "/UserManual.pdf");
+		if(tmpDir.exists()) {
 		try {
 			String cmd = "xdg-open UserManual.pdf";
 			ProcessBuilder builder = new ProcessBuilder("bash", "-c", cmd);
 			Process process = builder.start();
-			help.setDisable(true);
 			process.waitFor();
-			help.setDisable(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}}
+		else ErrorDialog.showError("UserManual.pdf is not found", "Please contact the developer");
 	}
 
 }
